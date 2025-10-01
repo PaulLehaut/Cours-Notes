@@ -96,6 +96,9 @@ On rappelle que la limite de cette suite de fonction est alors mesurable.
 \sskip 
 Soit ($f_n, \ n\in \N$) une suite de fonctions mesurables à valeurs réelles telle que pour tout $n\in \N, \ 0\le f_n\le f_{n+1}$ \pp, alors il vient:
 $$\lim_{n\to\infty}\int f_n d\mu=\int \lim_{n\to\infty} f_n d\mu.$$
+\bskip 
+Le lemme de Fatou donne, pour ($f_n, n$) une suite de fonctions mesurables et positives presque partout, alors il vient:
+$$\lim\inf\int f_n d\mu\ge \int \lim\inf f_n d\mu.$$
 \bigskip
 
 \Theo \ Convergence dominée de Lebesgue
@@ -124,8 +127,8 @@ $$(\int |f+g|^pd\mu)^{1/p}\le(\int |f|^pd\mu)^{1/p}+(\int |g|^pd\mu)^{1/p}.$$
 \Prop 
 \sskip 
 Soit $p\in [1,+\infty)$, l'\evn \ ($L^p, ||\cdot||_p$) est complet.
+\bigskip 
 
-\newpage
 \Theo \ Fubini
 \sskip 
 Soient $\nu$ et $\mu$ deux mesures $\sigma$-finies respectivement sur ($E, \mathcal{E}$) et ($S, \mathcal{S}$), alors:
@@ -148,5 +151,63 @@ $$\Prob (|X|\ge a )\le \frac{E(X^2)}{a^2}.$$
 
 Inégalité de Jensen: Soit X une VA$\R^d$ intégrable, soit $f$ une fonction à valeurs réelles convexe définie sur $\R^d$, alors $\E(f(X))$ est bien définie et:
 $$f(\E(X))\le \E(f(X)).$$
-testv2
+\bigskip 
+
+\section{Espérance Conditionnelle}
+\subsection{Espérance Conditionnelle}
+On s'intéresee à une VA$\R$ définie sur ($E,\mc F$) dont l'espérance est bien définie ainsi qu'à $\mc H\subset F$ une \sigalg.
+\bigskip 
+
+\Def \ Espérance conditionnelle
+\sskip
+On dit qu'une variable aléatoire $Z$, mesurable pour $\mc{H}$ telle que $\E(Z)$ soit bien définie, est l'espérance conditionnelle de $X$ par rapport à $\mc{H}$ si:
+$$\E(X1_A)=\E(Z1_A), \ \forall A\in\mc{H}.$$
+\bskip
+Pour $Z$ et $Z'$ deux variables aléatoires $\mc H$ mesurables telles que leurs espérances soient bien définies et que:
+$$\E(Z1_A)=\E(Z'1_A), \ \forall A\in \mc H$$
+alors $Z=Z'$ \pp.
+\bigskip 
+
+\Prop
+\sskip
+Pour $X$ et $Y$ des VA$\R$ de carré intégrable alors:
+
+Si $X$ est positive presque partout, alors l'espérance conditionnelle de $X$ est positive presque partout.
+
+On a presque partout: $\E(aX+bY|\mc H)=a\E(X|mc H)+ b\E(Y|mc H)$.
+
+Soit $(X_n,\ n\in\N)$ une suite croissante de VA$\R$ positives de carré intégrable alors on a \pp :
+$$\lim\E(X_n|\mc H)=\E(\lim X_n| \mc H).$$
+\bigskip
+
+\Prop 
+\sskip 
+L'espérance conditionnelle de $X$ par rapport à $\mc H$ existe toujours, par ailleurs on a:
+$$\E(\E(X|\mc H))=\E(X)$$
+donc l'intégrabilité de $X$ entraîne celle de $\E(X|\mc H)$.
+\newline
+\bigskip
+
+\Prop
+\smallskip
+
+Si $X$ est positive \pp alors son espérance conditionnelle l'est également.
+
+Si $X$ et $Y$ sont intégrables, alors, pour tout réels $a$ et $b$, on a :
+$$\E(aX+bY|\mc H)=a\E(X|\mc H)+b\E(Y| \mc H)$$
+et, si $X\le Y$ \pp, alors $\E(X|\mc H)\le \E(Y|\mc H)$ \pp.
+
+Soit $(X_n,\ n\in\N)$ une suite croissante de VA$\R$ positives \pp, alors on a \pp:
+$$\lim\E(X_n|\mc H)=\E(\lim X_n|\mc H).$$
+
+Le lemme de Fatou s'écrit: Soit $(X_n,\ n\in\N)$ une suite de VA$\R$ positives \pp, alors on a \pp:
+$$\E(\lim\inf X_n|\mc H)\le \lim\inf\E(X_n|\mc H).$$
+
+La convergence dominée de Lebesgue s'écrit: Soient $X,Y,(X_n)$ des VA$\R$ telles que $(X_n)$ converge vers $X$ \pp \ et $|X_n|\le Y$ avec $Y$ intégrable, alors on a :
+$$\lim\E(X_n|\mc H)=\E(X|\mc H).$$
+\bskip
+Par ailleurs, les inégalités de Hölder, Cauchy-Schwarz, Minkowski et Jensen restent valables pour l'espérance conditionnelle.
+\newline
+De plus, pour $X$ et $Y$ deux VA$\R$ telles que $\E(X)$ et $\E(XY)$ soient bien définies et que $Y$ soit $\mc H$ mesurable, alors on a:
+$$\E(XY)=\E(\E(X|\mc H)Y).$$
 \end{document}
