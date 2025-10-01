@@ -43,6 +43,51 @@ $$R_Z(f)=\frac{1}{|Z|}\sum_{(x,y)\in Z}l(f(x),y).$$
 L'apprentissage consiste alors à minimiser une fonction de perte définie à partir de ce risque et, éventuellement, d'autres termes.
 \bskip 
 Pour éviter qu'un modèle over/underfit les données, il est souvent judicieux de séparer les données en trois sets: un pour l'entraînement (train set), un pour la validation du modèle (validation set) et enfin un pour estimer la performance rélle (test set).
+\bigskip 
+
+\section{Premier Résau de Neurones}
+\subsection{Perceptron Multicouche (MLP)}
+Un (MLP) est ka composition de couches linéaires ($x\mapsto Wx+b$ avec $W$ le poids et $b$ le biais) et non-linéaires. Ces architectures sont caractérisées par leurs hyperparamètres (taille des couches, type de non-linéarité).
+\bigskip 
+
+\Theo \ Cybenko
+\sskip 
+Un MLP à 2 couches peut approximer n'importe quelle fonction continue sur un compact avec une précision arbitraire.
+\bigskip 
+
+\Def \ Fonction de perte
+\sskip 
+On définit la perte quadratique moyenne (MSE) adaptée à la classification multi-classe via codage one-hot par:
+$$L_{MSE}(\theta,D)=\frac{1}{N}\sum_{i=1}^N||f_\theta(x_i)-y_i||^2 \ \ \text{où D correspond au dataset.}$$
+Cette fonction ne cherche qu'à réduire l'erreur sur les données d'entraînement, il y a donc un risque d'overfiting, on peut donc ajouter une pénalité sur la taille des poids, on définit alors le coefficient de régularisation $\lambda>0$, la fonction à minimiser devient:
+$$L(\theta,D)=L_{MSE}(\theta,D)+\lambda||\theta||^2$$
+plus $\lambda$ est grand plus le résau est contraint de rester simple.
+\bigskip 
+
+\subsection{Optimisation}
+Même avec un modèle simple, on obtient un problème d'optimisation non convexe, on utilise donc la descente de gradient.
+\newline 
+Le principe de la descente gradient est le suivant: à chaque itération, on déplace le paramètre (ici $\theta$) dans la direction opposée au gradient de la fonction de perte: $\theta\leftarrow\theta-\nu\nabla_\theta L(\theta, D)$ où $\nu$ correspond au taux d'apprentissage.
+\newline
+Cette technique nécessite toutefois de calculer le gradient sur toutes les données ce qui est couteux sur les grands datasets.
+\bskip 
+Pour contourner ce problème, on utilise la méthode de descente gradient stochastique (SGD) qui consiste à ne pas calculer le gradient sur l'ensemble des données mais à partir d'un échantillon.
+\newline
+Il en existe deux variantes:
+\begin{itemize}
+    \item SGD pur: à chaque itération on prend un seul exemple aléatoire: $\theta\leftarrow\theta -\nu\nabla_\theta l(f_\theta(x_i),y_i)$.
+    \item Mini-batch SGD: à chaque itération on prend un petit lot de données (batch) de taille B:$$\theta\leftarrow\theta-\nu \frac 1 B\sum_{i=1}^B\nabla_\theta l(f(x_i),y_i).$$ Cette version est plus simple en pratique car plus stable que le SGD pur et plus efficace que le gradient complet (elle est également bien adapté au GPU).
+\end{itemize}
+\bigskip 
+
+\subsection{Hyperparamètres Clés de l'Optimisation}
+Les hyperparamètres clés sont:
+\begin{itemize}
+    \item Le taux d'apprentissage: c'est le paramètre $\nu$ qui détermine la taille des pas dans l'espace des paramètres, lorsqu'il est trop grand le modèle diverge et lorsqu'il est trop petit l'apprentissage peut être très lent voire bloqué dans un minimum local. Souvent on choisit au départ $\nu\in[10^{-3},10^{-2}]$.
+    \item La taille des batch B: une trop petite taille permet de mieux explorer le paysage de la perte mais augmente l'importance du bruit, lorsqu'elle est trop grande le modèle risque d'overfit. En pratique on choisit des batch de 32 ou 64 pour les petits modèles.
+    \item Le calendrier du taux d'apprentissage: le taux d'apprentissage n'est souvent pas constant, on le fait varier de diverses façons (division toutes les $x$ epochs, décroissance en forme de cosinus, augmentation au fur et à mesure etc). L'objectif est d'éviter de se retrouver coincé dans des minima locaux tout en assurant la convergence en fin d'entraînement.
+    \item Le nombre d'époques (Epochs): l'algorithme voit l'ensemble des données d'entraînement en une epoch, lorsque le nombre d'epoch est trop grand le modèle risque d'overfit.
+\end{itemize}
 \section{Backpropagation}
 
 La backpropagation se base essentiellement sur la règle de dérivation en chaîne. Cet algorithme considère chaque opération différentiable élémentaire comme un module capable de calculer;
