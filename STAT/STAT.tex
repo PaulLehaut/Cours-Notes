@@ -1,0 +1,200 @@
+\documentclass{article}
+
+\title{Statistiques et Analyse de Données}
+\author{Paul Lehaut}
+\usepackage{mesraccourcis}
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\section{Rappels}
+\subsection{Espérance et (Co)Variance}
+On considère dans cette section des VA$\R$.
+\bigskip
+
+\Def 
+\sskip 
+L'espérance de $X\sim\Prob$ est l'intégral de Lebesgue:
+$$\E (X):=\int_{\omega\in\Omega}X(\omega)d\Prob (\omega)=\int_{x\in\R}xd\Prob(x)$$
+qui est bien définie si X est intégrable, c'est-à-dire si $\E(|X|)<+\infty$.
+\sskip 
+Si par ailleurs $\E(X^2)<+\infty$, alors la variance de $X$ est bien définie par:
+$$\V (X):=\E((X-\E(X))^2)=\E(X^2)-\E(X)^2.$$
+\bskip
+L'inégalité de Jensen donne alors, pour X une VA$\R^d$ intégrable, soit $f$ une fonction à valeurs réelles convexe définie sur $\R^d$, alors $\E(f(X))$ est bien définie et:
+$$f(\E(X))\le \E(f(X)).$$
+\bigskip
+
+\Def 
+\sskip 
+La covariance entre $X$ et $Y$, telles que $\E(X)<+\infty$ et $\E(Y)<+\infty$, est définie par:
+$$Cov(X,Y):=\E((X-\E(X))(Y-\E(Y)))=\E(XY)-\E(X)\E(Y)$$
+on a alors l'identité remarquable suivante:
+$$\V (X+Y)=\V(X)+2Cov(X,Y)+\V(Y).$$
+\bskip 
+Lorsque $X$ est une VA$\R^d$ de carré intégrable, on peut définir sa matrice de covariance qui est symétrique positive.
+\bigskip
+
+\Def 
+Le coefficient de corrélation de $X$ et $Y$ est définie par:
+$$\rho_{X,Y} :=
+\left\{
+\begin{array}{ll}
+\dfrac{\operatorname{Cov}(X,Y)}{\sqrt{\operatorname{Var}(X)} \, \sqrt{\operatorname{Var}(Y)}} \in [-1,1] & \text{si } \operatorname{Var}(X)\operatorname{Var}(Y) > 0, \\[1.5ex]
+0 & \text{sinon.}
+\end{array}
+\right.$$
+\bigskip
+\subsection{Indépendance}
+
+\Def 
+Une famille finie de variables aléatoires $(X_1,...,X_n)$ définies sur $(\Omega, \mathcal{F})$ est indépendante si pour toute famille de sous-ensembles mesurables $(C_1,...,C_n)$ on a:
+$$\Prob(X_1\in C_1,...,X_n\in C_n)=\Prob(X_1\in C_1)...\Prob(X_n\in C_n)$$
+ou, de façon équivalente, si:
+$$\Prob =\Prob_{X_1}\otimes...\otimes\Prob_{X_n}.$$
+\bskip 
+Si $\indn{X}$ sont indépendantes alors, pour toutes fonctions mesurables $\indn{f}$ telles que $f_1(X_1),...,f_n(X_n)$ soient intégrables, on a:
+$$\E(f_1(X_1),...,f_n(X_n))=\E(f_1(X_1))...\E(f_n(X_n)).$$
+\bigskip
+
+\subsection{Variables Aléatoires Discrètes}
+Si E est discret, toutes mesures de probabilités est caractérisée par la famille de nombres ($p(x), \ x\in E$). Les variables aléatoires principales sont définies dans le polycopié.
+\bigskip
+
+\subsection{Variables Aléatoires à Densité}
+Les intégrales sont ici à considérer au sens de Lebesgue.
+\bigskip
+
+\Def 
+\sskip
+Une variable aléatoire $X$ est dite à densité p si:
+$$\forall C \in \mc{B}(\R^d), \Prob(X\in C)=\int_{x\in C}p(x)dx$$
+une fonction mesurable et positive p est une densité de probabilité si et seulement si:
+$$\int_{x\in \R^d}p(x)dx=1.$$
+\bskip
+Des variables aléatoires $\indn{X}$ sont indépendantes si le vecteur aléatoire $(\indn{X})$ a pour densité
+\newline
+$p=p_{X_1}\otimes...\otimes p_{X_n}$.
+\bigskip
+
+\Theo \ Formule de transfert
+\sskip 
+Si X a une densité $p$, alors pour toutes fonctions mesurables $f$ telle que $\E(|f(X)|)<\pinf$, alors:
+$$\E(f(X))=\int_{x\in \R^d}f(x)p(x)dx.$$
+\bskip
+Les exemples principaux de variables aléatoires à densité se trouvent dans le polycopié.
+\bigskip
+
+\subsection{Somme de VAs indépendantes}
+Soient $X$ et $Y$ deux VAs indépendantes, on note $Z:=X+Y$.
+\bigskip
+
+\Prop 
+\sskip
+La densité de Z est:
+$$r(z)=\int_{x\in\R^d}p_X(x)p_{Y}(z-x)dx$$
+on l'appelle la convolution de $p_X$ et $p_Y$.
+\bigskip
+
+\subsection{Fonction de Répartition}
+On se place dans le cas où E=$\R$.
+\bigskip
+
+\Def 
+\sskip
+La fonction de répartition d'un variable aléatoire $X$ est définie par:
+$$\forall x\in \R, \ F(x)=\Prob(X\le x)$$
+alors, pour tout réel $r\in (0,1)$, un quantile d'ordre r pour $X$ est un nombre $q_r$ tel que:
+$$\Prob(X\le q_r)=F(q_r)=r.$$
+\bskip 
+En général un quantile n'existe pas toujours ou n'est pas unique, néanmoins, lorsque $X$ possède une densité qui est positive alors le quantile existe et est unique.
+\bigskip
+
+\subsection{Fonction Charactéristique}
+Soient $X$ et $Y$ des vecteurs aléatoires.
+\bigskip
+
+\Def \ Fonction Charactéristique
+\sskip 
+La fonction charactéristique de X est la fonction $\Psi_X : \R^d\longrightarrow \C$ définie par:
+$$\Psi_X(u):=\E(e^{i<u,X>})=\E(\cos(<u,X>))+i\E(\sin(<u,X>)).$$
+\bigskip 
+
+\Prop 
+\sskip
+Si, pour tout $u\in\R^d$, $\Phi_X(u)=\Phi_Y(u)$, alors $X$ et $Y$ sont de même loi.
+\bigskip
+
+\Prop 
+\sskip
+Si $X\sim \mc{N}(\mu,\sigma^2)$ et $Y\sim \mc{N}(\nu,\tau ^2)$ sont indépendantes, alors:
+$$X+Y\sim \mc{N}(\mu+\nu,\sigma^2+\tau^2).$$
+\bigskip
+
+\subsection{Vecteurs Gaussiens}
+Soit $X$ un vecteur aléatoire.
+\bigskip
+
+\Def \ Vecteur Gaussien
+\sskip 
+$X$ est un vecteur Gaussien si, pour tout vecteur $u$, la variable aléatoire $<u,X>$ est gaussienne.
+\bskip 
+De ce qui précède, on déduit que, en notant $\E(X)=m$ et $Cov(X)=K$, alors:
+$$<u,X>\sim\mc{N}(<u,m>,<u,Ku>) \ \ \text{et } \ \Phi_X(u)=\exp(i<u,m>-\frac{1}{2}<u,Ku>).$$
+Par ailleurs, si $K$ est inversible, alors $X$ a la densité:
+$$\frac{1}{\sqrt{(2\pi)^d\det K}}\exp(-\frac{1}{2}<x-m,K^{-1}(x-m)>)$$
+sinon $X$ n'a pas de densité.
+\bigskip
+
+\subsection{Théorèmes de Convergence}
+Soient $(X_n)$ et $X$ des vecteurs aléatoires.
+\bigskip
+
+\Def
+\sskip
+$(X_n)$ converge vers $X$ presque sûrement si: $\Prob(\lim X_n =X)=1$.
+\sskip 
+$(X_n)$ converge vers $X$ en probabilité si, pour tout $\epsilon>0, \ \lim\Prob(||X_n-X||\ge \epsilon)=0$.
+\sskip 
+$(X_n)$ converge vers $X$ en distribution si, pour toute fonction continue et bornée $f:\R^d\longrightarrow \R $, $\E(f(X_n))$ converge vers $\E(f(X))$.
+\bigskip 
+
+\Theo \ Convergence Dominée
+\sskip 
+Supposons que $(X_n)$ converge vers $X$ presque sûrement et qu'il existe $Y$ positive et intégrable telle que: $||X_n||\le Y$ presque sûrement, alors $\E(X_n)$ converge vers $\E(X)$.
+\bskip 
+Pour $f$ une fonction continue, si $(X_n)$ converge presque sûrement (respectivement en probabilité ou en distribution) vers $X$ alors $f(X_n)$ converge presque sûrement vers $f(X)$ (respectivement en probabilité ou en distribution).
+\bigskip
+
+\Prop 
+\sskip 
+$(X_n)$ converge en distribution vers $X$ si et seulement si $\Psi_{X_n}(u)$ converge vers $\Psi_X(u)$ pour tout u.
+\sskip
+La convergence presque sûre implique la converge en probabilité qui implique elle même la converge en distribution.
+\bskip
+Si on se place dans le cadre réel, alors on a les équivalences suivantes:
+
+-$(X_n)$ converge vers $X$ en distribution
+
+-$\Prob (X_n\le x)\longrightarrow \Prob(X\le x)$ pour tout $x$ tel que $\Prob(X=x)=0$
+
+-$\Prob (X_n< x)\longrightarrow \Prob(X< x)$ pour tout $x$ tel que $\Prob(X=x)=0$ 
+\bskip 
+On dit que la suite $(X_n)$ est indépendante et indentiquement distribuée si ses variables sont indépendantes et de même loi. On note alors:
+$$\bar{X_n}=\frac{1}{n}\sum_{i=1}^nX_i$$
+la moyenne empirique de $\indn X$.
+\bigskip 
+
+\Theo \ La Loi Forte des Grands Nombres
+\sskip
+Soit $(X_n)$ une suite de VA$\R^d$ iid telle que $\E(||X_1||)<\pinf$, alors:
+$$\lim \bar{X_n}=\E(X_1) \ \ \text{presque sûrement}.$$
+\bigskip
+
+\Theo \ Théorème Central Limite Multivarié
+\sskip 
+Soit $(X_n)$ une suite de VA$\R^d$ iid telle que $\E(||X_1||^2)<\pinf$, alors:
+$$\lim\sqrt{n}(\bar{X_n}-\E(X_1))=\mc{N}(0,Cov(X_1)) \ \ \text{en distribution.}$$
+\end{document}

@@ -1,0 +1,94 @@
+\documentclass{article}
+
+\title{Contrôle des systèmes dynamiques}
+\author{Paul Lehaut}
+\usepackage{mesraccourcis}
+
+\begin{document}
+\newcommand{\AC}{AC([0,T],\R^n)}
+
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+On s'intéresse à $\frac{dx}{dt}=f(t,x(t),u(t))$ où $x(t)$ désigne l'état du système et $u(t)$ le contrôle.
+On s'intéressera tout d'abord à: $x: [0,T]\longrightarrow \R^n, \text{ et } u\in L^{\infty}([0,T],\mathcal{U}) \ \text{où }\mathcal{U} \text{ désigne un sous-ensemble d'un \ev.}$
+\bskip 
+Les trois questions pricipales sont:
+\bigskip
+
+-Question de contrôlabilité: pour $x_0,x_1\in\R^n$, T fini, existe-t-il une fonction de contrôle $u$ telle que: $x_u(T)=x_1$?
+\bigskip
+
+-Question de contrôle optimal: on suppose qu'il existe au moins un contrôle emmenant le système de $x_0$ à $x_1$ en un temps T, existe-t-il alors un contrôle qui permet de réaliser ce passage en minimisant un critère ?
+\bigskip
+
+-Question de stabilisation: un état $x*$ étant donné, peut-on construire un contrôle $u(t)$ de type $k(x(t))$ (contrôle en boucle fermée) qui permet de ramener le système de l'état $x_0$ à l'état $x*$ en un temps T ?
+\bigskip
+
+\section{Contrôlabilité des systèmes dynamiques}
+\subsection{Cas des systèmes linéaires autonomes}
+Un système linéaire autonome est un système de la forme:
+$$(I)\ \frac{dx}{dt}(t)=Ax(t)+Bu(t), \ \text{avec} \ x(0)=x_0, \ A\in\M_n(\R), \ \text{et } B\in\M_{n,k}(\R).$$
+La solution de ce système est explicite donnée par:
+$$x(t)=e^{tA}x_0\int_0^te^{(t-s)A}Bu(s)ds.$$
+Le problème de contrôle en un temps T peut alors se réécrire, $\forall x_0,x_1\in \R^n$, trouver $u\in L^{+\infty}([0,T],\R^k)$ telle que:
+$$\int_0^Te^{(t-s)A}Bu(s)ds=\Phi_T(u)=x_1-e^{TA}x_0$$
+soit encore montrer que l'application linéaire:
+$$\Phi_T:\begin{aligned}
+    L^{+\infty}([0,T],\R^k) &\longrightarrow \ \ \ \ \R^n&\\
+    u\ \ \ \ &\longmapsto \int_0^Te^{(t-s)A}Bu(s)ds
+\end{aligned}$$
+est surjective.
+\bigskip
+
+\Theo \ Critère de Kalman
+\sskip 
+Soit $A\in \M_n(\R)$, soit $B\in\M_{n,k}(\R)$, pour $T>0$, le système $(I)$ est contrôlable en un temps T si et seulement si la matrice $C=(B, AB, ..., A^{n-1}B)$ est de rang maximal n.
+\bskip 
+On constate par ailleurs que ce critère ne dépends pas du temps T.
+\bigskip
+
+\Theo 
+Le système $(I)$ est contrôlable si et seulement si la matrice
+$$G_T=\int_0^Te^{(T-s)A}BB^Te^{(T-s)A^T}ds$$
+est inversible, un contrôle admissible est alors:
+$$u(t)=B^Te^{(t-s)A^T}G_T^{-1}x(x_1-e^{TA}x_0).$$
+\bskip 
+L'ensemble des contrôles admissibles réalisant le passage de $x_0$ à $x_1$ en temps T est:
+$$\{u\in L^{+\infty}([0,T], \R^k) \ | \ \Phi_T(u)=x_1-e^{TA}x_0\}.$$
+\newpage
+
+\subsection{Contrôle des systèmes non linéaires}
+On s'intéresse aux systèmes de la forme:
+$$(II)\ \frac{dx}{dt}(t)=f(t,x(t),u(t)), \ \text{avec} \ x(0)=x_0.$$
+On peut tout d'abord se demander si, pour $u\in L^{+\infty}([0,T], \R^k)$ fixé, le problème de Cauchy $(II)$ a-t-il une solution et une seule sur l'intervalle $[0,T]$ ?
+Autrement dit le problème de Cauchy qui consiste à chercher $x:[0,T]\longrightarrow  \R^n$ telle que:
+$$\frac{dx}{dt}(t)=F(t,x(t)), \ \text{avec} \ x(0)=x_0 \ \text{et} \ F(t,x(t))=f(t,x(t),u(t))$$
+a-t-il une unique solution ?
+\bskip 
+Dans le cas standard, si $F$ est continue et lipschitzienne en $x$ alors l'équation admet une unique solution.
+Néanmoins en théorie du contrôle on peut tout à fait considérer des contrôles discontinus qui implique en général la discontinuité de $F$.
+\bigskip
+
+\Def 
+On note $\AC:=\{x\in \mathcal{C}^0([0,T],\R^n) \ | \ \frac{dx}{dt}\in L^1([0,T],\R^n) \}$, la dérivée est ici à prendre au sens des distributions.
+\bskip 
+Pour tout $x\in\AC$, on a: $x(t)=\int_0^t \frac{dx}{dt}(s)ds+x_0$.
+\bigskip
+
+\Theo 
+Soit $F:[0,T]\times \R^n \longrightarrow \R^n$ mesurable et vérifiant:
+$$\exists c_T\in L^1([0,T], \R_+): \ ||F(t,x)-F(t,y)||\le c_T(t)||x-y|| \ \ \text{(Pseudo lipschitzianité)}$$
+et:
+$$\forall x\in \R^n, \ \exists\beta_x\in L^1([0,T], \R_+): \ |F(t,x)|\le\beta_x(t)$$
+alors le problème $(II)$ admet une unique solution $x\in\AC$ et $x(t)=x_0+\int_0^tF(s,x(s))ds$.
+\sskip
+En remplaçant l'hypothèse de pseudo lipschitzianité dans le théorème précédent par une pseudo lipschitzianité locale:
+$$\forall x_0\in \R^n,\ \exists r>0 \ \text{et} \ \exists C_{T,x_0}\in L^1([0,T],\R^n): \ \forall (x,y)\in B(x_0,r)^2, \ ||F(t,x)-F(t,y)||\le C_{t,x_0}(t)||x-y||$$
+alors il existe $0<T_0\le T$ tel qu'il existe une unique solution $x\in \mathcal{C}^0([0,T_0[,\R^n)$ et on a:
+
+-ou bien $T_0=T$ et $x\in \AC$
+
+-ou bien $|x(t)|\to_{t\to T_0}+\infty$.
+\end{document}

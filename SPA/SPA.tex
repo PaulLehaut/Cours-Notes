@@ -1,0 +1,150 @@
+\documentclass{article}
+
+\title{Stochastic Process and Applications}
+\author{Paul Lehaut}
+\usepackage{mesraccourcis}
+
+\begin{document}
+
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+\section{Chapitre 1: Rappels}
+\subsection{Mesure}
+Soit ($\Omega,\mathcal{F}$) un espace mesurable.
+\medskip
+
+\Def
+\smallskip 
+\newline
+Une fonction $\mu: \mathcal{F} \longrightarrow [0,+\infty]$ est dite $\sigma$-additive si pour toute collection dénombrable ($A_i, \ i\in I$)
+d'ensembles mesurables deux à deux disjoints, on a:
+$$\mu (\bigcup_{i\in I}A_i) = \sum_{i\in I}\mu(A_i).$$
+\newline
+Une mesure $\mu$ sur ($\Omega,\mathcal{F}$) est \sigadd, à valeur dans $[0,+\infty]$, définie sur $\mathcal{F}$ telle que:
+$\mu(\varnothing)=0.$ On dit que ($\Omega,\mathcal{F}, \mu$) est un espace mesuré, $A\in \mathcal{F}$ est de mesure nulle si $\mu(A)=0$.
+\newline
+$\mu$ est dite $\sigma$-finie si il existe $(\Omega_n, \ n\in \mathbb{N})$ telle que:
+$$\bigcup_{n\in\N}\Omega_n=\Omega \ \ \text{et} \ \ \forall n \in \N,\ \mu(\Omega_n)<+\infty.$$
+\newline
+Une mesure de probabilité $\Prob$ est une mesure telle que $\Prob(\Omega)=1$.
+\bigskip
+\newline
+Soit donc $\mu$ une mesure sur ($\Omega,\mathcal{F}$).
+\medskip
+
+\Prop
+\smallskip
+\newline
+On a les propriétés suivantes:
+
+$$\mu(A\cup B)+ \mu(A\cap B)=\mu(A)+\mu(B)$$
+$$A\subset B \implies \mu(A)\le \mu(B)$$
+$$\text{Convergence monotone: pour }(A_n, \ n\in \N) \text{ telle que } \forall n\in\N , \ A_{n+1}\subset A_n, \text{ alors } \mu(\bigcup_{n\in \N}A_n)=\lim_{n\to \infty}\mu(A_n)$$
+$$\text{Si } (A_i, i \in I) \text{ est une collection dénombrable d'ensembles mesurables, alors il vient: } \mu(\bigcup_{i\in I}A_i)\le \sum_{i\in I}\mu(A_i).$$
+\bigskip
+
+\Def 
+\smallskip
+\newline
+Les événements $(A_i, i\in I)$ sont indépendants si, pour touT sous-ensemble fini $J\subset I$, on a:
+$$\Prob (\bigcap_{j\in J}A_j)=\prod_{j\in J} \Prob (A_j).$$
+\bigskip
+\subsection{Fonctions Mesurables}
+Soient $(S,\mathcal{S})$ et $(E,\mathcal{E})$ deux espaces mesurables. Soit $f$ une fonction de S dans E, alors:
+$$\{f^{-1}(A), \ A\in \mathcal{E}\}=\sigma(f)$$
+est une \sigalg.
+\bigskip
+
+\Def \ Fonction mesurable
+\smallskip
+\newline
+La fonction $f$ est dite mesurable si $\sigma(f)\subset \mathcal{S}$.
+\bigskip
+\newline
+Si $\mu$ est une mesure sur $(E,\mathcal{E})$ et que f est mesurable, alors $\mu_f=\mu\circ f^{-1}$ est une mesure sur ($S,\mathcal{S}$).
+\newline
+Une fonction continue définie sur un espace topologique et prenant ses valeurs dans un espace topologique est mesurable au sens de la \sigalg \ borélienne.
+\newline
+Pour $f$ et $g$ des fonctions mesurables à valeurs réelles définies sur le même espace mesurable, alors les fonction $fg$ et $\max (f,g)$ sont mesurables.
+Si par ailleurs ses fonctions ne prennent pas de valeurs infinies, alors la fonction $f+g$ est mesurable.
+\newline 
+La composition de fonctions mesurables est également mesurable.
+\bigskip
+
+\Prop 
+\smallskip
+\newline
+Soit $(f_n)$ une suite de fonctions réelles mesurables, alors les fonctions $\lim\inf f_n$ et $\lim\sup f_n$ sont mesurables, en particulier, si $(f_n)$ converge simplement, alors sa limite est mesurable.
+\bigskip
+
+\Def \ Variable Aléatoire
+\sskip
+Une variable aléatoire X définie de $\Omega$ dans $E$ est une fonction mesurable définie sur ($\Omega,\mathcal{F}$) à valeurs dans ($E,\mathcal{E}$).
+\newline
+X est dite indépendante de la \sigalg \ $\mathcal{H}$ si, pour tout $(A,B)\in \mathcal{E}\times \mathcal{H}$, les événements $\{X\in A\}$ et $B$ sont indépendants.
+\bigskip
+\subsection{Théorème de convergence pour l'intégration}
+Soit $(f_n)$ une suite de fonctions mesurables à valeurs réelles. Cette suite converge \pp \ si $$\lim\inf f_n = \lim\sup f_n \text{ \pp.}$$
+On rappelle que la limite de cette suite de fonction est alors mesurable.
+\bigskip
+
+\Theo \ Convergence monotone
+\sskip 
+Soit ($f_n, \ n\in \N$) une suite de fonctions mesurables à valeurs réelles telle que pour tout $n\in \N, \ 0\le f_n\le f_{n+1}$ \pp, alors il vient:
+$$\lim_{n\to\infty}\int f_n d\mu=\int \lim_{n\to\infty} f_n d\mu.$$
+\bigskip
+
+\Theo \ Convergence dominée de Lebesgue
+\sskip 
+Soient $f, \ g$ deux fonctions à valeurs réelles mesurables, soit $(f_n)$ une suite de fonctions à valeurs réelles mesurables.
+\newline
+On suppose que, pout tout $n\in \N$, on a \pp \ $|f_n|\le g$, que f désigne la limite de $(f_n)$ et que g est intégrable, alors:
+$$\lim_{n\to\infty}\int f_nd\mu=\int fd\mu.$$
+
+\subsection{Espace $L^p$}
+On commence par rappeler les inégalités suivantes pour $f$ et $g$ des fonctions mesurables à valeurs réelles:
+\bigskip
+
+Inégalité de Hölder: Soient $p,g\in (1,+\infty)$ tels que $\frac{1}{p}+\frac{1}{q}=1$, supposons que $|f|^p$ et $|g|^q$ soient intégrables, alors $fg$ est intégrable et on a:
+$$\int |fg|d\mu\le(\int|f|^pd\mu)^{1/p}(\int|g|^qd\mu)^{1/q}.$$
+\bigskip
+
+Inégalité de Cauchy-Schwarz: Supposons que $f$ et $g$ soient de carré intégrable, alors fg est intégrable et on a:
+$$\int |fg|d\mu\le (\int f^2d\mu)^{1/2}(\int g^2d\mu)^{1/2}$$
+on a égalité si et seulement si $f$ et $g$ sont propotionnelles \pp.
+\bigskip
+
+Inégalité de Minkowski: Soit $p\in [1,+\infty)$, supposons que $|f|^p$ et $|g|^p$ soient intégrables, alors on a:
+$$(\int |f+g|^pd\mu)^{1/p}\le(\int |f|^pd\mu)^{1/p}+(\int |g|^pd\mu)^{1/p}.$$
+
+\Prop 
+\sskip 
+Soit $p\in [1,+\infty)$, l'\evn \ ($L^p, ||\cdot||_p$) est complet.
+
+\newpage
+\Theo \ Fubini
+\sskip 
+Soient $\nu$ et $\mu$ deux mesures $\sigma$-finies respectivement sur ($E, \mathcal{E}$) et ($S, \mathcal{S}$), alors:
+
+-il existe une unique mesure sur ($E\times S, \mathcal{E}\otimes\mathcal{S}$), notée $\nu\otimes\mu$, telle que:
+$$\forall (A,B)\in \mathcal{E}\times\mathcal{S}, \ \nu\otimes\mu (A\times B)=\nu(A)\mu(B)$$
+c'est la mesure produit
+
+-Soit f une fonction à valeurs réelles défnie sur $E\times S$, alors:
+$$\int f(x,y)\nu\otimes\mu(dx,dy)=\int\int f(x,y)\mu(dy)\nu(dx)=\int\int f(x,y)\nu(dx)\mu(dy).$$
+\bigskip
+\subsection{Espérance, Variance et Inégalités}
+Soit X une variable aléatoire, soit $f$ une fonction à valeurs réelles, si $\E (f(X))$ est bien définie, alors on a:
+$$\E(f(X))=\int f(x)\Prob_X(dx).$$
+\bigskip
+
+Inégalité de Tchebychev: Soit X une VA$\R$, soit, $a>0$, alors:
+$$\Prob (|X|\ge a )\le \frac{E(X^2)}{a^2}.$$
+\bigskip
+
+Inégalité de Jensen: Soit X une VA$\R^d$ intégrable, soit $f$ une fonction à valeurs réelles convexe définie sur $\R^d$, alors $\E(f(X))$ est bien définie et:
+$$f(\E(X))\le \E(f(X)).$$
+\end{document}
