@@ -168,15 +168,24 @@ $$\E(Z1_A)=\E(Z'1_A), \ \forall A\in \mc H$$
 alors $Z=Z'$ \pp.
 \bigskip 
 
+\Theo \ Radon-Nikodym
+\sskip 
+Soient $\mu$ et $\nu$ deux mesures $\sigma$-finie sur $(\Omega, \mc H)$ telles que: $\nu(A)=0\implies\mu(A)=0$, alors il existe une fonction mesurable $f$ positive telle que:
+$$\int_A fd\nu=\mu(A)$$
+on note alors: $f\frac{d\mu}{d\nu}$ et on l'appelle dérivée de Radon-Nikodym.
+\bigskip 
+
 \Prop
 \sskip
 Pour $X$ et $Y$ des VA$\R$ de carré intégrable alors:
 
-Si $X$ est positive presque partout, alors l'espérance conditionnelle de $X$ est positive presque partout.
+-Si $X$ est positive presque partout, alors l'espérance conditionnelle de $X$ est positive presque partout.
+\smallskip
 
-On a presque partout: $\E(aX+bY|\mc H)=a\E(X|mc H)+ b\E(Y|mc H)$.
+-On a presque partout: $\E(aX+bY|\mc H)=a\E(X|mc H)+ b\E(Y|mc H)$.
+\smallskip
 
-Soit $(X_n,\ n\in\N)$ une suite croissante de VA$\R$ positives de carré intégrable alors on a \pp :
+-Soit $(X_n,\ n\in\N)$ une suite croissante de VA$\R$ positives de carré intégrable alors on a \pp :
 $$\lim\E(X_n|\mc H)=\E(\lim X_n| \mc H).$$
 \bigskip
 
@@ -191,23 +200,51 @@ donc l'intégrabilité de $X$ entraîne celle de $\E(X|\mc H)$.
 \Prop
 \smallskip
 
-Si $X$ est positive \pp alors son espérance conditionnelle l'est également.
+-Si $X$ est positive \pp alors son espérance conditionnelle l'est également.
+\smallskip
 
-Si $X$ et $Y$ sont intégrables, alors, pour tout réels $a$ et $b$, on a :
+-Si $X$ et $Y$ sont intégrables, alors, pour tout réels $a$ et $b$, on a :
 $$\E(aX+bY|\mc H)=a\E(X|\mc H)+b\E(Y| \mc H)$$
 et, si $X\le Y$ \pp, alors $\E(X|\mc H)\le \E(Y|\mc H)$ \pp.
+\smallskip
 
-Soit $(X_n,\ n\in\N)$ une suite croissante de VA$\R$ positives \pp, alors on a \pp:
+-Soit $(X_n,\ n\in\N)$ une suite croissante de VA$\R$ positives \pp, alors on a \pp:
 $$\lim\E(X_n|\mc H)=\E(\lim X_n|\mc H).$$
+\smallskip
 
-Le lemme de Fatou s'écrit: Soit $(X_n,\ n\in\N)$ une suite de VA$\R$ positives \pp, alors on a \pp:
+-Le lemme de Fatou s'écrit: Soit $(X_n,\ n\in\N)$ une suite de VA$\R$ positives \pp, alors on a \pp:
 $$\E(\lim\inf X_n|\mc H)\le \lim\inf\E(X_n|\mc H).$$
+\smallskip
 
-La convergence dominée de Lebesgue s'écrit: Soient $X,Y,(X_n)$ des VA$\R$ telles que $(X_n)$ converge vers $X$ \pp \ et $|X_n|\le Y$ avec $Y$ intégrable, alors on a :
+-La convergence dominée de Lebesgue s'écrit: Soient $X,Y,(X_n)$ des VA$\R$ telles que $(X_n)$ converge vers $X$ \pp \ et $|X_n|\le Y$ avec $Y$ intégrable, alors on a :
 $$\lim\E(X_n|\mc H)=\E(X|\mc H).$$
 \bskip
 Par ailleurs, les inégalités de Hölder, Cauchy-Schwarz, Minkowski et Jensen restent valables pour l'espérance conditionnelle.
 \newline
 De plus, pour $X$ et $Y$ deux VA$\R$ telles que $\E(X)$ et $\E(XY)$ soient bien définies et que $Y$ soit $\mc H$ mesurable, alors on a:
 $$\E(XY)=\E(\E(X|\mc H)Y).$$
+\bigskip
+
+\Prop 
+\sskip
+On suppose X intégrable, alors:
+\smallskip
+
+-Si $X$ est $\mc H$ mesurable, alors: $\E(X|\mc H)=X$.
+\smallskip 
+
+-Si $X$ est indépendante de $\mc H$ alors: $\E(X|\mc H)=\E(X)$.
+\smallskip
+
+-Si $Y$ est une VA $\mc H$ mesurable telle que $\E(XY)$ soit bien définie, alors: $\E(YX|\mc H)=Y\E(X|\mc H)$.
+\smallskip
+
+-Si $\mc G\subset\mc H$ est une \sigalg, alors: $\E(\E(X|\mc H)|\mc G)=\E(X|\mc G)$.
+\bigskip
+
+\subsection{Expérience Conditionnée par une VA}
+Soit $V$ une variable aléatoire définie sur $(E,\mc E)$, on note $\E(X|V)=\E(X|\sigma(V))$, si $\E(X)$ est bien définie, alors il existe une fonction mesurable $g$ définie sur E telle que: $\E(X|V)=g(V)$.
+\sskip 
+Si $V$ est discrète, alors:
+$$g(v)=\frac{\E(X1_{V=v})}{\Prob(V=v)}=\E(X|V=v) \ \ \text{si } \Prob(V=v)>0, \ \ \text{et } g(v)=0 \ \ \text{sinon.}$$
 \end{document}
