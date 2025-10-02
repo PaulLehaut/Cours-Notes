@@ -79,6 +79,7 @@ Pour tout $x\in\AC$, on a: $x(t)=\int_0^t \frac{dx}{dt}(s)ds+x_0$.
 \bigskip
 
 \Theo 
+\sskip
 Soit $F:[0,T]\times \R^n \longrightarrow \R^n$ mesurable et vérifiant:
 $$\exists c_T\in L^1([0,T], \R_+): \ ||F(t,x)-F(t,y)||\le c_T(t)||x-y|| \ \ \text{(Pseudo lipschitzianité)}$$
 et:
@@ -110,4 +111,118 @@ Il est souvent pertinent de considérer une notion locale de la contrôlabilité
 Soit $\bar u\in L^{\pinf}([0,T],\R^k)$ et $\bar x \in \AC$ la trajectoire associée à $\bar u$. (A) est contrôlable autour de $(\bar u, \bar x)$ si ,pour tout $\epsilon>0$, il existe $\nu$ strictement positif tel que:
 $$\forall x_0\in B(\bar x_0, \nu), \ \forall x_1\in B(\bar x_1, \nu), \ \exists u \in L^{\pinf}([0,T], \R^k): \ ||u-\bar u||\le \epsilon$$
 et la trajectoire $x$ engendrée par $u$ à partir de $x_0$ vérifie $x(T)=x_1$.
+\bskip 
+Si $||u-\bar u||<<1$ et sous les bonnes conditions sur $f$, alors: $||x-\bar x|| <<1.$
+\bskip 
+En posant $u:=\bar u +v$ et $x:=\bar x+y$, la dynamique $\dot x=f(t,x(t),u(t))$ peut être approché par la dynamique linéarisé:
+$$\dot y\approx \frac{\partial f}{\partial x}(t,\bar x(t), \bar u(t))y(t)+\frac{\partial f}{\partial u}(t,\bar x(t), \bar u(t))v(t) \ \ (B).$$
+\bigskip 
+
+\Def 
+\sskip 
+Le système (B) est appelé le linéarisé de (A) autour de la trajectoire $(\bar x, \bar u)$.
+\bskip 
+Si ($\bar x, \bar u)$ est stationnaire (point d'équilibre de la dynamique) alors le système linéarisé est autonome.
+\bigskip 
+
+\Theo \ Test linéaire
+\sskip 
+Si le système linéarisé autour d'un point stationnaire $(\bar x, \bar u)$ est contrôlable, alors le système non-linéaire de départ est localement contrôlable autour de ce point d'équilibre.
+\bskip 
+Il s'agit d'une condition suffisante mais non nécessaire.
+\newpage
+\section{Stabilité et Stabilisation des Systèmes Dynamiques}
+\subsection{Trois Notions de Stabilité}
+On considère un système dynamique autonome $\dot x = F(x(t))$ avec $F:\R^n\longrightarrow\R^n$ continue et localement lipschitzienne (ces hypothèses sont conservées sur $F$ dans toute cette section sauf indications contraires).
+\bigskip 
+
+\Def 
+\sskip 
+Un point $x_*$ est appelé un point d'équilibre de la dynamique si $F(x_*)=0$, il est dit:
+\begin{itemize}
+    \item Stable si: $\forall \epsilon>0, \exists \delta>0: ||x_0-x_*||<\delta\implies||x(t)-x_*||\le\epsilon$.
+    \item Asymptotiquement stable si: $x_*$ est stable et si $\forall x_0 \in \R^n, ||x(t)-x_*||\longrightarrow_{t\to\pinf} 0$.
+    \item Exponentiellement stable si: $x_*$ est stable et s'il existe $\delta>0$ et $c\ge0$ tels que: $||x(t)-x_*||\le Ce^{-\delta t}||x_0-x_*||.$
+\end{itemize}
+\bigskip 
+On a évidemment exponentiellement stable qui implique asymptotiquement stable qui implique ensuite stable.
+\bigskip 
+
+\subsection{Stabilité des Systèmes Linéaires}
+On considère le cas particulier d'un système linéaire $\dot x = Ax$ avec $A\in\M_n(\R)$ inversible. Le seul point d'équilibre de la dynamique est donc le point $0$. Par ailleurs ce système a pour solution:
+$$x(t)=e^{tA}x_0$$
+l'étude de la stabilité se ramène donc à l'étude de $(e^{tA}, \ t\ge0)$.
+\bigskip 
+\subsubsection{Cas des matrices diagonalisables}
+On suppose que $A$ est diagonalisable, on peut alors écrire:
+$$e^{tA}=P\begin{pmatrix}
+    e^{t\lambda_1} & & 0\\
+     & \ddots &\\
+    0& & e^{t\lambda_n}
+\end{pmatrix}P^{-1}$$
+le système est donc stable si $Re(\lambda_j)\le 0$, pour tout $j$. Il est exponentiellement stable si et seulement si $Re(\lambda_j)<0$, pour tout $j$.
+\bigskip 
+\subsubsection{Cas des matrices non diagonalisables} 
+On appelle bloc de Jordan une matrice du type:
+$$J_j(\lambda)=\begin{pmatrix}
+\lambda & 1 & & 0 \\
+& \ddots &\ddots & \\
+&&\ddots&1\\
+0& & &\lambda 
+\end{pmatrix} = \lambda I_j + N_j \ \ \text{avec} \ \ N_j=\begin{pmatrix}
+    0 & 1 & & 0\\
+    & & \ddots &\\
+    &&&1\\
+    0&&&0
+\end{pmatrix}$$
+on remarque donc que: 
+$$e^{tJ_j(\lambda)}=e^{t\lambda}\begin{pmatrix}
+    1 & t & \hdots & \frac{t^{j-1}}{(j-1)!}\\
+    & \ddots & \ddots & \\
+    &&\ddots & t\\
+    0&&&1
+\end{pmatrix}$$
+\bigskip 
+
+\Theo \ Décomposition de Jordan 
+\sskip 
+Toute matrice carré $A$ peut s'écrire sous la forme:
+$$A=P\begin{pmatrix}
+    J_{j_1}(\lambda_1) & & 0\\
+    & \ddots & \\
+    0&& J_{j_r}(\lambda_r)
+\end{pmatrix}P^{-1}.$$
+\bigskip 
+Ce théorème permet d'écrire l'égalité suivante:
+$$e^{tA}=P\begin{pmatrix}
+    e^{tJ_1(\lambda_1)} & &0\\
+    &\ddots&\\
+    0&&e^{tJ_r(\lambda_r)}
+\end{pmatrix}P^{-1}.$$
+
+\Prop 
+\sskip 
+Soient $\ind\lambda r$  les valeurs propres de $A$ comptées avec leur multiplicité algébrique.
+\sskip 
+Si $Re(\lambda_j)<0$ pour tout $j$, le système est exponentiellement stable. Si $Re(\lambda_1)=0$ et $Re(\lambda_j)<0$ pour tout $j\in[|2,r|]$ le système est simplement stable.
+\bigskip 
+\subsection{Stabilité des Systèmes Non Linéaires}
+Soit $x*$ un état d'équilibre de $\dot x = F(x)$.
+\bigskip 
+
+\Def 
+\sskip 
+$x*$ est dit:
+\begin{itemize}
+    \item localement asymptotiquement stable si: il est stable et s'il existe $\delta>0$ telle que $$||x_0-x*||\le\delta\implies ||x(t)-x*||\longrightarrow_{t\to\pinf}0.$$
+    \item localement exponentiellement stable si: il est stable et s'il existe $\delta,\mu>0$ telles qu'il existe $C\ge 0$ telle que: $$||x_0-x*||\le\delta\implies||x(t)-x*||\le Ce^{-\gamma t}||x_0-x*||.$$
+\end{itemize}
+Comme précédement un point localement exponentiellement stable est localement asymptotiquement stable.
+\bigskip 
+
+\Theo \ Test linéaire 
+\sskip 
+Soit $x*$ un point d'équilibre du système non-linéaire $\dot x =F(x)$ avec $F$ de classe $\mc C^1$ et $\dot y=Ay$ le système linéarisé autour de $x*$ (avec $A=\frac{\partial F}{\partial x}(x*)$ la jacobienne de $F$ en $x*$).
+\newline 
+Si le système $\dot y=Ay$ est asymptotiquement/exponentiellement stable, alors le système non-linéaire est localement asymptotiquement/exponentiellement stable autour de $x*$.
 \end{document}
