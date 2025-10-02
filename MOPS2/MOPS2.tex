@@ -72,6 +72,7 @@ Néanmoins en théorie du contrôle on peut tout à fait considérer des contrô
 \bigskip
 
 \Def 
+\sskip
 On note $\AC:=\{x\in \mathcal{C}^0([0,T],\R^n) \ | \ \frac{dx}{dt}\in L^1([0,T],\R^n) \}$, la dérivée est ici à prendre au sens des distributions.
 \bskip 
 Pour tout $x\in\AC$, on a: $x(t)=\int_0^t \frac{dx}{dt}(s)ds+x_0$.
@@ -91,4 +92,22 @@ alors il existe $0<T_0\le T$ tel qu'il existe une unique solution $x\in \mathcal
 -ou bien $T_0=T$ et $x\in \AC$
 
 -ou bien $|x(t)|\to_{t\to T_0}+\infty$.
+\bigskip 
+
+\Def 
+\sskip 
+On dit que le système $\dot{x} = f(t,x(t),u(t))$ (A) est contrôlable en temps T si pour tout $x_0,x_1\in\R^n$, il existe $u\in\mc C^\pinf([0,T],\R^k)$ tel que:
+
+-(A) admet une unique solution dans $\AC$
+
+-$x(T)=x_1$.
+\bskip 
+Il est souvent pertinent de considérer une notion locale de la contrôlabilité.
+\bigskip 
+
+\Def \ Contrôlabilité autour d'une trajectoire
+\sskip 
+Soit $\bar u\in L^{\pinf}([0,T],\R^k)$ et $\bar x \in \AC$ la trajectoire associée à $\bar u$. (A) est contrôlable autour de $(\bar u, \bar x)$ si ,pour tout $\epsilon>0$, il existe $\nu$ strictement positif tel que:
+$$\forall x_0\in B(\bar x_0, \nu), \ \forall x_1\in B(\bar x_1, \nu), \ \exists u \in L^{\pinf}([0,T], \R^k): \ ||u-\bar u||\le \epsilon$$
+et la trajectoire $x$ engendrée par $u$ à partir de $x_0$ vérifie $x(T)=x_1$.
 \end{document}
