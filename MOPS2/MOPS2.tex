@@ -45,11 +45,40 @@ est surjective.
 \Theo \ Critère de Kalman
 \sskip 
 Soit $A\in \M_n(\R)$, soit $B\in\M_{n,k}(\R)$, pour $T>0$, le système $(I)$ est contrôlable en un temps T si et seulement si la matrice $C=(B, AB, ..., A^{n-1}B)$ est de rang maximal n.
-\bskip 
+\bigskip 
+
+\Dem
+\smallskip
+
+Montrons tout d'abord que $\Phi_T$ n'est pas surjective si la matrice C n'est pas de rang maximal.
+\sskip
+En effet, si C n'est pas de rang maximal, alors il existe $y\in\R^n$ non nul tel que $y^TC=0$ donc $y^TA^jB=0$ pour tout $j\in[|0,n-1|]$. 
+\newline
+Or, le théorème de Cailey-Hamilton donne: $A^n=\sum_{k=0}^{n-1}a_kA^k$ donc $y^TA^nB=0$ et donc, par récurrence: $y^TA^jB=0$ pour tout $j$.
+\newline
+On calcule alors: 
+$$y^T\Phi_T(u)=y^T\int_0^Te^{(T-s)A}Bu(s)ds=\int_0^Ty^T\sum_{k=0}^{\pinf} \frac{(T-s)^k}{k!}A^kBu(s)ds=0$$
+donc, pout tout contrôle $u$, $\Phi_T(u)$ appartient à l'espace orthogonal à $y^T$ qui est un vecteur non nul, donc $\Phi_T$ n'est pas surjective.
+\smallskip
+
+Montrons désoramais que, si $\Phi_T$ n'est pas surjective, alors la matrice $C$ n'est pas de rang maximal.
+\sskip
+Comme $\Phi_T$ n'est pas surjective, alors il existe $y$ non nul appartenant à l'espace orthogonal à $Im \Phi_T$. On s'intéresse alors à la fonction $u$ définie par:
+$$u(s)=B^Te^(T-s)A^Ty$$
+qui est clairement une fonction de $L^\infty([0,T],\R^k)$, il vient alors:
+$$y^T\Phi_T(u)=\int_0^Ty^Te^{A(T-s)}BB^Te^{(T-s)A^T}yds=\int_0^T<y^Te^{(T-s)A}B,y^Te^{(T-s)A}B>ds=0$$
+on constate donc que, pour tout $s\in[0,T]$, on a: $y^Te^{(T-s)A}B=0$, donc, en particulier, en notant $f:s\mapsto y^Te^{(T-s)A}B$, alors:
+$$f(T)=y^TB=0, \ f'(T)=-y^TAB=0,...\ \text{et} \  f^{(n-1)}(T)=(-1)^{n-1}y^TA^{n-1}B=0$$
+donc $y^T$ appartient au noyau de $C$ qui n'est donc pas de rang maximal.
+\smallskip
+
+D'où le résultat.
+\bskip
 On constate par ailleurs que ce critère ne dépends pas du temps T.
 \bigskip
 
 \Theo 
+\sskip
 Le système $(I)$ est contrôlable si et seulement si la matrice
 $$G_T=\int_0^Te^{(T-s)A}BB^Te^{(T-s)A^T}ds$$
 est inversible, un contrôle admissible est alors:
@@ -57,7 +86,7 @@ $$u(t)=B^Te^{(t-s)A^T}G_T^{-1}x(x_1-e^{TA}x_0).$$
 \bskip 
 L'ensemble des contrôles admissibles réalisant le passage de $x_0$ à $x_1$ en temps T est:
 $$\{u\in L^{+\infty}([0,T], \R^k) \ | \ \Phi_T(u)=x_1-e^{TA}x_0\}.$$
-\newpage
+\bigskip 
 
 \subsection{Contrôle des systèmes non linéaires}
 On s'intéresse aux systèmes de la forme:
