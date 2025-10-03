@@ -92,9 +92,41 @@ Les hyperparamètres clés sont:
 \end{itemize}
 \section{Backpropagation}
 
-La backpropagation se base essentiellement sur la règle de dérivation en chaîne. Cet algorithme considère chaque opération différentiable élémentaire comme un module capable de calculer;
+La backpropagation se base essentiellement sur la règle de dérivation en chaîne. Chaque couche est vue comme pouvant faire deux choses:
+\begin{itemize}
+    \item Forward: Calculer sa sortie en fonction de son entrée et de ses paramètres.
+    \item Backward: Calculer les gradients de la perte par rapport à ses paramètres et à son entrée.
+\end{itemize}
+L'algorithme se fait en deux étapes:
+\begin{itemize}
+    \item Forward pass: On fait passer les données à travers le réseau pour obtenir la prédiction.
+    \item Backward pass: On fait revenir les gradients depuis la sortie jusqu'à l'entrée.
+\end{itemize}
+A la fin on a les gradients de la perte $L$ par rapport à tous les paramètres du résau, ce qui permet de le mettre à jour avec la descente de gradient.
+\newline 
+Par exemple pour un résau de trois couches: $x\to h_1\to h_2\to y$ on calcule en forward $h_1,h_2$ et $y$, puis en backward on remonte: $\frac{\partial L}{\partial y}$, puis $\frac{\partial L}{\partial h_2}$, ensuite $\frac{\partial L}{\partial h_1}$, et enfin les dérivées par rapport aux poids.
+\bigskip 
 
+\subsection{Formalisation}
+Considérons un résau à K couches, chaque couche $f_k$ prend en entrée un vecteur $x_{k-1}$ et des paramètres $\theta_k$ pour produire une sortie:
+$$x_k=f_k(x_{k-1},\theta_k)$$
+la sortie finale du résaux est $y=x_K$.
+\bskip 
+Soit une fonction différentiable de perte $L$ pour la sortie $y$ du résau, le backward pass a pour objectif de calculer, pour tout paramètre $\theta_k$, la dérivée $\frac{\partial L}{\partial \theta_k}$, on peut alors mettre à jour la valeur de ce paramètre:
+$$\theta_k\leftarrow \theta_k - \alpha \frac{\partial L}{\partial \theta_k}(\theta_k) \ \ \text{avec } \alpha \text{ le taux d'apprentissage.}$$
+Pour effectuer ce calcule on calcule récurcivement $\frac{\partial L}{\partial \theta_k}$ à partir de la dernière couche:
+$$\frac{\partial L}{\partial \theta_k}(\theta_k)=\frac{\partial L}{\partial x_k}(x_k)\frac{\partial f_k}{\partial \theta_k}(x_{k-1},\theta_k)$$
+or, par hypothèse, $L$ est différentiable donc on peut calculer directement $\frac{\partial L}{\partial x_K}$ puis:
+$$ \frac{\partial L}{\partial x_{k-1}}(x_{k-1})=\frac{\partial L}{\partial x_{k}}(x_{k})\frac{\partial x_k}{\partial x_{k-1}}=\frac{\partial L}{\partial x_{k}}(x_{k})\frac{\partial f_k}{\partial x_{k-1}}(x_{k-1}\theta_k).$$
 \section{A Retenir Des Quizzs}
 \subsection{Quizz 1}
-
+\begin{itemize}
+    \item Comment calculer le nombre de paramètres d'un résaux de neurones: pour chaque couche on a le calcule suivant: $y=Wx$ avec $y$ la sortie en dimension $k$, $x$ l'entrée de dimension $d$ et donc $W$ la matrice de paramètres dans $\M_{k,d}(\R)$, cette couche a donc $k*d$ paramètres. 
+    \newline
+    Par exemple pour un résau en trois couches dont les deux premières couches contiennent respectivement 200 et 100 neurones, pour une entrée de dimension 10 et une sortie de dimension 1, on a:
+    $$\R^{10}\longrightarrow_{W_1}\R^{200}\longrightarrow_{W_2}\R^{100}\longrightarrow_{W_3}\R^1 \ \ \text{on a donc } 10\cdot200+200\cdot100+100\cdot1 \ \ \text{paramètres.}$$
+    \item Calcul de la mémoire nécessaire pour implémenter le forward/backward pass: pour un résau dont les paramètres sont stoqués sur M bits et dont les données à chaque couche pour un unique échantillon sont stoquées sur m bits, la mémoire nécessaire pour implémenter le forward pass sur un batch de taille B est $$M+B\cdot m \cdot \text{nombre de couches}.$$
+    Pour le backward pass, il faut également compter les paramètres du gradient qui sont d'environ un par paramètre du résau donc la mémoire nécessaire est:
+    $$M+B\cdot m \cdot \text{nombre de couches}.$$
+\end{itemize}
 \end{document}
