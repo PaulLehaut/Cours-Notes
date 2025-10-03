@@ -235,6 +235,23 @@ Soient $\ind\lambda r$  les valeurs propres de $A$ comptées avec leur multiplic
 \sskip 
 Si $Re(\lambda_j)<0$ pour tout $j$, le système est exponentiellement stable. Si $Re(\lambda_1)=0$ et $Re(\lambda_j)<0$ pour tout $j\in[|2,r|]$ le système est simplement stable.
 \bigskip 
+
+\Dem
+\sskip 
+Si $Re(\lambda_j)<0$ pour tout $j$, alors, comme:
+$$||e^{tJ_j(\lambda)}||_1=e^{tRe(\lambda)}(\sum_{k=0}^{j-1}\frac{t^k}{k!})$$
+converge exponentiellement vite vers 0 lorsque $t$ tend vers $\pinf$, il en est donc de même pour $||e^{tA}||_1$.
+\newline
+Si $Re(\lambda_1)=0$ et $Re(\lambda_j)<0$ pour tout $j\in[|2,r|]$ alors:
+$$e^{tA}=P\begin{pmatrix}
+    e^{\lambda_1t} & & &0\\
+    & e^{tJ_2(\lambda_2)}&&\\
+    &&\ddots&\\
+    0&&&e^{tJ_r(\lambda_r)}
+\end{pmatrix}P^{-1}$$
+donc le sytème 'tourne' asymptotiquement et est donc simplement stable.
+\bigskip 
+
 \subsection{Stabilité des Systèmes Non Linéaires}
 Soit $x*$ un état d'équilibre de $\dot x = F(x)$.
 \bigskip 
