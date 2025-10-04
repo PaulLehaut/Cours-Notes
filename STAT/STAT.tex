@@ -202,4 +202,122 @@ $$\lim \bar{X_n}=\E(X_1) \ \ \text{presque sûrement}.$$
 \sskip 
 Soit $(X_n)$ une suite de VA$\R^d$ iid telle que $\E(||X_1||^2)<\pinf$, alors:
 $$\lim\sqrt{n}(\bar{X_n}-\E(X_1))=\mc{N}(0,Cov(X_1)) \ \ \text{en distribution.}$$
+\newpage
+\section{Estimateur dans un Modèle Paramétrique}
+On considère un échantillon $\indn{X}$ de VA iid dans un espace mesurable $(E,\mc E)$ de loi $\Prob$ inconnue qu'on cherche à éclaircir. On cherche par exemple à estimer $\E_\Prob(X_1), \ V_\Prob(X_1)$ l'histogramme de $\Prob$ ou encore d'autre quantité d'intérêt (QI).
+\bskip
+On se restreint à des lois d'une certaine forme caractérisées par un ou certain paramètres. Formellement, on considère une famille de lois: $\{\Prob_\theta; \ \theta \in \Theta\}$.
+\bigskip 
+
+\subsection{Estimateurs}
+On cherche donc à estimer une QI à l'aide de notre échantillon de VA, pour ce faire on va chercher à approcher QI par une fonction de l'échantillon appelée statistique.
+\bigskip 
+
+\Def 
+\sskip 
+Une statistique $T_n$ est une VA de la forme $T_n=t_n(\indn X)$ avec $t_n$ déterministe et qui ne dépend pas de $\Prob$.
+\sskip
+On appelle un estimateur une statistique qui vise à approcher une certaine QI.
+\bigskip 
+
+\Def 
+\sskip 
+Un estimateur $Z_n$ d'une QI est dit constistant si $Z_n$ converge en probabilité vers QI, il est fortement consistant s'il converge vers QI \ps.
+\bskip 
+Par exemple, dans le cas où $E=\R$, alors la moyenne empirique $\bar X_n=\frac 1 n\sum_{i=1}^nX_i$ est un estimateur fortement consistant de $\E(X_1)$.
+\bigskip
+
+\subsection{Biais et Risque Quadratique}
+Le biais et la MSE permettent de quantifier la distance d'un estimateur à sa QI dans un régime non asymptotique (ie n est fini).
+\bigskip 
+
+\Def 
+\sskip 
+Soit un estimateur intégrable $Z_n$, le biais de $Z_n$ est:
+$$b(Z_n)=\E(Z_n)-QI, \ \ \text{il s'agit de la distance moyenne de l'estimateur à la QI}$$
+si ce biais est nul, on dit que l'estimateur est non biaisé.
+\bskip 
+Il est intéressant de remarquer que la variance empirique est biaisée ce qui motive la définition suivante:
+\bigskip 
+
+\Def 
+\sskip 
+Si $E=\R$, l'estimateur non-biaisé de la variance est:
+$$S_n^2=\frac{1}{n-1}\sum_{i=1}^n(X_i-\bar X_i)^2.$$
+\bskip 
+Une mesure plus précise de la distance de l'estimateur à la QI peut être donnée par la MSE.
+\bigskip 
+
+\Def 
+\sskip 
+Soit $Z_n$ un estimateur de carré intégrable, la MSE de $Z_n$ est définie par:
+$$MSE(Z_n)=E(||Z_n-QI||^2).$$
+\bigskip 
+
+\Prop 
+\sskip 
+On peut a l'égalité suivante:
+$$MSE(Z_n)=||b(Z_n)||^2+V(Z_n).$$
+\bskip 
+En général on ne peut pas minimiser à la fois la variance et le biais. En data science il peut être intéressant d'introduire un biais pour réduire la variance du modèle et donc le risque d'overfitting.
+\bigskip 
+
+\subsection{Modèle Paramétrique et Estimation du Moment}
+On s'intéresse ici à l'estimation de la distribution complète $\Prob$ de $X_1$. Il y a deux approches principales: la méthode non paramétrique (par histogramme) et la méthode paramétrique qui repose sur la supposition que $\Prob$ a une certaine forme (comme exponentielle ou gaussienne).
+\bigskip 
+
+\Def 
+\sskip 
+Un modèle paramétrique sur E est un ensemble de mesures de probabilités:
+$$\mc P=\{\Prob_\theta; \ \theta\in\Theta\}$$
+sur l'espace E, indexé par un ensemble de paramètres $\Theta\subset\R^k$.
+\bskip 
+Il est important de constater que si, pour deux valeurs distinctes $\theta$ et $\theta'$, on a $\Prob_\theta = \Prob_{\theta'}$ alors il n'est pas possible de distinguer $\theta$ de $\theta'$ par simple observation de $\indn X$. On travaillera donc toujours en supposant que la fonction $\theta\mapsto\Prob_\theta$ est injective, on dira alors que $\mc P$ est identifiable.
+\sskip 
+On fixe désormais un modèle paramétrique $\mc P$. Pour tout $\theta$ il est pratique de dénoté par $\Prob_\theta$ la mesure de probabilité pour laquelle, pour tout $n\ge 1$, les VAs $\indn X$ sont iid selon $\Prob_\theta$. On définit de façon similaire $\E_\theta, \ V_\theta$ etc.
+\bigskip 
+
+\Prop 
+\sskip
+Soit X une VA$\R$ non déterministe intégrable et qui prend ses valeurs dans un intervalle I. Soit $\Phi : I\to \R$ strictement convexe, alors: $\Phi(\E(X))<\E(\Phi(X))$.
+\bskip 
+La méthode des moments est une procédure naturelle pour construire des estimateurs, on détaille ici l'exemple pour le modèle exponentielle: $\{\epsilon(\lambda); \ \lambda >0\}$ dans lequel on cherche un estimateur de $\lambda$:
+\begin{itemize}
+\item La loi forte des grands nombres donne, pour tout $\lambda>0$: $\bar X_n\to\E_\lambda(X_1)=\frac 1 \lambda$ \ps, donc $\frac{1}{\bar X_n}\to \lambda$ \ps.
+\newline
+La continuité de la fonction $x\mapsto \frac 1 x$ sur $\R_+^*$ assure donc que $\bar\lambda_n =\frac{1}{\bar X_n}$ est un estimateur fortement consistant de $\lambda$.
+\end{itemize}
+La généralisation abstraite de cette méthode s'énonce de la façon suivante:
+\begin{itemize}
+\item Pour l'estimation de $g(\theta)\in  \R^d$, cela consiste à trouver $\phi$ et $m$ des fonctions telles que:
+$$\forall \theta\in \Theta, \ \E_\theta(\phi(X_1)) = m(g(\theta)).$$
+Pour le modèle exponentielle on a pris: $\phi(x) =x, \ g(\lambda)=\lambda$ et $m(\lambda)=\frac{1}{\lambda}$.
+\newline 
+Alors, la loi forte des grands nombres nous permet donc d'approximer $m(g(\theta))$ par: $\frac{1}{n}\sum_{i=1}^n\phi(X_i)$ de sorte que, si $m$ possède une fonction réciproque continue $m^{-1}$, alors:
+$$Z_n=m^{-1} (\frac{1}{n}\sum_{i=1}^n\phi(X_i))$$
+est un estimateur fortement consistant de $g(\theta)$.
+\end{itemize}
+\bigskip 
+
+\subsection{Convergence Normale}
+La construction d'un estimateur par la méthode des moments dépend du choix arbitraire de la fonction $\phi$, donc différents choix de $\phi$ peuvent donner différents estimateurs qui sont tous, par construction, fortement consistant. Pour déterminer l'estimateur le plus intéressant en pratique, on peut s'intéresser à celui qui converge 'le plus vite' vers la QI. Cette vitesse de convergence peut être mesurée à l'aide de la notion de variance asymptotique.
+\bigskip 
+
+\Def 
+\sskip 
+Un estimateur consistant $Z_n$ de $g(\theta)$ est asymptotiquement normal si, pour tout $\theta$, il existe une matrice symétrique positive $K(\theta)\in \M_d(\R)$ telle que: $\sqrt{n}(Z_n-g(\theta))$ converge en distribution vers $\mc N_d(0,K(\theta))$.
+\sskip 
+La fonction $\theta\mapsto K(\theta)$ est appelé la covariance asymptotique de $Z_n$.
+\bigskip 
+
+\Theo \ Méthode delta
+\sskip 
+Soit $(\zeta_n)$ une suite de VA à valeurs dans $\R^k$ et $a\in \R^k$ telles que $\zeta_n\to a$ en probabilité et $\sqrt{n}(\zeta_n-a)$ converge en distribution vers un vecteur aléatoire $Y\in\R^k$. Soit $\mc U$ un ouvert de $\R^k$ qui contient $a$, soit $\Phi :\mc U\to \R^d$ de classe $\mc C^1$, alors:
+$$\lim_{n\to\pinf}\sqrt{n}(\Phi(\zeta_n)-\Phi(a))=\nabla\Phi(a)Y$$
+en distribution.
+\bigskip 
+
+\Theo \ Slutsky
+\sskip 
+Soit $((X_n,Y_n))$ une suite de couples de VAs telle que $(X_n)$ converge en probabilité vers une variable déterministe $a$ et que $(Y_n)$ converge en distribution vers une variable aléatoire $Y$. Alors $((X_n,Y_n))$ converge en distribution vers $(a,Y)$, et, par conséquent, pour toute fonction continue $\Psi$, $(\Psi(X_n,Y_n))$ converge en distribution vers $\Psi(a,Y)$.
 \end{document}
