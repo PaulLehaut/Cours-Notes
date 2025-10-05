@@ -118,6 +118,141 @@ Pour effectuer ce calcule on calcule récurcivement $\frac{\partial L}{\partial 
 $$\frac{\partial L}{\partial \theta_k}(\theta_k)=\frac{\partial L}{\partial x_k}(x_k)\frac{\partial f_k}{\partial \theta_k}(x_{k-1},\theta_k)$$
 or, par hypothèse, $L$ est différentiable donc on peut calculer directement $\frac{\partial L}{\partial x_K}$ puis:
 $$ \frac{\partial L}{\partial x_{k-1}}(x_{k-1})=\frac{\partial L}{\partial x_{k}}(x_{k})\frac{\partial x_k}{\partial x_{k-1}}=\frac{\partial L}{\partial x_{k}}(x_{k})\frac{\partial f_k}{\partial x_{k-1}}(x_{k-1}\theta_k).$$
+\bigskip 
+
+\section{Résaux de Neurones Convolutifs (CNN): Achitectures LeNet et AlexNet}
+Il existe une différence fondamentale entre les CNN et les MLP, en effet un MLP considère chaque entrée comme indépendante des autres. Or, cette interprétation des données peut être problématique, dans une image par exemple les pixels proches sont corrélés, on utilise alors un CNN pour conserver cette cohérence spatiale en exploitant des opérations locales appelées convolutions.
+\bigskip 
+\subsection{Principe de la Convolution}
+Une couche de convolution apprend un ensemble de filtres (ou noyaux) qui détectent des motifs locaux dans les données d'entrée.
+\bskip 
+\Def 
+\sskip 
+Soit une entrée $X\in \R^{W\times H\times C_{in}}$ où $W$ et $H$ sont la largeur et la hauteur, $C_{in}$ correspond au nombre de canaux (par exemple trois pour du RGB).
+\sskip 
+Un noyau ou filtre $K\in\R^{S\times S\times C_{in}\times C_{out}}$ (pour l'exemple typique d'un filtre en carré) où $S$ est la taille du filtre et $C_{out}$ le nombre de canaux de sortie.
+\sskip 
+La sortie de la couche de convolution est alors: $Y_i=K_i*X$ pour $i\in [|1,C_{out}|]$ avec $*$ la convolution en 2D.
+\sskip 
+Chaque filtre $K_i$ balaie l'image, effectue des multiplications locales, et produit une carte d'activation (feature map) qui indique où le motif est présent.
+\bskip 
+Pour des données brutes (sans padding), la taille de sortie est $W_{out}=W-S+1, \ H_{out}=H-S+1$, avec un padding (ajout de zéro aux limites des données donc autour de l'image par exemple), on conserve la taille: $W_{out}=W$ et $H_{out}=H$.
+\sskip 
+On peut également implémenter un pas s (stride) afin d'échantilloner moins souvent et donc réduire la dimension de sortie: $W=\left\lfloor\frac{W-S}{s}+1 \right\rfloor$.
+\sskip 
+En pratique, la plupart des CNN modernes utilisent des filtres $3\times 3$, un padding de 1 et un stride de 1 (voire 2).
+\bskip 
+L'intérêt de la convolution est de diminuer significativement le nombre de paramètres du modèle. Par exemple une couche linéaire classique reliant tous les pixels entre eux aurait:
+$$(W\times H\times C_{in})(W_{out} \times H_{out}\times C_{out}) $$
+paramètres ce qui devient vite énorme. Tandis que une convolution ne dépend que d'un petit voisinage et donc possède uniquement: $S^2\times C_{in}\times C_{out}$ paramètres.
+\sskip 
+Une convolution permet donc de réduire significativement le poids tout en exploitant la structure spatiale.
+\bigskip
+
+\subsection{Autres Couches Importantes}
+Une architecture de CNN manipule de nombreux tenseurs de différentes dimensions, des opérations pour changer ces dimensions peuvent donc s'avérer utiles, il sera par ailleurs de les interpréter comme des couches à part entières de l'architecture bien qu'elles ne puissent présenter aucun paramètre à entraîner.
+\sskip 
+On considère donc des couches de:
+\begin{itemize}
+    \item  mise en forme (reshaping) qui changent la structure des tenseurs,
+    \item pooling qui réduisent la taille spatiale des cartes caractéristiques pour diminuer le coût de calcul et augmenter la robustesse aux petites translations. Il en existe deux types principaux:
+    
+    - le Max Pooling qui garde la valeur maximale dans chaque région 
+
+    - le Average Pooling qui fait la moyenne par région.
+    \item interpolation (upsampling) qui augmentent la taille spatiale 
+\end{itemize}
+\bigskip
+
+\subsection{LeNet: Le Premier CNN}
+Proposé par Yann LeCun dans les années 90, il est utilisé pour reconnaîtres les chiffres manuscrits sur les chèques bancaires.
+\sskip 
+Sa structure générale est la suivante:
+\begin{itemize}
+    \item Convolution $->$ ReLU $->$ pooling
+    \item Convolution $->$ ReLU $->$ pooling
+    \item Fully Connected (dense) $->$ ReLU
+    \item Fully Connected $->$ sortie (10 classes)
+\end{itemize}
+Ce modèle possède peux de paramètres (quelques centaines de milliers), il s'agit du premier CNN montrant qu'on poouvait apprendre directement à partir de pixels pour faire de la reconnaissance.
+\bigskip
+
+\subsection{AlexNet: La Révolution de 2012}
+Avant 2012 les approches de vision par ordinateur reposaient surtout sur des descripteurs manuels. Puis arrivent Alex Krizhevsky, Ilya Sutskever et Geoffrey Hinton qui publient AlexNet un résau de deep learning qui écrase la concurrence (réduisant par deux la marge d'erreur).
+\sskip 
+Cette révolution s'organise autour de cinq points clés:
+\begin{itemize}
+    \item un résau très profond pour l'époque (8 couches)
+    \item une utilisation massive du GPU pour l'entraînement
+    \item la fonction d'activation ReLU plus facile à entraîner que le sigmoid
+    \item la technique du dropout
+    \item et une data augmentation
+\end{itemize}
+Le dropout est une technique de régularisation qui consiste à 'étendre' aléatoirement un certain pourcentage des neurones à chaque étape d'entraînement. L'objectif de cette méthode est d'empêcher le résaux de devenir trop dépendant d'un petit ensemble de neurones pour avoir une meilleur généralisation.
+\bskip 
+On va désormais détailler l'architecture d'AlexNet. Pour ce faire on considère une taille d'entrée classique 224x224x3 ($H\times W\times C_ {in}$). L'architecture est à retrouver dans AlexNet.py.
+\sskip 
+La première couche conv1:
+\begin{itemize}
+    \item Type: Conv2d
+    \item Paramètres de la fonction: $C_{in}=3,\ C_{out}=96,\ S=11,\ stride=4, \ padding=2$ activation de ReLU
+    \item Taille de sortie (spatial): $W_{out}=\left\lfloor \frac{224+2\cdot 2-11}{4}\right\rfloor+1=55=H_{out}$ la sortie totale est donc: $55^2\times 96$.  
+    \item Nombre de paramètres, poids et biais: poids$=96\times 3\times 11^2=34 848$, chaque filtre a un biais scalaire unique donc 96 biais, soit 34 944 paramètres au total. 
+\end{itemize}
+La couche pool1:
+\begin{itemize}
+    \item Type: MaxPool2d
+    \item Paramètres de la fonction: $kernel=3,\ stride=2$ pas de padding.
+    \item Taille de sortie (spatial): $W_{out}=\left\lfloor \frac{55-3}{2}\right\rfloor+1=27=H_{out}$ la sortie totale est donc: $27^2\times 96$.  
+    \item Nombre de paramètres, poids et biais: pas de paramètres.
+\end{itemize}
+\bigskip
+La seconde couche conv2:
+\begin{itemize}
+    \item Type: Conv2d
+    \item Paramètres de la fonction: $C_{in}=96,\ C_{out}=256,\ S=5,\ stride=1, \ padding=2$ activation de ReLU
+    \item Taille de sortie (spatial): $W_{out}=\left\lfloor \frac{27+2^2-5}{1}\right\rfloor+1=27=H_{out}$ la sortie totale est donc: $27^2\times 96$.  
+    \item Nombre de paramètres, poids et biais: poids$=256\times 96\times 5^2=614 400$, chaque filtre a un biais scalaire unique donc 256 biais, soit 614 656 paramètres au total. 
+\end{itemize}
+La couche pool2:
+\begin{itemize}
+    \item Type: MaxPool2d
+    \item Paramètres de la fonction: $kernel=3,\ stride=2$ pas de padding.
+    \item Taille de sortie (spatial): $W_{out}=\left\lfloor \frac{27-3}{2}\right\rfloor+1=13=H_{out}$ la sortie totale est donc: $13^2\times 96$.  
+    \item Nombre de paramètres, poids et biais: pas de paramètres.
+\end{itemize}
+\bigskip
+La troisième couche conv3:
+\begin{itemize}
+    \item Type: Conv2d
+    \item Paramètres de la fonction: $C_{in}=256,\ C_{out}=384,\ S=3,\ stride=1, \ padding=1$ activation de ReLU
+    \item Taille de sortie (spatial): $W_{out}=\left\lfloor \frac{13+2-3}{1}\right\rfloor+1=13=H_{out}$ la sortie totale est donc: $13^2\times 384$.  
+    \item Nombre de paramètres, poids et biais: poids$=384\times 256\times 3^2=884 736$, chaque filtre a un biais scalaire unique donc 384 biais, soit 885 120 paramètres au total. 
+\end{itemize}
+\bigskip
+La quatrième couche con4:
+\begin{itemize}
+    \item Type: Conv2d
+    \item Paramètres de la fonction: $C_{in}=384,\ C_{out}=384,\ S=3,\ stride=1, \ padding=1$ activation de ReLU
+    \item Taille de sortie (spatial): la taille de sortie reste $13^2\times 384$  
+    \item Nombre de paramètres, poids et biais: poids$=384\times 384\times 3^2=1327104$, chaque filtre a un biais scalaire unique donc 384 biais, soit 1 327 488 paramètres au total. 
+\end{itemize}
+\bigskip
+La cinquième couche conv5:
+\begin{itemize}
+    \item Type: Conv2d
+    \item Paramètres de la fonction: $C_{in}=384,\ C_{out}=256,\ S=3,\ stride=1, \ padding=1$ activation de ReLU
+    \item Taille de sortie (spatial): la taille de sortie est $13^2\times 256$.
+    \item Nombre de paramètres, poids et biais: poids$=256\times 384\times 3^2=884736$, chaque filtre a un biais scalaire unique donc 256 biais, soit 884 992 paramètres au total. 
+\end{itemize}
+La couche pool3:
+\begin{itemize}
+    \item Type: MaxPool2d
+    \item Paramètres de la fonction: $kernel=3,\ stride=2$ pas de padding.
+    \item Taille de sortie (spatial): $W_{out}=\left\lfloor \frac{13-3}{2}\right\rfloor+1=6=H_{out}$ la sortie totale est donc: $6^2\times 256$.  
+    \item On flatten ensuite pour la couche fully connected: vecteur de dimension $256\times 6^2=9216$.
+\end{itemize}
+
 \section{A Retenir Des Quizzs}
 \subsection{Quizz 1}
 \begin{itemize}
