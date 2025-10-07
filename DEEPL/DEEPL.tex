@@ -208,7 +208,7 @@ Cette révolution s'organise autour de cinq points clés:
     \item et une data augmentation
 \end{itemize}
 Le dropout est une technique de régularisation qui consiste à 'éteindre' aléatoirement un certain pourcentage des neurones à chaque étape d'entraînement. L'objectif de cette méthode est d'empêcher le résaux de devenir trop dépendant d'un petit ensemble de neurones pour avoir une meilleur généralisation.
-\sskip 
+\newline
 Par exemple supposons qu'on est en entrée le vecteur d'activation $x=(2,8,-3,11,5)$ et pour la couche un dropout de 50$\%$, alors on génère selon une loi de Bernoulli(0.5): $m=(1,0,1,0,1)$, alors l'entrée devient: $x'=x\odot m=(2,-3,5)$.
 \sskip 
 Néanmoins, quand le résau est utilisé pour faire des prédictions, tous les neurones sont activés mais les sorties sont réduites par la probabilité de maintient p: $x_{test}=px_{train}$.
@@ -345,7 +345,37 @@ $ x\in\R^{9216}, \ y\in\R^{4096}$ sont les entrée et sortie respective de la co
 Ainsi, chaque neurone de cette couche reçoit tous les éléments d'entrée, apprend à les combiner et peut ainsi en déduire un représentation de l'image.
 \sskip 
 Les fonctions dropout et ReLU sont détaillées précédement.
+\bskip
+Deuxième couche fc2: elle fonctionne de la même façon que la précédente avec $y=Wx+b$ (évidemment avec les dimensions qui conviennent), néanmoins elle apprend à un niveau d'abstraction supérieur en combinant les motifs d'entrés pour en extraire des concepts.
+\bskip
+Enfin la couche fc3 correspond à la sortie du résau, elle convertit la représentation finale abstraite en un score de classe (dans le cas d'AlexNet).
+\bigskip 
+Par exemple l'interprétation des sorties de ces trois couches pourrait être: 
+\begin{itemize}
+    \item fc1: voit des yeux, des oreilles et des poils
+    \item fc2: en déduit qu'il doit s'agir d'un animal à quattre pattes
+    \item  fc3: conclut que c'est un chien à 98$\%$, un chat à 2$\%$.
+\end{itemize}
+\bigskip
 
+\section{Batch Normalization}
+Il s'agit d'une technique visant à stabiliser et accélérer la convergence d'un résau de neurones. Elle s'implémente comme une couche à part entière dans le résau de neurones. Elle possède à la fois des paramètres estimés (comme la moyenne ou la variance) et des paramètres appris (comme un coefficient d'échelle et un biais).
+\sskip
+Attention, son comportement diffère entre la phase d'entraînement et la phase de test (c'est une source courante d'erreurs).
+\bigskip
+
+\subsection{Comportement durant l'Entraînement}
+Supposons que les entrées d'une couche BatchNorm (BN) soient des vecteurs de $\R^d$. On en considère alors un lot (batch) $B=\{\indn x\}$. On calcule, pour ce lot, sa moyenne $\mu_B$ et son écart-type $\sigma_B$, on note par ailleurs $a$ (facteur de mise à l'échelle) et $b$ (le biais) les paramètres appris qui sont également des vecteurs de $\R^d$. 
+\sskip 
+La normalisation par lots agit indépendamment sur chaque dimension k du vecteur d'entrée selon la formule:
+$$y_{i,k}=\frac{a_k(x_{i,k}-\mu_{B,k})}{\sqrt{\sigma_{B,k}^2+\epsilon}}+ b_k$$
+avec: $\epsilon$ une petite constante pour éviter une éventuelle division par zéro.
+\bigskip 
+
+\subsection{Comportement Durant le Test}
+Lors du test, les données ne viennent pas toujours par lot et les échantillons peuvent ne pas être indépendants, ainsi, plutôt que de calculer la moyenne et la variance du lot, BN utilise des estimations globales accumulées pendant l'entraînement. Ces moyennes et variances de référence sont mises à jour à chaque itération d'entraînement:
+$$\mu_k\leftarrow m\times \mu_k + (1-m)\times \mu_{B,k}, \ \ \sigma_k^2\leftarrow m\times\sigma_k^2+(1-m)\times\sigma_{B,k}^2$$
+o
 \section{A Retenir Des Quizzs}
 \subsection{Quizz 1}
 \begin{itemize}
