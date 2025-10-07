@@ -125,7 +125,8 @@ Il existe une différence fondamentale entre les CNN et les MLP, en effet un MLP
 \bigskip 
 \subsection{Principe de la Convolution}
 Une couche de convolution apprend un ensemble de filtres (ou noyaux) qui détectent des motifs locaux dans les données d'entrée.
-\bskip 
+\bigskip 
+
 \Def 
 \sskip 
 Soit une entrée $X\in \R^{W\times H\times C_{in}}$ où $W$ et $H$ sont la largeur et la hauteur, $C_{in}$ correspond au nombre de canaux (par exemple trois pour du RGB).
@@ -155,15 +156,33 @@ Une architecture de CNN manipule de nombreux tenseurs de différentes dimensions
 On considère donc des couches de:
 \begin{itemize}
     \item  mise en forme (reshaping) qui changent la structure des tenseurs,
-    \item pooling qui réduisent la taille spatiale des cartes caractéristiques pour diminuer le coût de calcul et augmenter la robustesse aux petites translations. Il en existe deux types principaux:
+    \item pooling qui réduisent la taille spatiale des cartes caractéristiques pour diminuer le coût de calcul et augmenter la robustesse aux petites translations tout en conservant les activations les plus significatives. Il en existe deux types principaux:
     
     - le Max Pooling qui garde la valeur maximale dans chaque région 
 
     - le Average Pooling qui fait la moyenne par région.
+    \sskip 
+    On détaille le fonctionnement de tels fonctions juste après.
     \item interpolation (upsampling) qui augmentent la taille spatiale 
 \end{itemize}
-\bigskip
 
+Exemple pour le pooling:
+\sskip 
+On s'intéresse à: $$\begin{pmatrix}
+    1 & 3 & 2 & 0 & 1 &2\\
+    4 &6&5&1&3&1\\
+    7&2&8&2&0&4\\
+    3&5&0&6&7&3\\
+    2&1&9&8&2&4\\
+    1&0&3&5&2&1
+\end{pmatrix}$$
+à laquelle on applique MaxPool2d($\text{kernel}\_\text{size}$=2, stride=2), on obtient donc:
+$$\begin{pmatrix}
+    6&5&3\\
+    7&8&7\\
+    2&9&4
+\end{pmatrix}.$$
+\bigskip 
 \subsection{LeNet: Le Premier CNN}
 Proposé par Yann LeCun dans les années 90, il est utilisé pour reconnaîtres les chiffres manuscrits sur les chèques bancaires.
 \sskip 
@@ -188,7 +207,11 @@ Cette révolution s'organise autour de cinq points clés:
     \item la technique du dropout
     \item et une data augmentation
 \end{itemize}
-Le dropout est une technique de régularisation qui consiste à 'étendre' aléatoirement un certain pourcentage des neurones à chaque étape d'entraînement. L'objectif de cette méthode est d'empêcher le résaux de devenir trop dépendant d'un petit ensemble de neurones pour avoir une meilleur généralisation.
+Le dropout est une technique de régularisation qui consiste à 'éteindre' aléatoirement un certain pourcentage des neurones à chaque étape d'entraînement. L'objectif de cette méthode est d'empêcher le résaux de devenir trop dépendant d'un petit ensemble de neurones pour avoir une meilleur généralisation.
+\sskip 
+Par exemple supposons qu'on est en entrée le vecteur d'activation $x=(2,8,-3,11,5)$ et pour la couche un dropout de 50$\%$, alors on génère selon une loi de Bernoulli(0.5): $m=(1,0,1,0,1)$, alors l'entrée devient: $x'=x\odot m=(2,-3,5)$.
+\sskip 
+Néanmoins, quand le résau est utilisé pour faire des prédictions, tous les neurones sont activés mais les sorties sont réduites par la probabilité de maintient p: $x_{test}=px_{train}$.
 \bskip 
 On va désormais détailler l'architecture d'AlexNet. Pour ce faire on considère une taille d'entrée classique 224x224x3 ($H\times W\times C_ {in}$). L'architecture est à retrouver dans AlexNet.py.
 \sskip 
@@ -198,6 +221,7 @@ La première couche conv1:
     \item Paramètres de la fonction: $C_{in}=3,\ C_{out}=96,\ S=11,\ stride=4, \ padding=2$ activation de ReLU
     \item Taille de sortie (spatial): $W_{out}=\left\lfloor \frac{224+2\cdot 2-11}{4}\right\rfloor+1=55=H_{out}$ la sortie totale est donc: $55^2\times 96$.  
     \item Nombre de paramètres, poids et biais: poids$=96\times 3\times 11^2=34 848$, chaque filtre a un biais scalaire unique donc 96 biais, soit 34 944 paramètres au total. 
+    \item Il s'agit ici d'une réduction forte de la dimension spatiale dès le départ pour minimiser le coût de calcul, le filtre large permet d'observer des motifs de grande échelle.
 \end{itemize}
 La couche pool1:
 \begin{itemize}
@@ -205,6 +229,7 @@ La couche pool1:
     \item Paramètres de la fonction: $kernel=3,\ stride=2$ pas de padding.
     \item Taille de sortie (spatial): $W_{out}=\left\lfloor \frac{55-3}{2}\right\rfloor+1=27=H_{out}$ la sortie totale est donc: $27^2\times 96$.  
     \item Nombre de paramètres, poids et biais: pas de paramètres.
+    \item L'objectif des couches de pooling est ici de réduire la résolution et les invariances locales aux translations.
 \end{itemize}
 \bigskip
 La seconde couche conv2:
@@ -245,6 +270,8 @@ La cinquième couche conv5:
     \item Taille de sortie (spatial): la taille de sortie est $13^2\times 256$.
     \item Nombre de paramètres, poids et biais: poids$=256\times 384\times 3^2=884736$, chaque filtre a un biais scalaire unique donc 256 biais, soit 884 992 paramètres au total. 
 \end{itemize}
+On peut observer dans les couches précédentes un enchaînement de petits filtres ($3\times 3$) capturant les motifs locaux et combinatoire.
+\sskip
 La couche pool3:
 \begin{itemize}
     \item Type: MaxPool2d
@@ -252,6 +279,72 @@ La couche pool3:
     \item Taille de sortie (spatial): $W_{out}=\left\lfloor \frac{13-3}{2}\right\rfloor+1=6=H_{out}$ la sortie totale est donc: $6^2\times 256$.  
     \item On flatten ensuite pour la couche fully connected: vecteur de dimension $256\times 6^2=9216$.
 \end{itemize}
+On passe désormais aux couches dites fully connected.
+\sskip 
+La couche fc1, précédée d'une couche de dropout pour éviter le surapprentissage:
+\begin{itemize}
+    \item Type: dense.
+    \item Paramètres: $C_{in}=9 216,\ C_{out}=4096$ puis activation de ReLU.
+    \item Nombre de paramètres poids, et biais: Poids$=4096\times9216$, biais=$4096$ donc 37 752 832 paramètres au total.
+\end{itemize}
+\bigskip
+La seconde couche fc2, précédée d'une couche de dropout pour éviter le surapprentissage:
+\begin{itemize}
+    \item Type: dense.
+    \item Paramètres: $C_{in}=4096,\ C_{out}=4096$ puis activation de ReLU.
+    \item Nombre de paramètres poids, et biais: Poids$=4096\times4096$, biais=$4096$ donc 16 781 312 paramètres au total.
+\end{itemize}
+\bigskip 
+Et enfin la dernière couche et la sortie du programme fc3:
+\begin{itemize}
+    \item Type: dense.
+    \item Paramètres: $ C_{in}=4096,\ C_{out}= $NbClasses puis activation de ReLU.
+    \item Nombre de paramètres poids, et biais: Poids$=4096\times$NbClasses, biais=NbClasses donc 4 097 000 paramètres au total pour 1000 classes.
+\end{itemize}
+En 2012 il était en effet courant d'enchaîner les couches fully connected pour transformer les caractéristiques spatiales en représentations globales et classifier (comme nous allons le voir c'est très coûteux en paramètres et mémoire).
+\sskip
+Le résaux compte donc un total d'environ 62.4M paramètres (il est intéressant de constater que 94$\%$ des paramètres se trouvent dans les couches fc dont 60$\%$ dans la première).
+\bigskip 
+
+\subsubsection{L'intérêt des Couches Conv2d, ReLU et MaxPool2d}
+On détaille tout d'abord chacune de ces fonctions:
+\begin{itemize}
+    \item La fonction Conv2d (Convolution 2D): Son but est d'extraire les motifs locaux d'une image (bords, textures, formes, motifs répétitifs, etc), c'est à ce moment que le résaux repère et analyse les structures visuelles.
+    \sskip 
+    Le principe des convolutions est détaillé au début de cette section.
+    \sskip 
+    L'intérêt d'utiliser ces filtres est ici de les appliquer partout dans l'image afin de reconnaître un motif quelque soit son emplacement.
+    \item La fonction ReLU (Rectified Linear Unit): C'est une fonction d'activation qui a pour objectif d'introduire de la non linéarité dans le résau. Sans cette fonction même les CNN profonds seraient équivalents à une seule convolution linéaire. La ReLU s'est imposée car il s'agit d'une activation simple, rapide et efficace.
+    \sskip 
+    Mathématiquement, elle correspond à la fonction: $\max(0,x)$, cette fonction possède donc une dérivée simple: $1_{R_+^*}$, elle est rapide à entraîner, elle introduit énormément de zéros donc permet une meilleure généralisation.
+    \item La fonction MaxPool2d: Il s'agit d'une fonction de pooling (son fonctionnement est détaillé au début de cette section).
+\end{itemize}
+L'intérêt de ces couches est de construire une hiérarchie de représentations.
+\sskip 
+En effet, au cours de l'entraînement le résaux apprend automatiquement quels motifs sont utiles pour minimiser la fonction de perte. Cette apprentissage se déroule de la façon suivante:
+\begin{itemize}
+    \item Initialement: Le poids de chacun des filtres est initilaisé aléatoirement, ils ne détectent rien a priori.
+    \item Entraînement: Lorsqu'on calcule la perte (par exemple une erreur de classification) on fait ensuite un rétropropagation (backpropagation), les poids des filtres sont légèrement ajustés pour réduire l'erreur.
+    \item Résultat: Certains filtres deviennent sensibles aux bords verticaux (par exemple $[-1, \ 0, \ 1]$), d'autre aux bords horizontaux, aux motifs à répétitions etc. Il est intéressant de constater que cette apprentissage permet au résau de découvrir par lui même les motifs qui maximisent la bonne classification.
+\end{itemize}
+L'intérêt d'enchaîner ces couches est de permettre à chaque couche de prendre comme entrée les cartees d'activation de la couche précédente, les couches supérieures repèrent donc les détails de bas-niveau (bords, textures, couleurs) puis les couches suivantes les motifs intermédiaires (parties d'objets) puis les concepts entiers (objets, visages) et ainsi de suite.
+\bigskip 
+
+\subsubsection{L'intérêt des Couches Entièrements Connectées}
+Ces couches forment la tête du résau, elles interprètent les caractéristiques extraites par les convolutions et prennent la décision finale de classification.
+\bigskip 
+
+\underline{Remarque:}
+\sskip 
+Dans la fonction forward(self, x) on remarque l'appele x = torch.flatten(x, 1) entre le passage des couches de convolutions aux couches entièrements connectées. En effet ces dernières prennent en entrée des vecteurs d'une seule dimension tandis que le résau de convolution renvoi des cartes caractéristiques de dimension (256, 6, 6), l'appele x = torch.flatten(x, 1) convertit donc x en un vecteur de taille 256 x 6 x 6 = 9 216.  
+\bskip 
+La première couche fc1 opère la transformation affine:
+$$y=Wx+b \ \ \text{avec } W\in \M_{4096,9216}(\R) \ \ \text{est la matrice de poids, } b\in\R^{4096} \ \ \text{le vecteur de biais}$$
+$ x\in\R^{9216}, \ y\in\R^{4096}$ sont les entrée et sortie respective de la couche. 
+\sskip 
+Ainsi, chaque neurone de cette couche reçoit tous les éléments d'entrée, apprend à les combiner et peut ainsi en déduire un représentation de l'image.
+\sskip 
+Les fonctions dropout et ReLU sont détaillées précédement.
 
 \section{A Retenir Des Quizzs}
 \subsection{Quizz 1}
