@@ -50,7 +50,7 @@ $$\text{Si } (A_i, i \in I) \text{ est une collection dénombrable d'ensembles m
 \Def 
 \smallskip
 \newline
-Les événements $(A_i, i\in I)$ sont indépendants si, pour touT sous-ensemble fini $J\subset I$, on a:
+Les événements $(A_i, i\in I)$ sont indépendants si, pour tout sous-ensemble fini $J\subset I$, on a:
 $$\Prob (\bigcap_{j\in J}A_j)=\prod_{j\in J} \Prob (A_j).$$
 \bigskip
 \subsection{Fonctions Mesurables}
@@ -172,7 +172,7 @@ alors $Z=Z'$ \pp.
 \sskip 
 Soient $\mu$ et $\nu$ deux mesures $\sigma$-finie sur $(\Omega, \mc H)$ telles que: $\nu(A)=0\implies\mu(A)=0$, alors il existe une fonction mesurable $f$ positive telle que:
 $$\int_A fd\nu=\mu(A)$$
-on note alors: $f\frac{d\mu}{d\nu}$ et on l'appelle dérivée de Radon-Nikodym.
+on note alors: $f=\frac{d\mu}{d\nu}$ et on l'appelle dérivée de Radon-Nikodym.
 \bigskip 
 
 \Prop
@@ -182,7 +182,7 @@ Pour $X$ et $Y$ des VA$\R$ de carré intégrable alors:
 -Si $X$ est positive presque partout, alors l'espérance conditionnelle de $X$ est positive presque partout.
 \smallskip
 
--On a presque partout: $\E(aX+bY|\mc H)=a\E(X|mc H)+ b\E(Y|mc H)$.
+-On a presque partout: $\E(aX+bY|\mc H)=a\E(X|\mc H)+ b\E(Y|\mc H)$.
 \smallskip
 
 -Soit $(X_n,\ n\in\N)$ une suite croissante de VA$\R$ positives de carré intégrable alors on a \pp :

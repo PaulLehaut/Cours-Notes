@@ -375,7 +375,60 @@ avec: $\epsilon$ une petite constante pour éviter une éventuelle division par 
 \subsection{Comportement Durant le Test}
 Lors du test, les données ne viennent pas toujours par lot et les échantillons peuvent ne pas être indépendants, ainsi, plutôt que de calculer la moyenne et la variance du lot, BN utilise des estimations globales accumulées pendant l'entraînement. Ces moyennes et variances de référence sont mises à jour à chaque itération d'entraînement:
 $$\mu_k\leftarrow m\times \mu_k + (1-m)\times \mu_{B,k}, \ \ \sigma_k^2\leftarrow m\times\sigma_k^2+(1-m)\times\sigma_{B,k}^2$$
-o
+où m est un paramètre de momemtum proche de 1 (typiquement 0.9).
+\bigskip 
+
+\subsection{Intuition}
+L'idée fondamentale est qu'il est plus facile d'apprendre avec des données normalisées (moyenne nulle, variance de 1). Cette normalisation stabilise en effet la propagation des gradients, accélère la convergence et permet d'entraîner des résaux plus profonds.
+\sskip 
+En pratique BN est placée juste avant la non-linéarité, en effet des activations comme ReLU sont très non linéaire autour de 0 mais deviennent presque linéaire ailleurs (pour des entrées très grandes ou très négatives) normaliser les données autour de zéro les gardes donc dans la zone active de la fonction.
+\sskip 
+Il est également important de noter que l'ajout de cette couche (qui est linéaire) n'augment pas la capacité de représentation du résau (c'est-à-dire le type de fonction qu'il peut approximer), elle n'affecte que la façon dont le résau est optimisé.
+\bigskip 
+\section{Classification à K-classes et par Estimation du Maximum de Vraisemblance (MLE)}
+\subsection{Principe de l'Estimation du Maximum de Vraisemblance}
+Il s'agit d'un principe fondamental de statistique, il consiste à choisir les paramètres d'un modèle de sort que ce modèle rende les données observées aussi probables que possible, on explicitera plus tard.
+\sskip 
+On suppose pour ce faire que: $X$ est une VA représentant les observations (par exemple une image), $Y$ une VA représentant les classes et que la probabilité conditionnelle $\Prob(Y=y|X=x)$ est modélisée par un résau de neurones paramétré par $\theta$, noté $p_\theta(y|x)$. Ce qu'on veut intuitivement c'est que, si l'observation de $x$ implique $y$, alors $p_\theta(y_i|x_i)$ soit grande. Alors, pour un jeu de données $D=\{(x_1,y_1),...,(x_n,y_n)\}$, on suppose que les échantillons sont indépendants et identiquement distribués, la probabilité d'observer tout le dataset selon le modèle est:
+$$p(D)=\prod_{i=1}^np_\theta(y_i|x_i)p(x_i).$$
+\bigskip 
+
+\underline{Remarque:}
+\sskip
+Comme $p(x_i)$ ne dépend pas de $\theta$ on peut l'ignorer pour l'optimisation.
+\bskip 
+On cherche donc à maximiser la vraisemblance: $\theta^*=\arg\max_\theta\prod_{i=1}^np_\theta (y_i|x_i)$, en pratique, on travaillera plutôt sur le problème de minimiser la perte de log-vraisemblance négative: 
+$$L(\theta)=-\sum_{i=1}^n\log (p_\theta(y_i|x_i))$$
+en effet la fonction log permet d'accentuer la perte considérée pour une petite baisse de probabilité.
+\bigskip 
+
+\subsection{Entropie Croisée}
+Pour une classification à K classes où chaque classe c est représentée par une vecteur one-hot: $y_i\in \R^k$ ($y_{i,c}=1 \ \ \text{si ce est la classe correcte pour }x_i, \ \ 0 \text{sinon}$), le résau prédit un vectuer de probabilité $\tilde{y_{i}}=p_\theta(y|x_i)$ obtenu par une couche softmax (décrite juste après). La perte d'entropie croisée s'écrit alors:
+$$L=-\frac 1 n \sum_{i=1}^n\sum_{c=1}^Ky_{i,c}\log(\tilde{y_i}_{c})$$
+il s'agit en fait de la log vraisemblance-négative, mais écrite explicitement pour les sorties multinomiales.
+\bigskip 
+
+\subsection{La Couche Softmax}
+La softmax transforme les parties brutes du réseau (appelées logits) en probabilités normalisées. Si le résau renvoie pour une entrée x un vecteur de score $z=(\ind z K)$ la softmax est définie par:
+$$p_\theta(y=c|x)=\frac{e^{z_c}}{\sum_{k=1}^Ke^{z_k}}$$
+cette transformation garantit les propriétés d'une distribution de probabilité à $p_\theta$ (probabilités positives de somme 1).
+\sskip 
+L'intuition globale peut se formuler de la façon suivante: le modèle produit des scores pour chaque classe, le softmax les transforme en probabilités, la cross-entropy compare ces probabilités à la vérité (le vecteur one-hot) et la backpropagation ajuste les poids pour maximiser la probabilité des bonnes classes.
+\bigskip 
+
+\underline{Remarque:}
+\sskip 
+PyTorch combine le plus souvent la softmax et la cross-entropy en une seule fonction (nn.CrossEntropyLoss()) qui calcule: $$L=-\log(\frac{e^z{y_i}}{\sum_{k=1}^Ke^{z_k}}).$$
+\bigskip 
+
+\section{Résaux de Neurones Convolutifs Classiques: ResNet}
+Les résaux résiduels (ResNet) forment une famille d'architectures convolutionnelles introduite en 2015 qui ont démontré d'excellentes performances sur une grande variété de tâches de vision par ordinateur tout en restant relativement simples à entraîner et à comprendre. Ils sont construits de manière modulaire ce qui permet de définir des résaux de profondeurs variables avec un nombre de paramètres ajustables.
+\sskip
+Aujourd'hui, bien que cette architecture ne soit plus la meilleure, elle reste une référence standard et robuste. Elle a également inspiré de nombreuses variantes: Wide-ResNet et ResNeXt en 2016 et ConvNeXt (2022).
+\sskip 
+Avant ResNet, entraîner des résaux profonds était difficile (même avec quelques dizaines de couches seulement), souvent un résau plus profond performait moins bien qu'un résau plus petit. Il ne s'agissait alors par d'un problème de sur-apprentissage, mais d'un problème d'optimisation: les gradients devenaient trop instables en se propageant. En effet, on rappelle que le gradient est calculé par en multipliant plusieurs dérivées intermédiaires entre les couches:
+$$\frac{\partial L}{\partial x_0}=\frac{\partial L}{\partial x_n}\times ...\times \frac{\partial x_1}{\partial x_0}$$
+où chaqu terme du produit correspond à une matrice Jacobienne.
 \section{A Retenir Des Quizzs}
 \subsection{Quizz 1}
 \begin{itemize}
