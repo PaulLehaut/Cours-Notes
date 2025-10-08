@@ -47,7 +47,7 @@ L'apprentissage consiste alors à minimiser une fonction de perte définie à pa
 Pour éviter qu'un modèle over/underfit les données, il est souvent judicieux de séparer les données en trois sets: un pour l'entraînement (train set), un pour la validation du modèle (validation set) et enfin un pour estimer la performance rélle (test set).
 \bigskip 
 
-\section{Premier Résau de Neurones}
+\section{Premier Réseau de Neurones}
 \subsection{Perceptron Multicouche (MLP)}
 Un (MLP) est la composition de couches linéaires ($x\mapsto Wx+b$ avec $W$ le poids et $b$ le biais) et non-linéaires. Ces architectures sont caractérisées par leurs hyperparamètres (taille des couches, type de non-linéarité).
 \bigskip 
@@ -63,7 +63,7 @@ On définit la perte quadratique moyenne (MSE) adaptée à la classification mul
 $$L_{MSE}(\theta,D)=\frac{1}{N}\sum_{i=1}^N||f_\theta(x_i)-y_i||^2 \ \ \text{où D correspond au dataset.}$$
 Cette fonction ne cherche qu'à réduire l'erreur sur les données d'entraînement, il y a donc un risque d'overfiting, on peut donc ajouter une pénalité sur la taille des poids, on définit alors le coefficient de régularisation $\lambda>0$, la fonction à minimiser devient:
 $$L(\theta,D)=L_{MSE}(\theta,D)+\lambda||\theta||^2$$
-plus $\lambda$ est grand plus le résau est contraint de rester simple.
+plus $\lambda$ est grand plus le réseau est contraint de rester simple.
 \bigskip 
 
 \subsection{Optimisation}
@@ -102,17 +102,17 @@ L'algorithme se fait en deux étapes:
     \item Forward pass: On fait passer les données à travers le réseau pour obtenir la prédiction.
     \item Backward pass: On fait revenir les gradients depuis la sortie jusqu'à l'entrée.
 \end{itemize}
-A la fin on a les gradients de la perte $L$ par rapport à tous les paramètres du résau, ce qui permet de le mettre à jour avec la descente de gradient.
+A la fin on a les gradients de la perte $L$ par rapport à tous les paramètres du réseau, ce qui permet de le mettre à jour avec la descente de gradient.
 \newline 
-Par exemple pour un résau de trois couches: $x\to h_1\to h_2\to y$ on calcule en forward $h_1,h_2$ et $y$, puis en backward on remonte: $\frac{\partial L}{\partial y}$, puis $\frac{\partial L}{\partial h_2}$, ensuite $\frac{\partial L}{\partial h_1}$, et enfin les dérivées par rapport aux poids.
+Par exemple pour un réseau de trois couches: $x\to h_1\to h_2\to y$ on calcule en forward $h_1,h_2$ et $y$, puis en backward on remonte: $\frac{\partial L}{\partial y}$, puis $\frac{\partial L}{\partial h_2}$, ensuite $\frac{\partial L}{\partial h_1}$, et enfin les dérivées par rapport aux poids.
 \bigskip 
 
 \subsection{Formalisation}
-Considérons un résau à K couches, chaque couche $f_k$ prend en entrée un vecteur $x_{k-1}$ et des paramètres $\theta_k$ pour produire une sortie:
+Considérons un réseau à K couches, chaque couche $f_k$ prend en entrée un vecteur $x_{k-1}$ et des paramètres $\theta_k$ pour produire une sortie:
 $$x_k=f_k(x_{k-1},\theta_k)$$
-la sortie finale du résaux est $y=x_K$.
+la sortie finale du réseaux est $y=x_K$.
 \bskip 
-Soit une fonction différentiable de perte $L$ pour la sortie $y$ du résau, le backward pass a pour objectif de calculer, pour tout paramètre $\theta_k$, la dérivée $\frac{\partial L}{\partial \theta_k}$, on peut alors mettre à jour la valeur de ce paramètre:
+Soit une fonction différentiable de perte $L$ pour la sortie $y$ du réseau, le backward pass a pour objectif de calculer, pour tout paramètre $\theta_k$, la dérivée $\frac{\partial L}{\partial \theta_k}$, on peut alors mettre à jour la valeur de ce paramètre:
 $$\theta_k\leftarrow \theta_k - \alpha \frac{\partial L}{\partial \theta_k}(\theta_k) \ \ \text{avec } \alpha \text{ le taux d'apprentissage.}$$
 Pour effectuer ce calcule on calcule récurcivement $\frac{\partial L}{\partial \theta_k}$ à partir de la dernière couche:
 $$\frac{\partial L}{\partial \theta_k}(\theta_k)=\frac{\partial L}{\partial x_k}(x_k)\frac{\partial f_k}{\partial \theta_k}(x_{k-1},\theta_k)$$
@@ -120,7 +120,7 @@ or, par hypothèse, $L$ est différentiable donc on peut calculer directement $\
 $$ \frac{\partial L}{\partial x_{k-1}}(x_{k-1})=\frac{\partial L}{\partial x_{k}}(x_{k})\frac{\partial x_k}{\partial x_{k-1}}=\frac{\partial L}{\partial x_{k}}(x_{k})\frac{\partial f_k}{\partial x_{k-1}}(x_{k-1}\theta_k).$$
 \bigskip 
 
-\section{Résaux de Neurones Convolutifs (CNN): Achitectures LeNet et AlexNet}
+\section{Réseaux de Neurones Convolutifs (CNN): Achitectures LeNet et AlexNet}
 Il existe une différence fondamentale entre les CNN et les MLP, en effet un MLP considère chaque entrée comme indépendante des autres. Or, cette interprétation des données peut être problématique, dans une image par exemple les pixels proches sont corrélés, on utilise alors un CNN pour conserver cette cohérence spatiale en exploitant des opérations locales appelées convolutions.
 \bigskip 
 \subsection{Principe de la Convolution}
@@ -197,21 +197,21 @@ Ce modèle possède peux de paramètres (quelques centaines de milliers), il s'a
 \bigskip
 
 \subsection{AlexNet: La Révolution de 2012}
-Avant 2012 les approches de vision par ordinateur reposaient surtout sur des descripteurs manuels. Puis arrivent Alex Krizhevsky, Ilya Sutskever et Geoffrey Hinton qui publient AlexNet un résau de deep learning qui écrase la concurrence (réduisant par deux la marge d'erreur).
+Avant 2012 les approches de vision par ordinateur reposaient surtout sur des descripteurs manuels. Puis arrivent Alex Krizhevsky, Ilya Sutskever et Geoffrey Hinton qui publient AlexNet un réseau de deep learning qui écrase la concurrence (réduisant par deux la marge d'erreur).
 \sskip 
 Cette révolution s'organise autour de cinq points clés:
 \begin{itemize}
-    \item un résau très profond pour l'époque (8 couches)
+    \item un réseau très profond pour l'époque (8 couches)
     \item une utilisation massive du GPU pour l'entraînement
     \item la fonction d'activation ReLU plus facile à entraîner que le sigmoid
     \item la technique du dropout
     \item et une data augmentation
 \end{itemize}
-Le dropout est une technique de régularisation qui consiste à 'éteindre' aléatoirement un certain pourcentage des neurones à chaque étape d'entraînement. L'objectif de cette méthode est d'empêcher le résaux de devenir trop dépendant d'un petit ensemble de neurones pour avoir une meilleur généralisation.
+Le dropout est une technique de régularisation qui consiste à 'éteindre' aléatoirement un certain pourcentage des neurones à chaque étape d'entraînement. L'objectif de cette méthode est d'empêcher le réseaux de devenir trop dépendant d'un petit ensemble de neurones pour avoir une meilleur généralisation.
 \newline
 Par exemple supposons qu'on est en entrée le vecteur d'activation $x=(2,8,-3,11,5)$ et pour la couche un dropout de 50$\%$, alors on génère selon une loi de Bernoulli(0.5): $m=(1,0,1,0,1)$, alors l'entrée devient: $x'=x\odot m=(2,-3,5)$.
 \sskip 
-Néanmoins, quand le résau est utilisé pour faire des prédictions, tous les neurones sont activés mais les sorties sont réduites par la probabilité de maintient p: $x_{test}=px_{train}$.
+Néanmoins, quand le réseau est utilisé pour faire des prédictions, tous les neurones sont activés mais les sorties sont réduites par la probabilité de maintient p: $x_{test}=px_{train}$.
 \bskip 
 On va désormais détailler l'architecture d'AlexNet. Pour ce faire on considère une taille d'entrée classique 224x224x3 ($H\times W\times C_ {in}$). L'architecture est à retrouver dans AlexNet.py.
 \sskip 
@@ -303,40 +303,40 @@ Et enfin la dernière couche et la sortie du programme fc3:
 \end{itemize}
 En 2012 il était en effet courant d'enchaîner les couches fully connected pour transformer les caractéristiques spatiales en représentations globales et classifier (comme nous allons le voir c'est très coûteux en paramètres et mémoire).
 \sskip
-Le résaux compte donc un total d'environ 62.4M paramètres (il est intéressant de constater que 94$\%$ des paramètres se trouvent dans les couches fc dont 60$\%$ dans la première).
+Le réseaux compte donc un total d'environ 62.4M paramètres (il est intéressant de constater que 94$\%$ des paramètres se trouvent dans les couches fc dont 60$\%$ dans la première).
 \bigskip 
 
 \subsubsection{L'intérêt des Couches Conv2d, ReLU et MaxPool2d}
 On détaille tout d'abord chacune de ces fonctions:
 \begin{itemize}
-    \item La fonction Conv2d (Convolution 2D): Son but est d'extraire les motifs locaux d'une image (bords, textures, formes, motifs répétitifs, etc), c'est à ce moment que le résaux repère et analyse les structures visuelles.
+    \item La fonction Conv2d (Convolution 2D): Son but est d'extraire les motifs locaux d'une image (bords, textures, formes, motifs répétitifs, etc), c'est à ce moment que le réseaux repère et analyse les structures visuelles.
     \sskip 
     Le principe des convolutions est détaillé au début de cette section.
     \sskip 
     L'intérêt d'utiliser ces filtres est ici de les appliquer partout dans l'image afin de reconnaître un motif quelque soit son emplacement.
-    \item La fonction ReLU (Rectified Linear Unit): C'est une fonction d'activation qui a pour objectif d'introduire de la non linéarité dans le résau. Sans cette fonction même les CNN profonds seraient équivalents à une seule convolution linéaire. La ReLU s'est imposée car il s'agit d'une activation simple, rapide et efficace.
+    \item La fonction ReLU (Rectified Linear Unit): C'est une fonction d'activation qui a pour objectif d'introduire de la non linéarité dans le réseau. Sans cette fonction même les CNN profonds seraient équivalents à une seule convolution linéaire. La ReLU s'est imposée car il s'agit d'une activation simple, rapide et efficace.
     \sskip 
     Mathématiquement, elle correspond à la fonction: $\max(0,x)$, cette fonction possède donc une dérivée simple: $1_{R_+^*}$, elle est rapide à entraîner, elle introduit énormément de zéros donc permet une meilleure généralisation.
     \item La fonction MaxPool2d: Il s'agit d'une fonction de pooling (son fonctionnement est détaillé au début de cette section).
 \end{itemize}
 L'intérêt de ces couches est de construire une hiérarchie de représentations.
 \sskip 
-En effet, au cours de l'entraînement le résaux apprend automatiquement quels motifs sont utiles pour minimiser la fonction de perte. Cette apprentissage se déroule de la façon suivante:
+En effet, au cours de l'entraînement le réseaux apprend automatiquement quels motifs sont utiles pour minimiser la fonction de perte. Cette apprentissage se déroule de la façon suivante:
 \begin{itemize}
     \item Initialement: Le poids de chacun des filtres est initilaisé aléatoirement, ils ne détectent rien a priori.
     \item Entraînement: Lorsqu'on calcule la perte (par exemple une erreur de classification) on fait ensuite un rétropropagation (backpropagation), les poids des filtres sont légèrement ajustés pour réduire l'erreur.
-    \item Résultat: Certains filtres deviennent sensibles aux bords verticaux (par exemple $[-1, \ 0, \ 1]$), d'autre aux bords horizontaux, aux motifs à répétitions etc. Il est intéressant de constater que cette apprentissage permet au résau de découvrir par lui même les motifs qui maximisent la bonne classification.
+    \item Résultat: Certains filtres deviennent sensibles aux bords verticaux (par exemple $[-1, \ 0, \ 1]$), d'autre aux bords horizontaux, aux motifs à répétitions etc. Il est intéressant de constater que cette apprentissage permet au réseau de découvrir par lui même les motifs qui maximisent la bonne classification.
 \end{itemize}
 L'intérêt d'enchaîner ces couches est de permettre à chaque couche de prendre comme entrée les cartees d'activation de la couche précédente, les couches supérieures repèrent donc les détails de bas-niveau (bords, textures, couleurs) puis les couches suivantes les motifs intermédiaires (parties d'objets) puis les concepts entiers (objets, visages) et ainsi de suite.
 \bigskip 
 
 \subsubsection{L'intérêt des Couches Entièrements Connectées}
-Ces couches forment la tête du résau, elles interprètent les caractéristiques extraites par les convolutions et prennent la décision finale de classification.
+Ces couches forment la tête du réseau, elles interprètent les caractéristiques extraites par les convolutions et prennent la décision finale de classification.
 \bigskip 
 
 \underline{Remarque:}
 \sskip 
-Dans la fonction forward(self, x) on remarque l'appele x = torch.flatten(x, 1) entre le passage des couches de convolutions aux couches entièrements connectées. En effet ces dernières prennent en entrée des vecteurs d'une seule dimension tandis que le résau de convolution renvoi des cartes caractéristiques de dimension (256, 6, 6), l'appele x = torch.flatten(x, 1) convertit donc x en un vecteur de taille 256 x 6 x 6 = 9 216.  
+Dans la fonction forward(self, x) on remarque l'appele x = torch.flatten(x, 1) entre le passage des couches de convolutions aux couches entièrements connectées. En effet ces dernières prennent en entrée des vecteurs d'une seule dimension tandis que le réseau de convolution renvoi des cartes caractéristiques de dimension (256, 6, 6), l'appele x = torch.flatten(x, 1) convertit donc x en un vecteur de taille 256 x 6 x 6 = 9 216.  
 \bskip 
 La première couche fc1 opère la transformation affine:
 $$y=Wx+b \ \ \text{avec } W\in \M_{4096,9216}(\R) \ \ \text{est la matrice de poids, } b\in\R^{4096} \ \ \text{le vecteur de biais}$$
@@ -348,7 +348,7 @@ Les fonctions dropout et ReLU sont détaillées précédement.
 \bskip
 Deuxième couche fc2: elle fonctionne de la même façon que la précédente avec $y=Wx+b$ (évidemment avec les dimensions qui conviennent), néanmoins elle apprend à un niveau d'abstraction supérieur en combinant les motifs d'entrés pour en extraire des concepts.
 \bskip
-Enfin la couche fc3 correspond à la sortie du résau, elle convertit la représentation finale abstraite en un score de classe (dans le cas d'AlexNet).
+Enfin la couche fc3 correspond à la sortie du réseau, elle convertit la représentation finale abstraite en un score de classe (dans le cas d'AlexNet).
 \bigskip 
 Par exemple l'interprétation des sorties de ces trois couches pourrait être: 
 \begin{itemize}
@@ -359,7 +359,7 @@ Par exemple l'interprétation des sorties de ces trois couches pourrait être:
 \bigskip
 
 \section{Batch Normalization}
-Il s'agit d'une technique visant à stabiliser et accélérer la convergence d'un résau de neurones. Elle s'implémente comme une couche à part entière dans le résau de neurones. Elle possède à la fois des paramètres estimés (comme la moyenne ou la variance) et des paramètres appris (comme un coefficient d'échelle et un biais).
+Il s'agit d'une technique visant à stabiliser et accélérer la convergence d'un réseau de neurones. Elle s'implémente comme une couche à part entière dans le réseau de neurones. Elle possède à la fois des paramètres estimés (comme la moyenne ou la variance) et des paramètres appris (comme un coefficient d'échelle et un biais).
 \sskip
 Attention, son comportement diffère entre la phase d'entraînement et la phase de test (c'est une source courante d'erreurs).
 \bigskip
@@ -379,17 +379,17 @@ où m est un paramètre de momemtum proche de 1 (typiquement 0.9).
 \bigskip 
 
 \subsection{Intuition}
-L'idée fondamentale est qu'il est plus facile d'apprendre avec des données normalisées (moyenne nulle, variance de 1). Cette normalisation stabilise en effet la propagation des gradients, accélère la convergence et permet d'entraîner des résaux plus profonds.
+L'idée fondamentale est qu'il est plus facile d'apprendre avec des données normalisées (moyenne nulle, variance de 1). Cette normalisation stabilise en effet la propagation des gradients, accélère la convergence et permet d'entraîner des réseaux plus profonds.
 \sskip 
 En pratique BN est placée juste avant la non-linéarité, en effet des activations comme ReLU sont très non linéaire autour de 0 mais deviennent presque linéaire ailleurs (pour des entrées très grandes ou très négatives) normaliser les données autour de zéro les gardes donc dans la zone active de la fonction.
 \sskip 
-Il est également important de noter que l'ajout de cette couche (qui est linéaire) n'augment pas la capacité de représentation du résau (c'est-à-dire le type de fonction qu'il peut approximer), elle n'affecte que la façon dont le résau est optimisé.
+Il est également important de noter que l'ajout de cette couche (qui est linéaire) n'augment pas la capacité de représentation du réseau (c'est-à-dire le type de fonction qu'il peut approximer), elle n'affecte que la façon dont le réseau est optimisé.
 \bigskip 
 \section{Classification à K-classes et par Estimation du Maximum de Vraisemblance (MLE)}
 \subsection{Principe de l'Estimation du Maximum de Vraisemblance}
 Il s'agit d'un principe fondamental de statistique, il consiste à choisir les paramètres d'un modèle de sort que ce modèle rende les données observées aussi probables que possible, on explicitera plus tard.
 \sskip 
-On suppose pour ce faire que: $X$ est une VA représentant les observations (par exemple une image), $Y$ une VA représentant les classes et que la probabilité conditionnelle $\Prob(Y=y|X=x)$ est modélisée par un résau de neurones paramétré par $\theta$, noté $p_\theta(y|x)$. Ce qu'on veut intuitivement c'est que, si l'observation de $x$ implique $y$, alors $p_\theta(y_i|x_i)$ soit grande. Alors, pour un jeu de données $D=\{(x_1,y_1),...,(x_n,y_n)\}$, on suppose que les échantillons sont indépendants et identiquement distribués, la probabilité d'observer tout le dataset selon le modèle est:
+On suppose pour ce faire que: $X$ est une VA représentant les observations (par exemple une image), $Y$ une VA représentant les classes et que la probabilité conditionnelle $\Prob(Y=y|X=x)$ est modélisée par un réseau de neurones paramétré par $\theta$, noté $p_\theta(y|x)$. Ce qu'on veut intuitivement c'est que, si l'observation de $x$ implique $y$, alors $p_\theta(y_i|x_i)$ soit grande. Alors, pour un jeu de données $D=\{(x_1,y_1),...,(x_n,y_n)\}$, on suppose que les échantillons sont indépendants et identiquement distribués, la probabilité d'observer tout le dataset selon le modèle est:
 $$p(D)=\prod_{i=1}^np_\theta(y_i|x_i)p(x_i).$$
 \bigskip 
 
@@ -403,13 +403,13 @@ en effet la fonction log permet d'accentuer la perte considérée pour une petit
 \bigskip 
 
 \subsection{Entropie Croisée}
-Pour une classification à K classes où chaque classe c est représentée par une vecteur one-hot: $y_i\in \R^k$ ($y_{i,c}=1 \ \ \text{si ce est la classe correcte pour }x_i, \ \ 0 \text{sinon}$), le résau prédit un vectuer de probabilité $\tilde{y_{i}}=p_\theta(y|x_i)$ obtenu par une couche softmax (décrite juste après). La perte d'entropie croisée s'écrit alors:
+Pour une classification à K classes où chaque classe c est représentée par une vecteur one-hot: $y_i\in \R^k$ ($y_{i,c}=1 \ \ \text{si ce est la classe correcte pour }x_i, \ \ 0 \text{sinon}$), le réseau prédit un vectuer de probabilité $\tilde{y_{i}}=p_\theta(y|x_i)$ obtenu par une couche softmax (décrite juste après). La perte d'entropie croisée s'écrit alors:
 $$L=-\frac 1 n \sum_{i=1}^n\sum_{c=1}^Ky_{i,c}\log(\tilde{y_i}_{c})$$
 il s'agit en fait de la log vraisemblance-négative, mais écrite explicitement pour les sorties multinomiales.
 \bigskip 
 
 \subsection{La Couche Softmax}
-La softmax transforme les parties brutes du réseau (appelées logits) en probabilités normalisées. Si le résau renvoie pour une entrée x un vecteur de score $z=(\ind z K)$ la softmax est définie par:
+La softmax transforme les parties brutes du réseau (appelées logits) en probabilités normalisées. Si le réseau renvoie pour une entrée x un vecteur de score $z=(\ind z K)$ la softmax est définie par:
 $$p_\theta(y=c|x)=\frac{e^{z_c}}{\sum_{k=1}^Ke^{z_k}}$$
 cette transformation garantit les propriétés d'une distribution de probabilité à $p_\theta$ (probabilités positives de somme 1).
 \sskip 
@@ -421,23 +421,45 @@ L'intuition globale peut se formuler de la façon suivante: le modèle produit d
 PyTorch combine le plus souvent la softmax et la cross-entropy en une seule fonction (nn.CrossEntropyLoss()) qui calcule: $$L=-\log(\frac{e^z{y_i}}{\sum_{k=1}^Ke^{z_k}}).$$
 \bigskip 
 
-\section{Résaux de Neurones Convolutifs Classiques: ResNet}
-Les résaux résiduels (ResNet) forment une famille d'architectures convolutionnelles introduite en 2015 qui ont démontré d'excellentes performances sur une grande variété de tâches de vision par ordinateur tout en restant relativement simples à entraîner et à comprendre. Ils sont construits de manière modulaire ce qui permet de définir des résaux de profondeurs variables avec un nombre de paramètres ajustables.
+\section{Réseaux de Neurones Convolutifs Classiques: ResNet}
+Les réseaux résiduels (ResNet) forment une famille d'architectures convolutionnelles introduite en 2015 qui ont démontré d'excellentes performances sur une grande variété de tâches de vision par ordinateur tout en restant relativement simples à entraîner et à comprendre. Ils sont construits de manière modulaire ce qui permet de définir des réseaux de profondeurs variables avec un nombre de paramètres ajustables.
 \sskip
-Aujourd'hui, bien que cette architecture ne soit plus la meilleure, elle reste une référence standard et robuste. Elle a également inspiré de nombreuses variantes: Wide-ResNet et ResNeXt en 2016 et ConvNeXt (2022).
+Aujourd'hui, bien que cette architecture ne soit plus la meilleure, elle reste une référence standard et robuste. Elle a également inspiré de nombreuses variantes: Wide-ResNet (qui étend la largeur du réseau et établi que la largeur peut être aussi importante que la profondeur et développé notamment à l'ENPC) et ResNeXt (rend le modèle plus efficace à coût de calcul équivalent) en 2016 et ConvNeXt (2022).
 \sskip 
-Avant ResNet, entraîner des résaux profonds était difficile (même avec quelques dizaines de couches seulement), souvent un résau plus profond performait moins bien qu'un résau plus petit. Il ne s'agissait alors par d'un problème de sur-apprentissage, mais d'un problème d'optimisation: les gradients devenaient trop instables en se propageant. En effet, on rappelle que le gradient est calculé par en multipliant plusieurs dérivées intermédiaires entre les couches:
+Avant ResNet, entraîner des réseaux profonds était difficile (même avec quelques dizaines de couches seulement), souvent un réseau plus profond performait moins bien qu'un réseau plus petit. Il ne s'agissait alors par d'un problème de sur-apprentissage, mais d'un problème d'optimisation: les gradients devenaient trop instables en se propageant. En effet, on rappelle que le gradient est calculé par en multipliant plusieurs dérivées intermédiaires entre les couches:
 $$\frac{\partial L}{\partial x_0}=\frac{\partial L}{\partial x_n}\times ...\times \frac{\partial x_1}{\partial x_0}$$
-où chaqu terme du produit correspond à une matrice Jacobienne.
+où chaque terme du produit correspond à une matrice Jacobienne. Lorsqu'on les multiplie toutes, deux phénomènes apparaissent:
+\begin{itemize}
+    \item Le gradient s'annule: si les dérivées sont légèrement inférieure à 1 alors le gradient tend vers 0 en remontant les couches et les premières couches n'apprenent donc presque plus rien.
+    \item Ou au contraire le gradient explose, la perte diverge et l'entraînement devient chaotique.
+\end{itemize}
+ResNet a alors résolu ce problème avec une idée simple mais révolutionnaire: ajouter des connexions résiduelles (skip connections) qui facilitent l'apprentissage dans les réseaux très profonds.
+\bigskip 
+
+\subsection{Architecture}
+L'idée des connections résiduelles est assez simple: par défaut, une partie d'un réseau (si elle ne change pas la taille des caractéristiques) devrait apprendre l'identité. C'est-à-dire que, si une couche n'apporte pas d'amélioration, elle ne doit rien déformer. Ainsi, il devient plus facile d'entraîner des réseaux profonds car le chemin des informations est toujours accessible.
+\sskip 
+Formelement, au lieu de passer directement de la sortie $f(x)$ d'un bloc au suivant, on ajoute l'entrée $x$: Sortie du bloc=$f(x)+x$. Cette addition crée un chemin direct pour les gradients évitant leur disparition.
+\sskip 
+Le bloque de base d'un ResNet (voir ResNet.py) est conçu pour conserver le nombre de canaux (feature maps). Il contient ici deux couches de convolution suivie d'une normalisation puis d'une activation ReLU, le tout encapsulé dans une connexion résiduelle.
+\sskip 
+L'architecture générale empile les bloques de base avec les quelques exceptions suivantes:
+\begin{itemize}
+    \item La première couche est une couche de convolution classique avec un kernel carré 7x7, un stride de 2, 64 features de sortie suivie d'une BN, ReLU et d'un maxpooling sur un kernel 3x3 et une stride de 2.
+    \item Le dernier bloque de convolution est suivi d'un global average pooling et d'une couche linéaire (entièrement connectée) produisant la sortie finale.
+    \item Entre les deux, on retrouve quatre bloques qui incluent eux-mêmes le même nombre de bloques, le nombre de features dans chacun de ces blocs est respectivement de 64, 128,256 et 512.
+    \item Les différents bloques sont connectés par un bloque basique légèrement modifié où la première convolution a une stride de 2 mais doubles le nombre de features et la connection résiduelle est remplacée par une convolution avec un kernel unitaire et une stride de 2 qui doulbe le nombre de features, puis une BN.
+\end{itemize}
+
 \section{A Retenir Des Quizzs}
 \subsection{Quizz 1}
 \begin{itemize}
-    \item Comment calculer le nombre de paramètres d'un résaux de neurones: pour chaque couche on a le calcule suivant: $y=Wx$ avec $y$ la sortie en dimension $k$, $x$ l'entrée de dimension $d$ et donc $W$ la matrice de paramètres dans $\M_{k,d}(\R)$, cette couche a donc $k*d$ paramètres. 
+    \item Comment calculer le nombre de paramètres d'un réseaux de neurones: pour chaque couche on a le calcule suivant: $y=Wx$ avec $y$ la sortie en dimension $k$, $x$ l'entrée de dimension $d$ et donc $W$ la matrice de paramètres dans $\M_{k,d}(\R)$, cette couche a donc $k*d$ paramètres. 
     \newline
-    Par exemple pour un résau en trois couches dont les deux premières couches contiennent respectivement 200 et 100 neurones, pour une entrée de dimension 10 et une sortie de dimension 1, on a:
+    Par exemple pour un réseau en trois couches dont les deux premières couches contiennent respectivement 200 et 100 neurones, pour une entrée de dimension 10 et une sortie de dimension 1, on a:
     $$\R^{10}\longrightarrow_{W_1}\R^{200}\longrightarrow_{W_2}\R^{100}\longrightarrow_{W_3}\R^1 \ \ \text{on a donc } 10\cdot200+200\cdot100+100\cdot1 \ \ \text{paramètres.}$$
-    \item Calcul de la mémoire nécessaire pour implémenter le forward/backward pass: pour un résau dont les paramètres sont stoqués sur M bits et dont les données à chaque couche pour un unique échantillon sont stoquées sur m bits, la mémoire nécessaire pour implémenter le forward pass sur un batch de taille B est $$M+B\cdot m \cdot \text{nombre de couches}.$$
-    Pour le backward pass, il faut également compter les paramètres du gradient qui sont d'environ un par paramètre du résau donc la mémoire nécessaire est:
+    \item Calcul de la mémoire nécessaire pour implémenter le forward/backward pass: pour un réseau dont les paramètres sont stoqués sur M bits et dont les données à chaque couche pour un unique échantillon sont stoquées sur m bits, la mémoire nécessaire pour implémenter le forward pass sur un batch de taille B est $$M+B\cdot m \cdot \text{nombre de couches}.$$
+    Pour le backward pass, il faut également compter les paramètres du gradient qui sont d'environ un par paramètre du réseau donc la mémoire nécessaire est:
     $$M+B\cdot m \cdot \text{nombre de couches}.$$
 \end{itemize}
 \end{document}
