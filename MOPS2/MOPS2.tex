@@ -271,4 +271,88 @@ Comme précédement un point localement exponentiellement stable est localement 
 Soit $x*$ un point d'équilibre du système non-linéaire $\dot x =F(x)$ avec $F$ de classe $\mc C^1$ et $\dot y=Ay$ le système linéarisé autour de $x*$ (avec $A=\frac{\partial F}{\partial x}(x*)$ la jacobienne de $F$ en $x*$).
 \newline 
 Si le système $\dot y=Ay$ est asymptotiquement/exponentiellement stable, alors le système non-linéaire est localement asymptotiquement/exponentiellement stable autour de $x*$.
+\newpage
+\section{Fonctions de Lyapunov}
+On s'intéresse au problème $\dot x = F(x(t))$ (I) avec $F\in \mc C^1(\R^n,\R^n)$ et $x^*$ tel que $F(x^*)=0$.
+\sskip 
+On cherche à savoir si $x^*$ est stable (voire asymptotiquement ou exponentiellement stable).
+\bigskip 
+
+\Def \ Fonction de Lyapunov
+\sskip
+On appelle V une fonction de Lyapunov pour le système (I) (et l'équilibre $x^*$) si:
+\begin{itemize}
+    \item $V\in \mc C^1(\R^n,\R_+)$
+    \item $\forall x\in\R^n\backslash\{x^*\}, \ V(x)>V(x^*)$
+    \item $\lim_{||x||\to\pinf}V(x)=\pinf$
+    \item $\forall x\in \R^n, \ \nabla V(x)\cdot F(x)\le 0$
+\end{itemize}
+\bigskip
+Soit $x\in\mc C^1([0,T])$ une solution de (I), alors:
+$$V(x(t))\le V(x(0)) \ \ \text{et} \ \ \frac{dV}{dt}(x(t))=\nabla V(x(t))\cdot \dot x(t)=\nabla V(x(t))\cdot F(x(t))\le 0$$
+\bigskip 
+
+\Theo \ Lyapunov
+\sskip 
+S'il existe une fonction de Lyapunov pour le système (I) alors $x^*$ est un équilibre stable.
+\bigskip 
+
+\Def \ Fonction de Lyapunov stricte
+\sskip
+Si V est une fonction de Lyapunov pour (I) et que:
+$$\forall x\in \R^n \backslash \{x^*\}, \ \nabla V(x)\cdot F(x)<0$$
+alors V est dite stricte.
+\bigskip 
+
+\Theo 
+\sskip 
+S'il existe une fonction de Lyapunov stricte pour le système (I) alors $x^*$ est un équilibre asymptotiquement stable.
+\bigskip 
+
+\Def 
+\sskip 
+On dit que V est une fonction de Lyapunov exponentielle si:
+\begin{itemize}
+    \item $V\in \mc C^1(\R^n,\R_+)$
+    \item $\exists \alpha,C,c >0: \ \forall x\in \R^n, \ c||x-x*||\le V(x)\le C||x-x^*||^\alpha$
+    \item $\exists \alpha >0: \ \forall x\in \R^n, \ \nabla V(x)\cdot F(x)\le-\alpha V(x)$
+\end{itemize}
+\bigskip 
+
+\Theo 
+\sskip 
+S'il existe une fonction de Lyapunov exponentielle pour (I) alors $x^*$ est exponentiellement stable.
+\bigskip 
+
+\Theo \ La Salle 
+\sskip 
+Supposons qu'il existe une fonction de Lyapunov V pour (I), si on a $x$ une solution de (I) telle que: $\nabla V(x(t))\cdot F(x(t))=0$ pour tout $t\ge0$, alors: $x(t)=x^*$ pour tout $t\ge0$ et le système est asymptotiquement stable.
+\newpage 
+\section{Stabilisation des Systèmes Dynamiques}
+On s'intéresse au système $\dot x =f(x(t),u(t))$ (I). On cherche à déterminer l'existence d'une fonction $g$ telle que, avec $u(t)=g(x(t))$ (contrôle feedback), le système $\dot x = f(x(t),g(t))$ (II) soit stable (voire asymptotiquement ou exponentiellement stable).
+\sskip 
+On note $F:x\mapsto f(x,g(x))$.
+\bigskip 
+\subsection{Systèmes Linéaires}
+On considère $\dot x = Ax + BKx$ (III) (avec donc $K\in \M_{k,n}(\R)$), on cherche à établir l'existence de $K$ telle que $A+BK$ a des valeurs propres de partie réelle strictement négative uniquement.
+\bigskip 
+
+\Theo \ Placement des pôles
+\sskip 
+Si $(A,B)$ est contrôlable pour tout $P$ un polynôme de degré n, il existe $K$ tel que $A+BK$ a pour valeurs propres les racines de P.
+\bigskip 
+
+\underline{Corollaire:}
+\sskip 
+Si $(A,B)$ est contrôlable, alors, pour tout $\gamma>0$, il existe $K_\gamma$ telle que le système (III) est exponentiellement stable avec un taux de décroissance $\gamma$.
+\bigskip 
+
+\section{Systèmes Non-Linéaires}
+On cherche simplement à savoir s'il existe $g$ tel qu'il existe une fonction de Lyapunov pour le système (II).
+\newpage
+\section{Contrôle Opitmal des systèmes dynamiques}
+On s'intéresse à $\dot x =f(t,x(t),u(t))$ avec $x_0=x(0)$, on note $J(u)=\int_0^Tg(t,x(t),u(t))dt  + h(x(T))$, on cherche à trouver un contrôle optimal c'est à dire qui minimise $J$.
+\bigskip 
+\subsection{Principe de Minimum de Pontryagin}
+Pour tout $t\in [0,T], \ u(t)=\arg\min_{v\in \mc U} H(t,x(t),p_u(t),v(\in \R^k))$.
 \end{document}
