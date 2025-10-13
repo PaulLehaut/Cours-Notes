@@ -282,8 +282,8 @@ On cherche à savoir si $x^*$ est stable (voire asymptotiquement ou exponentiell
 \sskip
 On appelle V une fonction de Lyapunov pour le système (I) (et l'équilibre $x^*$) si:
 \begin{itemize}
+    \item $V$ est de classe $\mc C^1$
     \item $\forall x\in\R^n\backslash\{x^*\}, \ V(x)>V(x^*)$
-    \item $\lim_{||x||\to\pinf}V(x)=\pinf$
     \item $\forall x\in \R^n, \ \nabla V(x)\cdot F(x)\le 0$
 \end{itemize}
 \bigskip
@@ -312,7 +312,7 @@ S'il existe une fonction de Lyapunov stricte pour le système (I) alors $x^*$ es
 \sskip 
 On dit que V est une fonction de Lyapunov exponentielle si:
 \begin{itemize}
-    \item $V\in \mc C^1(\R^n,\R_+)$
+    \item $V\in \mc C^1(\R^n,\R)$
     \item $\exists \alpha,C,c >0: \ \forall x\in \R^n, \ c||x-x*||\le V(x)\le C||x-x^*||^\alpha$
     \item $\exists \alpha >0: \ \forall x\in \R^n, \ \nabla V(x)\cdot F(x)\le-\alpha V(x)$
 \end{itemize}
