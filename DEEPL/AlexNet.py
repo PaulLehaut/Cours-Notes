@@ -53,3 +53,4 @@ class AlexNet(nn.Module):
 
         return x
     
+    
