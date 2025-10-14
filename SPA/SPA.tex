@@ -108,7 +108,7 @@ Soient $f, \ g$ deux fonctions à valeurs réelles mesurables, soit $(f_n)$ une 
 On suppose que, pout tout $n\in \N$, on a \pp \ $|f_n|\le g$, que f désigne la limite de $(f_n)$ et que g est intégrable, alors:
 $$\lim_{n\to\infty}\int f_nd\mu=\int fd\mu.$$
 
-\subsection{Espace $L^p$}
+\subsection{Espaces $L^p$}
 On commence par rappeler les inégalités suivantes pour $f$ et $g$ des fonctions mesurables à valeurs réelles:
 \bigskip
 
@@ -250,4 +250,53 @@ Soit $V$ une variable aléatoire définie sur $(E,\mc E)$, on note $\E(X|V)=\E(X
 \sskip 
 Si $V$ est discrète, alors:
 $$g(v)=\frac{\E(X1_{V=v})}{\Prob(V=v)}=\E(X|V=v) \ \ \text{si } \Prob(V=v)>0, \ \ \text{et } g(v)=0 \ \ \text{sinon.}$$
+
+\newpage
+\section{Points A Retenir}
+\subsection{Fonctions Mesurables}
+On rappelle, pour $f$ de $(S, \mc S)$ dans $(E,\mc E)$: $\sigma(f)=\{f^{-1}(A), \ A\in \mc E\}$. 
+\sskip 
+La fonction $f$ est alors dite \underline{mesurable} si $\sigma(f)\in \mc S$.
+\sskip 
+En général le produit, le max et la somme de fonction mesurable est mesurable.
+\sskip 
+La limite simple d'une suite de fonctions mesurables est mesurable.
+\sskip 
+Le \underline{théorème de convergence monotone} donne, pour $(f_n)$ une suite de fonctions mesurables à valeurs réelles telle que $0\le f_n\le f_{n+1}$ \pp, alors il vient:
+$$\lim \int f_nd\mu = \int\lim f_nd\mu.$$
+\bigskip
+\subsection{Espaces $L^p$}
+Inégalités:
+\begin{itemize}
+    \item Hölder: pour $p,q\in(1,\pinf)$ tels que $\frac 1 p + \frac 1 q = 1$, supposons que $f\in L^p$ et $g\in L^q$, alors $fg$ est intégrable et:
+    $$\int |fg|d\mu\le(\int |f|^pd\mu)^{\frac 1 p}(\int |g|^qd\mu)^{\frac 1 q}.$$
+    \item CS: supposons désormais que $f$ et $g$ soient de carré intégrable, alors: 
+    $$\int |fg|d\mu\le(\int |f|^2d\mu)^{\frac 1 2}(\int |g|^2d\mu)^{\frac 1 2}.$$
+    \item Minkowski: soit $p\in[1,\pinf)$, on suppose que $f,g\in L^p$, alors:
+    $$(\int |f+g|^pd\mu)^{\frac 1 p}\le(\int |f|^pd\mu)^{\frac 1 p}+(\int |g|^pd\mu)^{\frac 1 p}.$$
+\end{itemize}
+Pour $p\in[1,\pinf)$, l'\evn \ $(L^p, \ ||\cdot||_p)$ est complet.
+\bigskip 
+
+\subsection{Espérance}
+Inégalité de Tchebychev: pour $a>0$, on a: $\Prob (|X|\ge a)\le \frac{\E(X^2)}{a^2}$.
+Inégalité de Jensen: pour $f$ convexe: $f(\E(X))\le\E(f(X))$.
+\bigskip 
+\subsubsection{Espérance Conditionnelle}
+On rappelle la définition: une variable aléatoire $Z$, mesurable pour $\mc H$ telle que son espérance soit bien définie, est \underline{l'espérance conditionnelle de X par rapport à $\mc H$} si:
+$$\E(X1_A)=\E(Z1_A), \ \forall A\in \mc H.$$
+L'espérance conditionnelle de $X$ par rapport à $\mc H$ existe toujours et, par ailleurs: $\E(\E(X|\mc H))=\E(X)$.
+\sskip 
+La convergence dominée de Lebesgue s'écrit ici: soient $X,Y,(X_n)$ des VA$\R$ telles que $(X_n)$ converge vers $X$ \pp \ et $|X_n|\le Y$ avec $Y$ intégrable, alors on a :
+$$\lim\E(X_n|\mc H)=\E(X|\mc H).$$
+De plus, pour $X$ et $Y$ deux VA$\R$ telles que $\E(X)$ et $\E(XY)$ soient bien définies et que $Y$ soit $\mc H$ mesurable, alors il vient;
+$$\E(XY)=\E(\E(X|\mc H)Y).$$
+Propriétés importantes: 
+\begin{itemize}
+    \item Si $X$ est $\mc H$ mesurable, alors: $\E(X|\mc H)=X$
+    \item Si $X$ est indépendante de $\mc H$, alors: $\E(X|\mc H)=\E(X)$
+    \item Si $Y$ est une VA $\mc H$ mesurable telle que $\E(XY)$ soit bien définie, alors: $\E(YX|\mc H)=Y\E(X|\mc H)$
+    \item Si $\mc G\subset \mc H$ est une $\sigma$-algèbre, alors: $\E(\E(X|\mc H)|\mc G)=\E(X|\mc G)$
+    \item Si $A\in \mc H$, alors: $\E(X|A)=\E(X1_A)\Prob(A)$.
+\end{itemize}
 \end{document}
