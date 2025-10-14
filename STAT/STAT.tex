@@ -320,4 +320,83 @@ en distribution.
 \Theo \ Slutsky
 \sskip 
 Soit $((X_n,Y_n))$ une suite de couples de VAs telle que $(X_n)$ converge en probabilité vers une variable déterministe $a$ et que $(Y_n)$ converge en distribution vers une variable aléatoire $Y$. Alors $((X_n,Y_n))$ converge en distribution vers $(a,Y)$, et, par conséquent, pour toute fonction continue $\Psi$, $(\Psi(X_n,Y_n))$ converge en distribution vers $\Psi(a,Y)$.
+\bigskip 
+
+\section{Statistiques dans des Modèles Gaussiens}
+On commence par quelques rappels.
+\bigskip 
+
+\Def 
+\sskip 
+Un vecteur aléatoire $G\in\R^n$ est un vecteur gaussien standard si chacune de ces composantes est de loi $\mc N(0,1)$ et si elles sont indépendantes.
+\sskip 
+La fonction caractéristique d'un vecteur gaussien standard est: $\psi_G(u)=e^{-\frac{||u||^2}{2}}$ (il s'agit du cas particulier de la fonction caractéristique d'un vecteur gaussien: $\phi_X(x)=\exp(it^Tm-\frac 1 2 t^T\Sigma t)$).
+\bigskip 
+
+\Theo \ Cochran 
+\sskip 
+Soit $G\sim \mc N_n(0,I_n)$, pour tout sous-\ev \ E de $\R^n$, les coordonnées de G dans toutes base orthonormée de E forment un vecteur gaussien standard.
+\bigskip 
+
+\Def 
+\sskip 
+Pour $n\ge 1$, la distribution $\chi$-carré avec n degrés de liberté, notée $\chi_2(n)$, est la loi de la VA:
+$$Z_n=\sum_{i=1}^nG_i^2=||G|| \ \ \text{avec}\ \ G\sim \mc N_n(0,I_n).$$
+\bigskip 
+\subsection{Statistiques d'Echantillons Gaussiens}
+On note $S_n^2=\frac{1}{n-1}\sum_{i=1}^n(X_i-\bar X_i)^2$ l'estimateur non biaisé de la variance.
+\bigskip 
+
+\Prop 
+\sskip 
+En considérant $\Prob_{\mu,\sigma^2}$, alors les estimateurs $\bar X_n$ et $S_n^2$ sont indépendants et:
+$$\bar X_n \sim \mc N(\mu,\frac{\sigma^2}{n}) \ \ \text{et} \ \ (n-1)\frac{S_n^2}{\sigma^2}\sim \chi_2(n-1).$$
+\bskip 
+On introduit pour la suite la variable aléatoire réduite $X_i'=\frac{X_i-\mu}{\sigma}\sim\mc N(0,1)$ et on définit comme on s'y attend $\bar{X_n'}$ et $S_n'^2$ telles que:
+$$\bar X_n=\mu+\sigma \bar{X_n'} \ \ \text{et} \ \ S_n^2=\sigma^2S_n'^2$$
+alors, en notant $E_1=\text{Vect}(\begin{pmatrix}
+    1\\
+    \vdots\\
+    1
+\end{pmatrix})$, $E_2=E_1^\bot$ et $e=\frac{1}{\sqrt n}\begin{pmatrix}
+    1\\
+    \vdots\\
+    1
+\end{pmatrix}$, il vient: 
+$$G_{E_1}=<G,e>e=\bar{X_n'}\begin{pmatrix}
+    1\\
+    \vdots\\
+    1
+\end{pmatrix} \ \ \text{et} \ \ ||G_{E_2}||^2=(n-1)(S_n')^2.$$
+\bigskip 
+
+\subsection{La Distribution de Student}
+Soit $n\ge 1$, alors:
+\smallskip 
+
+\Def 
+\sskip 
+La distribution de Student avec n degrés de liberté, notée $t(n)$, est la loi de la VA: $T_n=Y\sqrt{\frac{n}{Z_n}}$ avec $Z_n\sim \chi_2(n)$ indépendante de $Y\sim \mc N(0,1)$.
+\bigskip 
+
+\Prop 
+\sskip 
+Pour $\Prob_{\mu,\sigma^2}$, alors: $\frac{\bar X_n-\mu}{\sqrt{\frac{S_n^2}{n}}}\sim t(n-1)$.
+\bigskip 
+
+\subsection{Régression Linéaire avec Erreurs Gaussiennes}
+On s'intéresse ici à $(x_1,y_1),...,(x_n,y_n)\in \R^p\times \R$ et on suppose qu'il existe $\beta\in\R^{p+1}$ et des VAs $\ind \epsilon n$ telles que:
+$$y_i = \beta_0 +\beta_1x_i+...+\beta_px_i^p+\epsilon_i.$$
+On peut alors réécrire: $Y_n=X_n\beta + \epsilon_n$. L'estimateur de carré minimal (OLS) de $\beta$ est donné par: $\min_\beta ||Y_n-X_n\beta||^2$.
+\sskip 
+Si on suppose par ailleurs que $\E(\epsilon_n)=0$ et $Cov(\epsilon_n)=\sigma^2I_n$, alors l'OLS est non biaisé et $Cov(\beta)=\sigma^2(X_n^TX_n)^{-1}$ et, si $n>p+1$, alors un estimateur de $\sigma^2$ est donné par:
+$$\hat{\sigma}^2=\frac{||Y_n-X_n\hat \beta||^2}{n-p-1}$$
+avec $\hat \beta = (X_n^TX_n)^{-1}X_n^TY_n$ qui défini alors l'OLS.
+\sskip 
+Ensuite, si on suppose que $\ind \epsilon n$ sont des VAs gaussiennes indépendantes centrées de variance $\sigma^2$, alors:
+\smallskip 
+
+\Prop 
+Les estimateurs $\hat \beta$ et $\hat \sigma^2$ sont indépendants et: 
+$$\hat \beta\sim \mc N_{p+1}(\beta, \sigma^2(X_n^TX_n)^{-1}) \ \ \text{et} \ \ (n-p-1)\frac{\hat \sigma^2}{\sigma^2}\sim \chi_2(n-p-1).$$
 \end{document}
