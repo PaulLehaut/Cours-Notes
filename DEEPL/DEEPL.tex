@@ -403,7 +403,7 @@ en effet la fonction log permet d'accentuer la perte considérée pour une petit
 \bigskip 
 
 \subsection{Entropie Croisée}
-Pour une classification à K classes où chaque classe c est représentée par une vecteur one-hot: $y_i\in \R^k$ ($y_{i,c}=1 \ \ \text{si ce est la classe correcte pour }x_i, \ \ 0 \text{sinon}$), le réseau prédit un vectuer de probabilité $\tilde{y_{i}}=p_\theta(y|x_i)$ obtenu par une couche softmax (décrite juste après). La perte d'entropie croisée s'écrit alors:
+Pour une classification à K classes où chaque classe c est représentée par une vecteur one-hot: $y_i\in \R^k$ ($y_{i,c}=1 \ \ \text{si c est la classe correcte pour }x_i,  \ 0 \ \ \text{sinon}$), le réseau prédit un vectuer de probabilité $\tilde{y_{i}}=p_\theta(y|x_i)$ obtenu par une couche softmax (décrite juste après). La perte d'entropie croisée s'écrit alors:
 $$L=-\frac 1 n \sum_{i=1}^n\sum_{c=1}^Ky_{i,c}\log(\tilde{y_i}_{c})$$
 il s'agit en fait de la log vraisemblance-négative, mais écrite explicitement pour les sorties multinomiales.
 \bigskip 
