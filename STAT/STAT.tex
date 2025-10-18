@@ -399,4 +399,130 @@ Ensuite, si on suppose que $\ind \epsilon n$ sont des VAs gaussiennes indépenda
 \Prop 
 Les estimateurs $\hat \beta$ et $\hat \sigma^2$ sont indépendants et: 
 $$\hat \beta\sim \mc N_{p+1}(\beta, \sigma^2(X_n^TX_n)^{-1}) \ \ \text{et} \ \ (n-p-1)\frac{\hat \sigma^2}{\sigma^2}\sim \chi_2(n-p-1).$$
+\bigskip 
+
+\section{Intervalles de Confiance}
+\subsection{Définitions Générales}
+Soit $\alpha\in (0,1/2)$ la précision désirée pour notre intervalle de confiance.
+\bigskip 
+
+\Def \ Intervalle de confiance
+\sskip 
+Un intervalle de confiance de niveau $1-\alpha$ pour la QI $g(\theta)$ est un intervalle $I_n=[I_n^-,I_n^+]$ tel que $I_n^-$ et $I_n^+$ soient des statistiques et, pour tout $\theta \in \Theta$, $\Prob_\theta (g(\theta)\in I_n)=1-\alpha$.
+\bskip 
+Il peut être assez difficile, voire impossible, de construire des intervalles de confiance comme définis précédemment (on dit qu'ils sont exacts), on introduit donc les définitions suivantes:
+\smallskip 
+
+\Def 
+\sskip 
+Soit un intervalle $I_n$ tel que $I_n^-$ et $I_n^+$ soient des statistiques, alors cet intervalle est dit:
+\begin{itemize}
+    \item de confiance asymptotique si, pour tout $\theta\in\Theta$, $\lim_n \Prob_\theta (g(\theta)\in I_n)=1-\alpha$
+    \item de confiance par excès si, pour tout $\theta\in\Theta$, $\lim_n \Prob_\theta (g(\theta)\in I_n)\ge 1-\alpha$.
+\end{itemize}
+\bigskip 
+
+\subsection{Construction d'Intervalles de Confiance Exact}
+
+\subsubsection{Fonction Pivot}
+On commence par une définition générale:
+\smallskip 
+
+\Def \ VA libre
+\sskip 
+Un VA $Q$ est dite libre selon $\Prob_\theta$ si sa loi ne dépend pas de $\theta$.
+\bigskip 
+
+\Def \ Fonction pivot
+\sskip 
+Un fonction pivot pour $g(\theta)$ est une fonction $\pi_n:E^n\times g(\Theta)\to \R$ telle que $\pi_n(X_n,g(\theta))$ est libre.
+\bigskip 
+
+\subsubsection{Exemple dans le Modèle Gaussien}
+On s'intéresse à la moyenne $\mu$ dans un modèle Gaussien qu'on estime classiquement avec $\bar X_n$. La loi de $\bar X_n$ selon $\Prob_{\mu,\sigma^2}$ est $\mc N(\mu,\sigma^2)$. Il vient alors:
+$$Y_n=\frac{\bar X_n -\mu}{\sqrt{\sigma^2/n}}\sim \mc N(0,1) \ \ \text{est libre.}$$
+Néanmoins, la fonction:
+$$\pi_n(x_n,\mu)=\frac{\bar x_n -\mu}{\sqrt{\sigma^2/n}}$$
+n'est pas une fonction pivot puisqu'elle dépend de $(\mu,\sigma^2)$ à travers $\mu$ et $\sigma$ et non uniquement de $\mu$.
+\sskip 
+Supposons donc momentanément que $\sigma^2$ soit connu, alors $\pi_n$ devient une fonction pivot. Il vient alors, pour tout réels a et b tels que $a<b$:
+$$\Prob_{\mu,\sigma^2}(Y_n\in[a,b])=\frac{1}{\sqrt{2\pi}}\int_a^b\exp(-x^2/2)dx$$
+donc, pour tout choix de a et b tels que:
+$$\frac{1}{\sqrt{2\pi}}\int_a^b\exp(-x^2/2)dx=1-\alpha$$
+alors l'intervalle $[\bar X_n - b\sqrt{\sigma^2/n},\bar X_n - a\sqrt{\sigma^2/n}]$ est un intervalle de confiance exact de précision $1-\alpha$ pour $\mu$.
+\sskip
+Rappelons par ailleurs que l'on définit par $\phi_r$ le quantile d'ordre $r$ de la distribution gaussienne standard, alors a et b permettent de satisfaire l'égalité attendue si et seulement si:
+$$\exists r\in [0,\alpha]:\ a=\phi_r, \ b=\phi_{r+1-\alpha}.$$
+Pour une telle paire $(a,b)$ et l'intervalle de confiance exact $[\bar X_n - b\sqrt{\sigma^2/n},\bar X_n - a\sqrt{\sigma^2/n}]$, la probabilité de sous-estimer $\mu$ est $r$, celle de la sur-estimer est $\alpha-r$.
+\bskip 
+Supposons désormais que $\sigma^2$ ne soit pas connu. Une idée classique consiste alors à remplace $\sigma^2$ par l'estimateur non-biaisé de la variance $S_n^2$ et on considère:
+$$Y_n'=\frac{\bar X_n -\mu}{\sqrt{S_n^2/n}}\sim t(n-1) \ \ \text{est libre.}$$
+Il vient alors que:
+$$\pi_n(x_n,\mu)=\frac{\bar x_n -\mu}{\sqrt{s_n^2/n}} \ \ \text{avec} \ \ s_n^2=\frac{1}{n-1}\sum_{i=1}^n(x_i-\bar x_i)^2$$
+est une fonction pivot.
+\sskip 
+En conséquence, pour tout réels a et b tels que $a<b$, il vient:
+$$\Prob_{\mu,\sigma^2}(Y_n'\in[a,b])=\int_a^bp_{n-1}(x)dx \ \ \text{avec} \ \ p_{n-1} \ \ \text{la densité de la loi} \ \ t(n-1).$$
+Une nouvelle fois, dès que le couple $(a,b)$ vérifie:
+$$\int_a^bp_{n-1}(x)dx=1-\alpha$$
+on obtient un intervalle de confiance de précision 1-$\alpha$ pour $\mu$.
+\bigskip 
+
+\subsubsection{Résumé de la Méthode}
+On commence par trouver une fonction pivot $Q_n=\pi_n(x_n, g(\theta))$, on réécrit la condition $Q_n\in[a,b]$ comme $g(\theta)\in I_n$ où les extrémités de $I_n$ sont des statistiques. Enfin on choisit un couple $(a,b)$ qui satisfait: $\Prob(Q_n\in [a,b])=1-\alpha$, ce qui revient à choisir $a=q_{n,r}$ et $b=q_{n,r+1-\alpha}$ avec $0\le r \le \alpha$ et $q_{n,r}$ le quantile d'ordre $r$ de $Q_n$.
+\bigskip 
+
+\subsection{Construction d'Intervalle de Confiance Asymptotique}
+On rappelle que $\phi_r$ définit le quantile d'ordre $r$ de la distribution gaussienne standard.
+\bigskip 
+
+\Prop \ Intervalle de confiance asymptotique
+\sskip 
+Soit $Z_n$ un estimateur consistant et convergent normalement de $g(\theta)$, on note $V(\theta)$ sa variance asymptotique. On suppose qu'un estimateur consistant $\hat V_n$ de $V(\theta)$ est connu, alors:
+$$\forall \alpha \in (0,1/2), \ I_n=[Z_n-\phi_{1-\alpha/2}\sqrt{\frac{\hat V_n}{n}},Z_n+\phi_{1-\alpha/2}\sqrt{\frac{\hat V_n}{n}}]$$
+est un intervalle de confiance asymptotique avec une précision de $1-\alpha$ pour $g(\theta)$.
+\bskip 
+En général il n'est pas difficile de trouver un estimateur consistant de $V(\theta)$, dès que $V$ est continue et que $\hat \theta_n$ est un estimateur consistant de $\theta$, alors on a simplement: $\hat V_n=V(\hat \theta_n)$.
+\bigskip 
+
+\subsection{Construction d'Intervalle de Confiance par Excès}
+On s'intéresse au cas où on ne possède pas de fonction pivot, comme dans le cas d'une loi de Bernoulli. On va alors construire des intervalles de confiance par excès à l'aide des inégalités de concentration.
+\bigskip 
+
+\Def \ Inégalité de concentration
+\sskip 
+Une inégalité de concentration pour une variable aléatoire $Y$ est une inégalité de la forme: 
+$\Prob(|Y-\E(Y)|\ge r)\le c_Y(r)$ pour une fonction de concentration $c_Y$ convergent asymptotiquement vers 0.
+\bskip 
+Si $Z_n$ est un estimateur non-biaisé de $g(\theta)$ et qui vérifie une inégalité de concentration telle que:
+$$\forall r>0, \ \sup_\theta \Prob_\theta (|Z_n-g(\theta)|\ge r)\le c_{Z_n}(r)$$
+alors tout $r_{n,\alpha}>0$ tel que $c_{Z_n}(r_{n,\alpha})\le\alpha$ produit l'intervalle de confinace par excès: $[Z_n-r_{n,\alpha}, Z_n +r_{n,\alpha}]$ pour $g(\theta)$.
+\bigskip 
+\subsubsection{L'Inégalité de Bienaymé-Chebychev}
+C'est l'inégalité classique:
+$$\Prob( |Y-\E(Y)|\ge a)\le \frac{V(Y)}{a^2}.$$
+Pour un modèle de Benoulli dans lequel on utilise $\bar X_n$ comme estimateur de $p$, alors, pour tout $a>0$, il vient:
+$$\Prob_p(|\bar X_n - p|\ge a)\le \frac{p(1-p)}{a^2}$$
+donc, pour $a$ tel que: $\frac{p(1-p)}{a^2}\le \alpha$, il vient:
+$$\Prob_p(p\in[\bar X_n - a/\sqrt{n},\bar X_n + a/\sqrt{n} ])\le 1-\alpha.$$
+Il reste à trouver une telle valeur de $a$ qui ne dépende pas de p, pour les VAs bornées, on peut utiliser le lemme suivant:
+\smallskip 
+
+\underline{Lemme:} Borne universelle de la variance
+\sskip 
+Soit Y une VA à valeurs dans $[0,1]$, alors: $V(Y)\le \frac{1}{4}$.
+\bskip 
+Il suffit alors de prendre $a=\frac{1}{2\sqrt{\alpha}}$.
+\bigskip 
+\subsubsection{Inégalité de Hoeffding}
+On commence par introduire le lemme suivant:
+\smallskip 
+
+\underline{Lemme:} Inégalité de Hoeffding
+\sskip 
+Soient $\ind X n$ des VAs iid à valeurs dans $[0,1]$, alors, pour tout $n\ge 1$ et $r>0$, il vient:
+$$\Prob(\sum_{i=1}^n(X_i-\E(X_i))\ge r\sqrt{n})\le \exp(-2r^2).$$
+\sskip 
+Il vient alors:
+$$\Prob(|\bar X_n-\E(X_1)|\ge r/\sqrt{n})\le 2\exp(-2r^2).$$
 \end{document}

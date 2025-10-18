@@ -245,12 +245,48 @@ On suppose X intégrable, alors:
 -Si $A\in \mc H$, alors: $\E(X|A)=\E(X1_A)\Prob(A)$.
 \bigskip
 
-\subsection{Expérience Conditionnée par une VA}
+\subsection{Espérance Conditionnée par une VA}
 Soit $V$ une variable aléatoire définie sur $(E,\mc E)$, on note $\E(X|V)=\E(X|\sigma(V))$, si $\E(X)$ est bien définie, alors il existe une fonction mesurable $g$ définie sur E telle que: $\E(X|V)=g(V)$.
 \sskip 
 Si $V$ est discrète, alors:
 $$g(v)=\frac{\E(X1_{V=v})}{\Prob(V=v)}=\E(X|V=v) \ \ \text{si } \Prob(V=v)>0, \ \ \text{et } g(v)=0 \ \ \text{sinon.}$$
+\bigskip 
 
+\section{Chaînes de Markov Discrètes}
+Une chaîne de Markov est une suite de variables aléatoires $X=(X_n)$ qui représente l'évolution dynamique d'un système stochastique. La propriété fondamentale des chaînes de Markov est que l'état du système à l'instant $n$ ne dépend des états précédents qu'à travers $X_n$. C'est-à-dire que, conditionnellement à $X_n$, $(\ind X n)$ et $(X_{n+k})_k$ sont indépendants.
+\sskip 
+Dans ce qui suit on considère l'espace probabilisé $(\Omega, \mc F, \Prob)$ et l'espace $(E,\mc E)$ où $E$ est au plus dénombrable, sans précisions supplémentairtes les VAs seront définies de $\mc F$ dans $\mc E$.
+\bigskip 
+
+\subsection{Définitions et Propriétés}
+Soit $X=(X_n)$ une chaîne de Markov, on définit l'ensemble des informations disponibles à l'instant $n$ par la \sigalg \ $\mc F_n$
+\bigskip 
+
+\Def \ Filtre 
+\sskip 
+Un filtre $\mathbb{F}=(\mc F_n)$ est une suite croissante de \sigalg \ incluses dans $\mc F$. Une suite de VAs $(X_n)$ est adaptée pour $\mathbb F$ si $X_n$ est $\mc F_n$ mesurable pour tout $n$.
+\bigskip 
+
+\Def 
+\sskip 
+Le processus $X=(X_n)$ est une chaîne de Markov qui respecte le filtre $\mathbb F$ si elle est adaptée pour ce filtre et si elle vérifie la propriété de Markov: pour tout $n$, conditionnellement à $X_n$, $\mc F_n$ et $(X_{n+k})_{k\in\N}$ sont indépendants.
+\bigskip 
+
+\Prop \ Définitions équivalentes
+\sskip 
+On suppose que $(X_n)$ est adaptée au filtre $\mathbb F$, alors on a les équivalences suivantes:
+\begin{itemize}
+    \item $(X_n)$ est une chaîne de Markov
+    \item Pour tout $n$ et $B\in\sigma(X_k)_{k\ge n}$ on a $\Prob (B|\mc F_n)=\Prob(B|X_n)$
+    \item Pour tout $n$ et $y\in E$ on a $\Prob (X_{n+1}=y|\mc F_n)=\Prob(X_{n+1}=y|X_n)$.
+\end{itemize}
+\bigskip
+La proposition précédente nous permet d'introduire le lemme suivant: 
+\smallskip
+
+\underline{Lemme:}
+\sskip 
+Soient un espace mesurable $(S, \mc S)$ et $(U_n)$ une suite de VAs indépendantes à valeurs dans S. Soient $X_0$ une variable aléatoire à valeurs dans E indépendante de $(U_n)$ et $f$ une fonction mesurable définie de $E\times S$ dans $E$, on peut alors définir le système dynamique stochastique suivant: $X_{n+1}=f(X_n,U_{n+1})$ qui est une chaîne de Markov.
 \newpage
 \section{Points A Retenir}
 \subsection{Fonctions Mesurables}
