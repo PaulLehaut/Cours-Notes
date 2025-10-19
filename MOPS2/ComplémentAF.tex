@@ -1,0 +1,179 @@
+\documentclass{article}
+
+\title{Complément d'Analyse Fonctionnelle}
+\author{Paul Lehaut}
+\usepackage{mesraccourcis}
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\section{Convergence Faible dans les Espaces de Hilbert}
+Dans tout ce chapitre $\mc H$ désigne un espace de Hilbert.
+\bigskip 
+
+\Def \ Convergence faible dans un espace de Hilbert
+\sskip
+Soient $(u_n)\in\mc H^\N$ et $u\in\mc H$, on dit que:
+\begin{itemize}
+    \item $(u_n)$ converge fortement vers $u$ dans $\mc H$, ce qu'on note $u_n\to u$ si et seulement si $\lim||u_n-u||_\mc H =0$
+    \item $(u_n)$ converge faiblement vers $u$ dans $\mc H$, ce qu'on note $u_n\rightharpoonup u$ si et seulement si: $$\forall v\in\mc H, \ \lim (v,u_n)_\mc H=(v,u)_\mc H.$$
+\end{itemize}
+\bigskip
+\subsection{Notions de Topologie Générales}
+On définit tout d'abord le concept même d'une topologie et des concepts fonadamentaux:
+\smallskip 
+
+\Def 
+\sskip 
+Soit $X$ un ensemble, un ensemble $\mc O\subset \mc P(X)$ est appelé une topologie si:
+\begin{itemize}
+    \item $\mc O$ contient $X$ et $\emptyset$
+    \item $\mc O$ est stable par union queclconque
+    \item $\mc O$ est stable par intersection finie.
+\end{itemize}
+\smallskip
+Un élément de $\mc O$ est alors appelé un ouvert, son complémentaire est un fermé.
+\sskip 
+Pour deux topologie $\mc O_1, \ \mc O_2$, on dit que $\mc O_1$ est la plus fine si $\mc O_2\subset\mc O_1$.
+\sskip 
+Soit $x\in X$, un ensemble $V_x$ est appelé un voisinage de $x$ s'il contient un ouvert contenant $x$.
+\sskip 
+Une topologie est dite séparée si elle vérifie l'axiome de Hausdorff: pour tout élément distinct $x$ et $y$ il existe deux voisinages de $x$ et $y$ disjoints.
+\bskip 
+Différentes topologies permettent de définir différentes notions de continuité et de convergence.
+\smallskip 
+
+\Def \ Convergence dans un espace topologique
+\sskip 
+On dit qu'une suite $(x_n)$ converge vers $x$ pour la topologie $\mc O$ si et seulement si: pour tout voisinage de $x$, il existe un certain range de $(x_n)$ à partir duquel $(x_n)$ est incluse dans ce voisinage.
+\bskip 
+Il est intéressant de noter que, dans un espace topologique non séparé, une suite peut avoir plusieurs limites.
+\bigskip 
+
+\Def \ Continuité 
+\sskip 
+Soient $(X,\mc O_X)$ et $(Y, \mc O_Y)$ deux espaces topologiques, la fonction $f:X\to Y$ est dite continue en $x\in X$ si, pour tout voisinage $V_{f(x)}$ de $f(x)$, il existe $U_x$ un voisinage de $x$ tel que:
+$$f(U_x)\subset V_{f(x)}$$
+on dit que $f$ est continue si elle est continue en tout point $x$ de $X$.
+\bigskip 
+
+\Def \ Espace métrique et topologie métrique 
+\sskip 
+$X$ est un espace métrique si on peut le munir d'une distance $d:X\times X\to \R_+$ symétrique telle que: $d(x,y)\le d(x,z) + d(z,y)$ et $d(x,y)=0\Leftrightarrow x=y$.
+\sskip 
+On peut alors définir la topologie métrique qui est la topologie séparée définie par:
+$$\mc O_d = \{\Omega \subset X \ |\ \forall x\in \Omega, \ \exists \epsilon >0:\ \mc B(x,\epsilon)\subset \Omega \}.$$
+
+\Def \ Topologie forte d'un \ev \ normé 
+\sskip 
+Soit $X$ un \ev \ normé et $d$ la distance associée à la norme, la topologie métrique de $X$ est appelée la topologie forte de $X$.
+\bigskip 
+
+\Def \ Ensemble compact selon Borel-Lebesgue 
+\sskip 
+Soient $(X,\mc O)$ un espace topologique séparé et $K\subset X$, on dit que $K$ est un compact s'il vérifie la propriété de Borel-Lebesgue c'est-à-dire que de tout recouvrement d'ouvert de $K$ on peut extraire un sous-recouvrement fini.
+\bigskip 
+
+\Theo \ Ensemble compact selon Bolzano-Weiestrass 
+\sskip 
+On considère le cas particulier où $X$ est un espace métrique, alors $K\subset X$ est compact si et seulement si il vérifie la propriété de Bolzano-Weiestrass c'est-à-dire que de toute suite d'élément de $K$ on peut extraire une sous-suite convergente dans $K$.
+\bigskip 
+\subsection{Convergence Faible et Topologie Faible}
+Soit $\mc Z$ un ensemble de cardinal fini d'éléments d'un espace de Hilbert $\mc H$, pour $r>0$ on pose:
+$$V_{u,r,\mc Z}=\{v\in \mc H \ | \ \forall w\in \mc Z, \ |(w,v-u)_\mc H|<r\}$$
+et:
+$$\mc O_{\text{faible}}=\{\Omega\subset\mc H \ |\ \forall u\in \Omega, \ \exists r>0 \ \ \text{et}\ \ \exists \mc Z\subset \mc H \ \ \text{fini:}\ V_{u,r\mc Z}\subset \Omega\}.$$
+Alors on a les résultats suivants:
+\begin{itemize}
+    \item $\mc O_{\text{faible}}$ est une topologie sur $\mc H$, $V_{u,r,\mc Z}$ est un voisinage ouvert de $u$ pour la topologie faible
+    \item $\mc O_{\text{faible}}$ est séparée et moins fine que la topologie forte, c'est en fait la topologie la moins fine assurant la continuité de toutes les formes linéaires (fortement) continues sur $\mc H$
+    \item Une suite de $\mc H$ converge au sens de la topologie faible si et seulement si elle converge faiblement
+    \item Si $\mc H$ est de dimension finie, alors $\mc O_{\text{faible}}=\mc O_{\text{forte}}$.
+\end{itemize}
+\bigskip 
+\subsection{Compacité Faible des Suites Bornées}
+On commence par rappeler un théorème fondamental:
+\smallskip 
+
+\Theo \ Existence de bases hilbertiennes dans un espace de Hilbert séparable 
+\sskip 
+Soit $\mc H$ un espace de Hilbert séparable, alors il existe une famille $(e_k)$ d'éléments de $\mc H$ telle que:
+\begin{itemize}
+    \item Pour tout $(k,l)\in\N^2, \ (e_k,e_l)=\delta_{k,l}$
+    \item $\overline{Vect((e_k)_k)}=\mc H$.
+\end{itemize}
+Une telle famille est appelée une base hilbertienne de $\mc H$. On a alors, pour tout $u\in\mc H$:
+\begin{itemize}
+    \item $u=\sum_{n\in\N}(e_n,u)e_n$
+    \item $||u||^2_\mc H = \sum_{n\in\N}|(e_n,u)_\mc H|^2$, il s'agit de la formule de Perseval.
+\end{itemize}
+\bigskip 
+
+\Theo \ Compacité faible des suites bornées 
+\sskip 
+De toute suite bornée d'éléments de $\mc H$ on peut extraire une sous-suite $(u_{n_k})$ qui converge faiblement vers $u\in \mc H$.
+\smallskip 
+
+\underline{Démonstration:} 
+\sskip
+Soit $(u_n)$ une suite bornée de $\mc H$, on note $C$ sa borne supérieure. On considère $(e_n)$ une base hilbertienne de $\mc H$ (si $\mc H$ n'est pas séparable on peut simplement étudier $\overline{Vect((u_n)_n)}$ qui, muni du produit scalaire de $\mc H$, est un espace de Hilbert séparable).
+\sskip 
+On a, pour tout $n\in \N$:
+$$u_n=\sum_{k\in \N}(e_k,u_n)_\mc H e_k \ \ \text{avec} \ \  ||u_n||_\mc H^2=\sum_{k\in\N}|(e_k,u_n)|^2\le C^2.$$
+\sskip 
+Pour tout entier naturel $k$, la suite $((e_k,u_n))_n$ est donc une suite bornée de $\R$ ou $\C$. Par procédé diagonal, on peut donc extraire de $(u_n)$ une sous-suite $(u_{n_j})$ telle que, pour tout $k$, $((e_k,u_{n_j})_j)$ converge vers $w_k$.
+\sskip 
+Il vient alors:
+$$\sum_{k\in\N}|w_k|^2\le C^2.$$
+On peut donc définir $w=\sum_{k\in\N}w_ke_k$.
+\sskip 
+Soit maintenant $v\in \mc H$, alors:
+$$(v,u_{n_j})_\mc H =\sum_{k\in\N}(e_j,u_{n_j})_\mc H(v,e_k)_\mc H\longrightarrow_{j\to\pinf} \sum_{k\in\N}w_k(v,e_k)=(v,w)_\mc H$$
+donc $(u_{n_j})_j$ converge faiblement vers $w$.
+\bigskip 
+
+\subsection{Quelques Résultats Essentiels}
+On introduit les résultats suivants:
+\smallskip 
+
+\Theo 
+\begin{itemize}
+    \item Toute suite faiblement convergente dans $\mc H$ est bornée.
+    \item Si $(u_n)$ converge faiblement vers $u$, alors: $||u||_\mc H\le\lim\inf_n||u_n||_\mc H$.
+    \item Si $(u_n)$ converge faiblement vers $u$ et si $(v_n)$ converge fortement vers $v$, alors: $\lim(v_n,u_n)_\mc H=(v,u)_\mc H$.
+\end{itemize}
+\bigskip 
+
+\Theo \ Mazur 
+\sskip 
+Soit $K$ un sous-ensemble de $\mc H$ convexe et fermé pour la topologie forte, alors $K$ est fermé pour la topologie faible. En particulier si une suite d'éléments de $K$ converge faiblement dans $\mc H$, alors sa limite est dans $K$.
+\bigskip 
+
+\Theo 
+\sskip 
+Soit $J:\mc H\to \R$ un fonctionnelle continue et convexe telle que: $\lim_{||u||_\mc H\to \pinf}J(u)=\pinf$. Soit $K$ un sous-ensemble fermé convexe et non-vide de $\mc H$, alors $J$ admet un minimiseur global sur $K$. De plus, tout minimiseur local de $J$ sur $K$ est global.
+\sskip 
+L'ensemble des minimiseurs de $J$ sur $K$ est un sous-ensemble convexe et fermé de $K$.
+\bigskip 
+
+\subsection{Convergence Faible dans $L^2$ et $H^1$}
+Tout d'abord, il est claire que si $(u_n)\in (L^2)^\N$ converge failbement vers $u$ dans $L^2$ vers $u$, alors la convergence a également lieux dans $\mc D'$. 
+\sskip 
+En effet, si $\Phi\in\mc D'$, alors $\Phi\in L^2$ et il vient:
+$$<u_n,\Phi>=(u_n,\Phi)_{L^2}\to(u,\Phi)_{L^2}=<u,\Phi>.$$
+On introduit alors le lemme suivant:
+
+\underline{Lemme:}
+\sskip 
+Soit $\Omega$ un ouvert de $\R^d$ et soit $(u_n)\in H^1(\Omega)^\N$ convergeant faiblement dans $H^1(\Omega)$ vers $u$. Alors $(u_n)$ converge faiblement vers $u$ dans $L^2(\Omega)$.
+\smallskip 
+
+\underline{Démonstration:}
+Soient $\Phi\in L^2(\Omega), \ w_\Phi\in H^1(\Omega)$ le représentant de Riesz de la forme linéaire continue $L_\Phi$ sur $H^1$ définie par:
+$$\forall v\in H^1(\Omega), \ L_\Phi(v)=(v,\Phi)_{L^2(\Omega)}$$
+on a donc: $\forall v\in H^1(\Omega), \ (w_\Phi,v)_{H^1}=L_\Phi(v)=(v,\Phi)_{L^2}$,
+\newline 
+et donc: $(u_n,\Phi)_{L^2} = (w_\Phi,u_n)_{H^1} \to (w_\Phi,u)_{H^1}=(u,\Phi)_{L^2}$.
+\end{document}
