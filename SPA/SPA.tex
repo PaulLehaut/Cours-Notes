@@ -335,5 +335,12 @@ Propriétés importantes:
     \item Si $\mc G\subset \mc H$ est une $\sigma$-algèbre, alors: $\E(\E(X|\mc H)|\mc G)=\E(X|\mc G)$
     \item Si $A\in \mc H$, alors: $\E(X|A)=\E(X1_A)\Prob(A)$.
 \end{itemize}
+\bigskip 
 
+\subsection{Chaînes de Markov discrètes}
+Propriété fondamentale: conditionnellement à $X_n$, les événements $X_1,...,X_{n-1}$ et $(X_{n+k})_{k\ge0}$ sont indépendants.
+\sskip 
+Le processus $(X_n)$ est une chaîne de Markov qui respecte le filtre $\mathbb{F}$ si elle est adaptée pour ce filtre et si elle vérifie: pour tout n, conditionnellement à $X_n$, les événements $\mc F_n$ et $(X_{n+k})$ sont indépendants.
+\sskip 
+On a les équivalneces pour $(X_n)$ adaptée à $\mathbb{F}$: $(X_n)$ est une chaîne de Markov ssi pour tout $B\in\sigma((X_k)_{k\ge n})$, $\Prob (B|\mc F_n)=\Prob(B|X_n)$ pour tout n ssi $\Prob(X_{n+1}=y|\mc F_n)=\Prob(X_{n+1}=y| X_n)$ pour tout n et $y\in E$.
 \end{document}
