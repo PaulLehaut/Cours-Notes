@@ -342,6 +342,7 @@ Soit $G\sim \mc N_n(0,I_n)$, pour tout sous-\ev \ E de $\R^n$, les coordonnées 
 \sskip 
 Pour $n\ge 1$, la distribution $\chi$-carré avec n degrés de liberté, notée $\chi_2(n)$, est la loi de la VA:
 $$Z_n=\sum_{i=1}^nG_i^2=||G|| \ \ \text{avec}\ \ G\sim \mc N_n(0,I_n).$$
+Son espérance est $n$, sa variance $2n$.
 \bigskip 
 \subsection{Statistiques d'Echantillons Gaussiens}
 On note $S_n^2=\frac{1}{n-1}\sum_{i=1}^n(X_i-\bar X_i)^2$ l'estimateur non biaisé de la variance.
@@ -439,7 +440,7 @@ Un fonction pivot pour $g(\theta)$ est une fonction $\pi_n:E^n\times g(\Theta)\t
 \bigskip 
 
 \subsubsection{Exemple dans le Modèle Gaussien}
-On s'intéresse à la moyenne $\mu$ dans un modèle Gaussien qu'on estime classiquement avec $\bar X_n$. La loi de $\bar X_n$ selon $\Prob_{\mu,\sigma^2}$ est $\mc N(\mu,\sigma^2)$. Il vient alors:
+On s'intéresse à la moyenne $\mu$ dans un modèle Gaussien qu'on estime classiquement avec $\bar X_n$. La loi de $\bar X_n$ selon $\Prob_{\mu,\sigma^2}$ est $\mc N(\mu,\sigma^2/n)$. Il vient alors:
 $$Y_n=\frac{\bar X_n -\mu}{\sqrt{\sigma^2/n}}\sim \mc N(0,1) \ \ \text{est libre.}$$
 Néanmoins, la fonction:
 $$\pi_n(x_n,\mu)=\frac{\bar x_n -\mu}{\sqrt{\sigma^2/n}}$$
