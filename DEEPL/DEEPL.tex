@@ -450,7 +450,75 @@ L'architecture générale empile les bloques de base avec les quelques exception
     \item Entre les deux, on retrouve quatre bloques qui incluent eux-mêmes le même nombre de bloques, le nombre de features dans chacun de ces blocs est respectivement de 64, 128,256 et 512.
     \item Les différents bloques sont connectés par un bloque basique légèrement modifié où la première convolution a une stride de 2 mais doubles le nombre de features et la connection résiduelle est remplacée par une convolution avec un kernel unitaire et une stride de 2 qui doulbe le nombre de features, puis une BN.
 \end{itemize}
+\bigskip 
 
+\section{Modèle de Langage et Architecture Transformer}
+\subsection{Encodage de Texte pour le Deep Learning}
+Le texte est naturellement difficile à traduire en une représentation continue de taille fixe. En effet il possède une dimension, un ordre de lecture et une longueur variable. Il est donc souvent représenté comme une séquence d'objets élémentaires: les tokens (ou jetons).
+\sskip 
+On nomme ainsi tokenisation l'étape de pré-traitement consistant à transformer le texte en une suite de tokens pour l'essentielle des approches NLP. Les tokens peuvent être des caractères, des ensemble de caractères voire des mots complets. On peut par ailleurs définir des jetons spéciaux pour la fin d'un mot, d'une phrase ou d'un paragraphe.
+\sskip 
+Il faut néanmoins souligner que la tokenisation à partir de caractères nécessite un nombre important de tokes même pour les textes courts et que les caractères seuls n'ont que peut de signification, l'apprentissage est donc difficile. La tokenisation basée sur les mots permet de résoudre ces problèmes mais se heurte au nombre incalculable de mots courants. 
+\sskip 
+Pour l'encodage, puisqu'il n'est pas logique d'encoder les tokens selon l'ordre alphabétique ou dans un dictionnaire, on utilise typiquement la méthode du one-hot encoding. En générale, on encode les jetons dans un espace de dimension inférieure ce qui est mathématiquement équivalent à un encodage one-hot suivi d'une couche ou opération linéaire, le principe est le suivant:
+\begin{itemize}
+    \item On considère une vocabulaire V de taille $n$ qu'on veut encoder dans un espace de plus petite dimension $d$.
+    \item On commence par représenter le token $j$ par le vecteur $e_j$ où seule la $j$-ième composante vaut 1.
+    \item On utilise alors la matrice de poids du modèle $M\in \M_{d,n}$ de sorte que $j'=Me_j$.
+\end{itemize}
+Un progrès majeur a été réalisé en utilisant une tokenisation intermédiaire entre les caractères et les mots (tokenisation de sous-mots). Une tokenisation de sous-mots populaire est le Byte Payr Encoding (BPE):
+\begin{itemize}
+    \item Chaque caractère est commence par être un token.
+    \item On compte le nombre d'occurence de chaque paire de jetons successifs dans le texte.
+    \item On défini un nouveau token pour la paire la plus courante.
+    \item On itère jusqu'à obtenir un nombre défini de tokens.
+\end{itemize}
+On utilise typiquement 30 à 40 000 jetons BPE dans les réseaux profonds modernes, ils sont ensuites projetés linéairement dans un espace dont la dimension varie typiquement de 512 à 4096.
+\bigskip 
+
+\subsection{Mécanisme d'Attention}
+Il s'agit d'une opération fondamentale dans les architectures Transformer.
+\sskip 
+La couche d'attention est une opération sur les tokens, elle nécessite: $N$ jetons de requête (query tokens) $Q_i\in \R^d$, $M$ jetons de clé (key tokens) $T_i\in \R^d$ et $M$ jetons de valeur (value tokens) associés $V_i\in\R^{d_V}$. Le processus se déroule alors comme suit:
+\begin{itemize}
+    \item Calcul des poids d'attention: on compare tout d'abord chaque jeton de requête à tous les jetons clefs pour calculer $m$ poids pour les $n$ jetons de requête, on appelle ces poids attention.
+    \item Calcul du jeton de sortie: on utilise les poids pour calculer une somme pondérée des tokens de valeur.
+    \item Formelement: on pose $K=(T_1,...,T_M)$ et $V=(\ind V M)$ de sorte qu'un token de sorti soit: $$O_i = \text{softmax}(\frac{Q_iK^T}{\sqrt d})V.$$
+\end{itemize}
+Pour calculer les ensembles de tokens on peut ou bien tous les calculer comme des projections linéaires des jetons d'entrée, alors $N=M$, les poids des couches linéaires sont les paramètres appris, cette méthode est celle de l'auto-attention (Self-attention). Ou bien on peut utiliser deux ensembles de jetons d'entrée, un pour les jetons de requête et un second pour les jetons de clé et de valeur, c'est l'attention croisée (Cross-attention).
+\bskip 
+Dans l'attention standard, un jeton de sortie est une moyenne pondérée des jetons de valeur, utilisant des poids identiques pour toutes les dimensions du vecteur de valeur. L'attention multi-têtes (Multi-head attention) permet d'obtenir plusieurs moyennes pondérées différements selon la dimension.
+\bigskip 
+
+\subsection{Attention Is All You Need: Introduction de l'Architecture Transformer}
+L'architecture que l'on introduit ici est toujours la base de la conception Transformers, développée initialement pour le texte elle s'applique avec succès à de nombreux domaines.
+\sskip 
+L'architecture globale commence par une couche d'encodage linéaire des jetons à laquelle est associé un encodage positionnel. Les jetons résultants sont l'entrée d'un encodeur Transformer (cette partie est parfois utilisée seule), ils sont alors utilisés par un décodeur Transformer qui prend un ensemble différent de jeton en entrée. 
+\sskip 
+L'objectif est à l'origine de prédire le token suivant dans un tâche de traduction (par exemple du français vers l'anglais):
+\begin{itemize}
+    \item Les tokens de la phrase en français sont donnés à l'encodeur.
+    \item Les $k$ premiers jetons de la phrase anglaise sont donnés au décodeur.
+    \item Le réseau  est entraîné pour que la sortie du décodeur associée au $k$-ième jeton soit le $(k+1)$-ième jeton de la phrase anglaise.
+    \item Au moment du test, le réseau décodeur peut être utilisé récurcivement pour prédire l'entièreté de la phrase anglaise.
+\end{itemize}
+La formation se fait par classification du jeton suivant avec une variation de l'entropie croisée: l'entropie croisée avec lissage d'étiquette: on décale la cible de l'encodage one-hot vers une valeur proche de 1 et une petite valeur uniforme pour le reste (afin d'éviter des prédictions trop sûres du réseau). Pour des raisons d'efficacité, on utilise une stratégie de masquage dans le décodeur, permettant à chaque jeton de n'extraire des informations que des jetons passés.
+\bskip 
+Le résultat d'une couche d'attention est indépendant de l'ordre des tokens, cela pose un problème puisque, dans un texte, l'ordre des mots est fondamental. La solution la plus simple et efficace est alors d'ajouter aux tokens une information sur leur position dans la phrase. Empiriquement, une bonne façon de faire est d'utiliser des encodages positionnels sinusoïdaux et cosinusoïdaux. L'encodage positionnel $PE(pos)\in\R^d$ est défini pour un position $pos$ du jeton (premier jeton, deuxième jeton etc) et pour $i\in\{1,...,\frac d 2\}$ par:
+$$ PE(pos)_{2i} = \sin(pos/10000^{2i/d}) \ \ \text{et} \ \  PE(pos)_{2i+1} = \cos(pos/10000^{2i/d})$$
+$10000^{2i/d}$ constitue la longueur d'onde des composantes 2i et 2i+1 (les valeurs des premières composantes sont donc fortement dépendantes de $pos$, puis de moins en moins). Grâce aux identités trigonométriques l'encodage de chaque position $pos+k$ peut être exprimé comme une transformation linéaire de l'encodage de $pos$: $PE(pos + k)=M_k PE(pos)$. Cela signifie que le modèle n'a pas besoin d'apprendre les position individuelles absolues mais simplement les matrices de passage d'une position à l'autre qui est une connaissance beaucoup plus générales.
+\sskip 
+L'entrée du modèle est alors composée de l'encodage du token et l'encodage de sa position.
+\sskip 
+Un encodeur Transformer prend en entrée $N$ jetons et produit $N$ jetons de sortie en appliquant successivement $K$ blocs Transformer de même architecture:
+\begin{itemize}
+    \item Auto-Attetion Multi-Têtes: des couches linéaires prédisent les jetons de clé, de requête et de valeur pour chaque jeton d'entrée.
+    \item Connexion Résiduelle et Normalisation de Couche: la sortie est ajoutée au jeton d'entrée de manière résiduelle et on applique une normalisation de couche au résultat.
+    \item Réseau Feed-Forward: les jetons de sortie sont alors traités indépendamment par un réseau feed-forward (MLP à deux couches) avec une autre connexion résiduelle, suivie d'une normalisation de couche.
+\end{itemize}
+Le décodeur est similaire à l'encodeur mais il rajoute une couche d'attention croisée dans chaque bloc entre le réseau d'auto-attention et le réseau feed-forward. Les jetons de requête sont calculés à partir des jetons du décodeur, tandis que les clés et les valeurs sont calculées à partir des jetons de sortie de l'encodeur.
+\sskip
+Les LLMs sont des exemples d'applications modernes du Transformer.
 \section{A Retenir Des Quizzs}
 \subsection{Quizz 1}
 \begin{itemize}
