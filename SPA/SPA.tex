@@ -287,6 +287,21 @@ La proposition précédente nous permet d'introduire le lemme suivant:
 \underline{Lemme:}
 \sskip 
 Soient un espace mesurable $(S, \mc S)$ et $(U_n)$ une suite de VAs indépendantes à valeurs dans S. Soient $X_0$ une variable aléatoire à valeurs dans E indépendante de $(U_n)$ et $f$ une fonction mesurable définie de $E\times S$ dans $E$, on peut alors définir le système dynamique stochastique suivant: $X_{n+1}=f(X_n,U_{n+1})$ qui est une chaîne de Markov.
+\bigskip
+
+\Def \ Matrices de transition
+\sskip 
+Une chaîne de Markov $X$ sur $E$ a les matrices de transition $(P_n)_n$ si c'est une suite de matrices stochastiques sur E telle que: $\Prob (X_{n+1}=y | X_n)=P_{n+1}(X_n,y)$.
+\sskip 
+Une chaîne de Markov est homogène si $(P_n)$ est constante. 
+\bigskip 
+
+\Prop 
+\sskip 
+La distribution d'une chaîne de Markov homogène est caractérisée par sa matrice de transition $P$ et la distribution initiale de probabilité $\mu_0$ pour $X_0$.
+\sskip 
+De plus, pour tout $n\in\N^*$, $\ind x n\in E$, alors:
+$$\Prob(X_0=x_0,...,X_n=x_n) = \mu_0(x_0)\prod_{k=1}^n P(x_{k-1},x_k).$$
 \newpage
 \section{Points A Retenir}
 \subsection{Fonctions Mesurables}
