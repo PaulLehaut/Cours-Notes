@@ -526,4 +526,94 @@ $$\Prob(\sum_{i=1}^n(X_i-\E(X_i))\ge r\sqrt{n})\le \exp(-2r^2).$$
 \sskip 
 Il vient alors:
 $$\Prob(|\bar X_n-\E(X_1)|\ge r/\sqrt{n})\le 2\exp(-2r^2).$$
+\bigskip
+
+\section{Estimateur du Maximum de Vraisemblance}
+Jusqu'à présent, on a vu des méthodes d'estimation, de calcul d'intervalle de confiance qui reposent sur le choix de fonctions particulières. A l'inverse l'estimateur du maximum de vraisemblance permet d'estimer les paramètres d'un modèle de façon plus générale.
+\subsection{Vraisemblance d'un Echantillon et Estimateur}
+On s'intéresse à $(\ind X n)$ des VAs iid dans $\R^n$.
+\bigskip 
+
+\Def \ Vraisemblance d'une observation
+\sskip 
+Soit $x^*_n=(\ind x n)$ une valeur possible de $X^*_n=(\ind X n)$, la vraisemblance de cette observation est donnée par la fonction: 
+$$L_n(x^*_n, \cdot) = \theta \mapsto \prod_{i=1}^np(x_i,\theta) \ \ \text{avec} \ \ p(x_i,\theta)= \Prob_\theta(X_i=x_i).$$
+\bskip 
+Dans le cas discret, alors: $L_n(x_n^*,\theta)= \Prob_\theta(X_1=x_1,...,X_n=x_n)$, si $\Prob_\theta$ admet une densité selon la mesure de Lebesgue, alors elle est donnée par: $x_n^*\mapsto L_n(x_n^*,\theta)$.
+\bskip 
+L'estimation du maximum de vraisemblance consiste à chercher le paramètre $\theta^*$ qui rend les valeurs observées les plus probables.
+\smallskip 
+
+\Def \ Estimateur du maximum de vraisemblance 
+\sskip 
+Supposons que, pour tout $x_n^*$, $\theta\mapsto L_n(x_n^*, \theta)$ atteigne un maximum global en $\theta^* = \theta_n(x_n^*)$. L'estimateur du maximum de vraisemblance (MLE) de $\theta$ est la statistique:
+$$\hat{\theta_n} =\theta_n(X_n^*).$$
+Dans le cas où il y a plusieur maximum, on peut simplement prendre $\hat{\theta_n}\in\arg\max_\theta L_n(x_n^*,\theta)$.
+\bskip 
+Si la fonction de vraisemblance est différentiable, on peut alors calculer $\hat{\theta_n}$ en cherchant les zéros du gradient. Dans cette perspective, il peut être intéressant de considérer la dérivée du logarithme de la vraisemblance:
+$$l_n(x_n^*,\theta) = \log (L_n(x_n^*,\theta)).$$
+\bigskip 
+
+\subsection{Exemples}
+\subsubsection{Modèle de Bernoulli}
+On a alors: 
+$$L_n(x_n^*, p )=\prod_{i=1}^n \Prob_p(X_i=x_i) = \prod_{i=1}^n p^{x_i}(1-p)^{1-x_i}$$
+donc: $$l_n(x_n^*,p)=\sum_{i=1}^n(x_i\log(p)+(1-x_i)\log(1-p))=n\bar X_n\log(p) + n(1-\bar X_n)\log(1-p).$$
+On peut alors calculer: 
+$$\frac{\partial l}{\partial p}(x_n^*,p^*) = 0 \Longleftrightarrow (1-p^*)\bar X_n - p^* (1-\bar X_n) = 0 \Longleftrightarrow p^* =\bar X_n.$$
+Il reste alors à s'assurer que $p^*$ correspond bien à un maximum, dans le cas du modèle de Bernoulli c'est bien le cas.
+\bigskip 
+
+\subsubsection{Cas du Modèle Gaussien}
+On a alors:
+$$L_n(x_n^*,\mu,\sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}^n}\prod_{i=1}^n\exp(\frac{-(x_i-\mu)^2}{2\sigma^2})$$
+donc: 
+$$\frac{\partial l_n}{\partial \mu}(x_n^*,\mu^*,{\sigma^2}^*) = \frac{1}{{\sigma^2}^2}\sum_{i=1}^n(x_i - \mu^*) \ \ \text{et}\ \ \frac{\partial l_n}{\partial \sigma^2}(x_n^*,\mu^*,{\sigma^2}^*) = -\frac{n}{2\pi\sigma^*}+\sum_{i=1}^n\frac{(x_i-\mu^*)^2}{{\sigma^3}^*}.$$
+On trouve alors : $\mu^*=\bar X_n$ et ${\sigma^2}^*=S_n^2$ qui sont les estimateurs qu'on trouve également avec la méthode des moments.
+\bigskip 
+
+\subsection{Optimalité du MLE}
+Lorsqu'on a plusieurs estimateurs du même paramètre on peut comparer leur MSE, voire leur variance asymptotique s'ils sont asymptotiquements normaux. Le MLE est asymptotiquement normal, sa variance asymptotique est par ailleurs optimale dans les modèles réguliers.
+\subsubsection{Modèle Régulier et Information de Fisher}
+On rappelle que $\nabla\phi_\theta = (\frac{\partial \phi}{\partial\theta_1},...,\frac{\partial \phi}{\partial\theta_d})$.
+\bigskip 
+
+\Def \ Modèle régulier 
+\sskip 
+Un modèle paramétrique est régulier si: $\Theta$ est ouvert et:
+\begin{itemize}
+\item $\forall x_1,\forall \theta\in\Theta, \ L_1(x_1,\theta)>0$
+\item $\forall x_1, \ \theta\mapsto l_1(x_1,\theta)\in \mc C^1(\Theta)$
+\item $\forall \theta\in \Theta, \ \E_\theta(||\nabla_\theta l_1(X_1,\theta)||^2)<\pinf.$
+\end{itemize}
+\bigskip 
+
+\Def \ Score dans un modèle régulier 
+\sskip 
+Dans un modèle régulier, on appelle score le vecteur aléatoire $\nabla_\theta l_1(X_1,\theta) = (\frac{1}{p(X_1,\theta)}\frac{\partial p}{\partial\theta_i}(X_1,\theta))_i$.
+\sskip 
+L'information de Fisher $I(\theta)$ d'un modèle régulier est: 
+$$I(\theta) = Cov_\theta(\nabla_\theta l_1(X_1,\theta)).$$
+
+\Prop 
+\sskip 
+On a, pour tout $\theta$, $\E_\theta(\nabla_\theta l_1(X_1,\theta)) = 0$ et les coefficients de $I(\theta)$ sont:
+$$I_{i,j}(\theta) = \E_\theta(\frac{\partial l_1}{\partial \theta_i}(X_1,\theta)\frac{\partial l_1}{\partial \theta_j}(X_1,\theta)) = -\E_\theta(\frac{\partial^2l_1}{\partial\theta_i\partial\theta_j}(X_1,\theta)).$$
+\bigskip 
+
+\subsubsection{Estimateur Efficace}
+On peut utiliser l'information de Fisher pour définir une notion d'efficacité pour les modèles non-biaisés.
+\smallskip 
+
+\Theo \ Borne de Cramér-Rao 
+\sskip 
+Pour un modèle régulier tel que $I(\theta)>0$ pour tout $\theta$, on note $\tilde \theta_n = t_n(X_n)$ un estimateur non-biaisé de $\theta$ avec la matrice de covariance $K_n(\theta)= Cov_\theta(\tilde \theta_n)$; alors:
+$$K_n(\theta) \succeq \frac{I^{-1}(\theta)}{n}.$$
+\bigskip 
+
+\Def \ Estimateur efficace 
+\sskip 
+Un estimateur est dit efficace s'il est non-biaisé et si sa matrice de covariance vérifie $K_n(\theta) = \frac{I^{-1}(\theta)}{n}$.
+\bskip 
+On rappelle que si $\tilde \theta_n$ est un estimateur non-biaisé, alors: $MSE(\tilde \theta_n,\theta)=\V_\theta(\tilde\theta_n)=tr(K_n(\theta))\ge \frac{tr(I^{-1}(\theta))}{n}$. En conséquences, dans un modèle régulier, les estimateurs efficaces minimisent la MSE pour les estimateurs non-biaisés.
 \end{document}
