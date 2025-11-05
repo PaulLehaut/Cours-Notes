@@ -6,6 +6,7 @@
 
 
 \begin{document}
+\newcommand{\CM}{chaîne de Markov}
 
 \maketitle
 \newpage
@@ -302,6 +303,93 @@ La distribution d'une chaîne de Markov homogène est caractérisée par sa matr
 \sskip 
 De plus, pour tout $n\in\N^*$, $\ind x n\in E$, alors:
 $$\Prob(X_0=x_0,...,X_n=x_n) = \mu_0(x_0)\prod_{k=1}^n P(x_{k-1},x_k).$$
+
+\Prop 
+\sskip 
+Soit $(X_n)$ une chaîne de Markov de matrice de transition $P$, on note $\mu_n$ la densité de probabilité de $X_n$, soit $f$ une fonction bornée ou positive, alors:
+\begin{itemize}
+    \item $\mu_n=\mu_0 P^n$
+    \item $\E(f(X_n))=\mu_n f$ et $\E(f(X_n)|X_0=x)=P^nf(x)$
+    \item $\E(f(X_n)|\mc F_{n-1})=Pf(X_{n-1})$
+    \item $\E(f(X_n)|X_0)=P^nf(X_0)$
+    \item $\Prob(X_{n+k}=y|\mc F_n)=P^k(X_n,y)$
+\end{itemize}
+\bigskip
+\subsection{Probabilité Invariante et Réversible}
+On se donne dans cette partie une distribution de probabilité $\pi$ et une matrice stochastique P.
+\bigskip 
+
+\Def 
+\sskip
+$\pi$ est invariante pour $P$ si $\pi = \pi P$. P est dite réversible par rapport à $\pi$ si $\pi(x)P(x,y)=\pi(y)P(y,x)$.
+\bskip
+On remarque alors que si $P$ est réversible par rapport à $\pi$, alors $\pi$ est invariante par rapport à $P$.
+\bigskip 
+\subsection{Classification d'Etats}
+On introduit les notation: $\E_x(X_n)= \E(X_n | X_0=x)$ et $\Prob_x(X_n)= \Prob(X_n | X_0=x)$.
+\bigskip
+
+\Def 
+\sskip 
+Un état $y$ est accessible depuis un état $x$, noté $x\rightarrow y$, si $\Prob_x (X_n = y) > 0$.
+\sskip 
+$x$ et $y$ communiques ($x\leftrightarrow y$) si $y$ est accessible depuis $x$ et inversement.
+\smallskip
+
+\Prop 
+\sskip 
+La relation $\leftrightarrow$ est une relation d'équivalence.
+\smallskip 
+On note alors $C_x$ la classe d'équivalence d'un état $x$.
+\bigskip 
+
+\Def \ Irréductibilité 
+\sskip 
+On dit qu'une \CM \ est irréductible si $E$ ne contient qu'une seule classe d'équivalence.
+\bigskip 
+
+\Def \ Classe fermée et état absorbant 
+\sskip 
+Soit un état $x$, on dit que $C_x$ est fermée si $C_x=\{y\in E| x\leftarrow y\}$. $x$ est un état absorbant si $C_x=\{x\}$ $C_x$ est fermée.
+\bskip 
+Si une chaîne de Markov possède au moins deux éléments et un état absorbant alors elle n'est pas irréductible.
+\bigskip 
+
+\Def \ Temps de retour, état transient et récurrent
+\sskip 
+On pose $T^x = \inf_\{n\ge 1| X_n =x\}$. $x$ est dit transient si $\Prob(T^x=\pinf)>0$, il est dit récurrent si $\Prob(T^x=\pinf)=0$.
+\bskip 
+On peut alors noter $N^x=\sum_{n\in\N}1_{X_n =x}$ le nombre de passage en $x$.
+\bigskip 
+
+\Prop 
+\sskip 
+Soit $(X_n)$ une \CM \ de matrice de transition $P$, alors:
+\begin{itemize}
+    \item Si $x$ est récurrent, alors $\Prob(N^x=\pinf)=1$ et $\sum_n P^n(x,x)=\pinf$
+    \item S'il est transient, alors $\Prob(N^x<\pinf)=1$ et $\sum_n P^n(x,x)<\pinf$
+    \item Les états de $C_x$ sont ou tous transients ou tous récurrents
+    \item Si $C_x$ est ouvert, alors ses états sont transients.
+\end{itemize}
+\bigskip 
+\subsection{Théorèmes Asymptotiques}
+On note, pour un état $x$, $\pi(x)=1/\E_x(T^x)$.
+\bigskip 
+
+\Def 
+\sskip 
+Un état récurrent $x$ est: récurrent nul si $\pi(x)=0$, récurrent positif si $\pi(x)>0$.
+\bigskip 
+
+\Theo 
+\sskip 
+Soit $(X_n)$ une \CM \ irréductible, alors elle est ou bien récurrente nulle, ou bien récurrente positive, ou bien transiente.
+\sskip 
+Si elle est récurrente nulle ou transiente, alors il n'y a pas de probabilité invariante. 
+\sskip
+On a finalement le résultat suivant:
+\sskip 
+$$\forall x\in E, \frac{1}{n}\sum_{k=1}^n 1_{X_k=x} \longrightarrow_{ps}\pi(x).$$
 \newpage
 \section{Points A Retenir}
 \subsection{Fonctions Mesurables}
