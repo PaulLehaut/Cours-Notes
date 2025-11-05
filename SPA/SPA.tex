@@ -332,8 +332,7 @@ Pour $p\in[1,\pinf)$, l'\evn \ $(L^p, \ ||\cdot||_p)$ est complet.
 \subsection{Espérance}
 Inégalité de Tchebychev: pour $a>0$, on a: $\Prob (|X|\ge a)\le \frac{\E(X^2)}{a^2}$.
 Inégalité de Jensen: pour $f$ convexe: $f(\E(X))\le\E(f(X))$.
-\bigskip 
-\subsubsection{Espérance Conditionnelle}
+\bskip
 On rappelle la définition: une variable aléatoire $Z$, mesurable pour $\mc H$ telle que son espérance soit bien définie, est \underline{l'espérance conditionnelle de X par rapport à $\mc H$} si:
 $$\E(X1_A)=\E(Z1_A), \ \forall A\in \mc H.$$
 L'espérance conditionnelle de $X$ par rapport à $\mc H$ existe toujours et, par ailleurs: $\E(\E(X|\mc H))=\E(X)$.
@@ -358,4 +357,9 @@ Propriété fondamentale: conditionnellement à $X_n$, les événements $X_1,...
 Le processus $(X_n)$ est une chaîne de Markov qui respecte le filtre $\mathbb{F}$ si elle est adaptée pour ce filtre et si elle vérifie: pour tout n, conditionnellement à $X_n$, les événements $\mc F_n$ et $(X_{n+k})$ sont indépendants.
 \sskip 
 On a les équivalneces pour $(X_n)$ adaptée à $\mathbb{F}$: $(X_n)$ est une chaîne de Markov ssi pour tout $B\in\sigma((X_k)_{k\ge n})$, $\Prob (B|\mc F_n)=\Prob(B|X_n)$ pour tout n ssi $\Prob(X_{n+1}=y|\mc F_n)=\Prob(X_{n+1}=y| X_n)$ pour tout n et $y\in E$.
+\sskip
+Le résultat suivant est un résultat fondamental sur la construction d'une chaîne de Markov: Soient un espace mesurable $(S,\mc S)$ et $(U_n)$ une suite de VAs indépendantes à valeurs dans S. Soient $X_0$ une VA dans E indépendante de $(U_n)$ et $f$ mesurable de $E\times S$ dans $E$, alors
+$$\underline{X_{n+1}=f(X_n, U_{n+1}) \ \ \text{est une chaîne de Markov.}} $$
+Pour une chaîne de Markov homogène, la distribution initiale de probabilité $\mu_0$ pour $X_0$ et la matrice de transition $P$, alors:
+$$\Prob(X_0=x_0,...,X_n=x_n)=\mu_0(x_0)\prod_{j=1}^nP(x_{j-1},x_j).$$
 \end{document}
