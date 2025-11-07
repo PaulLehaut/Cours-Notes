@@ -177,4 +177,84 @@ $$\forall v\in H^1(\Omega), \ L_\Phi(v)=(v,\Phi)_{L^2(\Omega)}$$
 on a donc: $\forall v\in H^1(\Omega), \ (w_\Phi,v)_{H^1}=L_\Phi(v)=(v,\Phi)_{L^2}$,
 \newline 
 et donc: $(u_n,\Phi)_{L^2} = (w_\Phi,u_n)_{H^1} \to (w_\Phi,u)_{H^1}=(u,\Phi)_{L^2}$.
+\bigskip 
+
+\section{Espace de Sobolev}
+On utilisera également dans ce chapitre les espaces de Hölder définis par, pour $\Omega\subset \R^d$ un ouvert:
+$$\forall 0 <\alpha \le 1, \ \mc C^{0,\alpha}(\bar \Omega) = \{u\in\mc C^0(\bar \Omega)| ||u||_{\mc C^{0,\alpha}} = ||u||_{\mc C^{0}} + \sup_{x\neq y}\frac{||u(x)- u(y)||}{|x-y|^\alpha}<\pinf\}$$
+$$\text{avec} \ \ ||u||_{\mc C^{0}} = \sup_{x\in\bar\Omega}||u(x)||$$
+et:
+$$\forall 0 <\alpha \le 1, \ m\in \N, \ \mc C^{m,\alpha}(\bar \Omega) = \{u\in\mc C^m(\bar \Omega)| ||u||_{\mc C^{m,\alpha}} = \max_{|\beta|\le m}||\partial^\beta u||_{\mc C^{0}} + \max_{|\beta|=m}||\partial^\beta u ||_{\mc C^{0,\alpha}}<\pinf\}.$$
+On notera que l'\ev \ des fonctions de $\Omega\longrightarrow \R^d$ de classe $\mc C^{\infty}$ à support compact dans $\Omega$ ou bien $\mc C_c^{\infty}(\Omega)$ ou bien $\mc D(\omega)$ selon qu'on l'interprète comme l'ensemble des fonctions test ou non.
+\bigskip
+
+\subsection{Espace de Sobolev d'Ordre Entier}
+Il s'agit d'une généralisation naturelle des espaces de Sobolev $H^k$ vus en première année.
+\bigskip 
+
+\Theo 
+\sskip 
+Soient $k\in\N^*$ et $1\le p\le \pinf$. On note $W^{k,p}(\Omega)$ l'espace de Sobolev:
+$$W{k,p}(\Omega)=\{u\in L^p(\Omega)|\ \forall  \alpha \in \N^d, |\alpha|\le k, \ \partial^\alpha u\in L^p(\Omega)\}$$
+on le muni de la norme:
+$$||u||_{W^{k,p}} = (\sum_{\alpha\in\N^d,\ |\alpha|\le k} = ||\partial^\alpha u||^p_{L^p})^{1/p} \ \ \text{si} \ \ p<+\infty, \ \ \ ||u||_{W^{k,\infty}}=\max_{\alpha\in\N^d, \ |\alpha|\le k}||\partial^\alpha u||_{L^\infty} \ \ \text{sinon} $$
+alors il s'agit d'un espace de Banach.
+\bigskip 
+
+\Def 
+\sskip 
+Pour $p=2$, on note $H^k(\Omega)=W^{k,2}(\Omega)$, on munit cette espace du produit scalaire:
+$$(u,v)_{H^k} = \sum_{|\alpha|\le k}(\partial^\alpha u, \partial^\alpha v)_{L^2}$$
+on remarque en particulier que: $H^1(\Omega)=\{u\in L^2(\Omega)|\ \nabla u\in L^2(\Omega)\}$.
+\bigskip 
+
+\Prop 
+\sskip 
+Pour $u\in H^1$, alors: $||u||_{H^1}^2 = ||u||_{L^2}^2 + ||\nabla u||_{L^2}^2$.
+\bigskip 
+
+\Theo 
+\sskip 
+Pour tout $k \in \N^*$, $H^k(\Omega)$ est un espace de Hilbert séparable.
+\smallskip
+
+\Dem \ Pour $H^1$
+\sskip 
+Soit $(u_n)$ une suite de Cauchy dans $H^1$, alors, comme:
+$$||u_{n+p} - u_{n}||_{L^2}\le||u_{n+p} - u_{n}||_{H^1} \ \ \text{et} \ \ ||\nabla u_{n+p} - \nabla u_{n}||_{L^2}\le ||u_{n+p} - u_{n}||_{H^1}$$
+on en déduit que les suites $(u_n)$ et ($\partial^j u_n)$ sont des suites de Cauchy dans $L^2$, or $L^2$ est Complet, il existe donc $u$ et $v_j$ telles que:
+$$u_{n}\longrightarrow u \ \ \text{et} \ \ \frac{\partial u_{n}}{\partial x_j}\longrightarrow v_j. $$
+Or, la convergence dans $L^2$ implique la convergence dans $\mc D'(\Omega)$ et $u_n\longrightarrow u$ dans $\mc D'(\Omega)$ implique:
+$$\frac{\partial u_n}{\partial x_j}\longrightarrow \frac{\partial u}{\partial x_j}$$
+donc, comme $D'(\Omega)$ est séparé, alors la limite est imite et $v_j = \frac{\partial u}{\partial x_j}$, donc $\nabla u = (\ind v n)^T\in L^2(\Omega)$.
+On en déduit donc que $u\in H^1(\Omega)$ et: 
+$$||u_n-u||_{H^1} = ||u_n-u||_{L^2} + ||\nabla u_n - \nabla u||_{L^2} \ \ \text{donc} \ \ u_n\longrightarrow u \ \ \text{dans} \ \ H^1(\Omega).$$
+\bigskip 
+
+\Def 
+\sskip 
+On note $W_0^{k,p}(\Omega)=\overline{\mc C_c^\infty(\Omega)}^{||\cdot||_{W^{k,p}(\Omega)}}$. Il s'agit d'un sous-\ev \ fermé de l'espace de Banach $W^{k,p}(\Omega)$, c'est donc également un espace de Banach (pour la norme $||\cdot||_{W^{k,p}(\Omega)}$).
+\bigskip 
+
+\subsection{IPP en Dimension d et Formule de Stokes}
+Soit $\Omega$ un ouvert de $\R^d$.
+\smallskip 
+
+\Def 
+\sskip 
+$\Omega$ est lipschitzien si, pour tout $x$ de sa frontière, il existe un voisinage $V_x$ de $x$ et un homémorphisme 
+\newline
+$\Phi_x : (-1,1)^d\to V_x$ tel que $\Phi_x$ et $\Phi^{-1}_x$ soient lipschitziennes avec $\Phi_x(0)=x$ et $\Phi_x((-1,1)^{d-1}\times(-1,0)) =V_x\cap \Omega$.
+\sskip 
+On dit que $\Omega$ est uniformément lipschitzien si les constantes de lipschitz de $\Phi_x$ et $\Phi^{-1}_x$ peuvent être choisies uniformément bornées.
+\sskip 
+On dit que $\Omega$ est de classe $\mc C^k$ si $\Phi_x$ et son inverse peuvent être choisies de classe $\mc C^k$.
+\sskip 
+On dit que $\Omega$ est régulier si il est de classe $\mc C^k$ pour tout $k\in \N$.
+\bigskip 
+
+\Theo \ Stokes 
+\sskip 
+Si $\Omega$ est lipschitzien, on peut définir $\sigma$ une mesure de surface sur sa frontière et une normale sortante $n(x)$ presque partout (pour la mesure $\sigma$) telles que:
+$$\forall X\in\mc C^1(\bar\Omega, \R^d), \ \int_\Omega \text{div} X = \int_{\partial \Omega} = X\cdot n d\sigma.$$
 \end{document}
