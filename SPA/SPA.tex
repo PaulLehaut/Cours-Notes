@@ -350,14 +350,14 @@ On dit qu'une \CM \ est irréductible si $E$ ne contient qu'une seule classe d'�
 
 \Def \ Classe fermée et état absorbant 
 \sskip 
-Soit un état $x$, on dit que $C_x$ est fermée si $C_x=\{y\in E| x\leftarrow y\}$. $x$ est un état absorbant si $C_x=\{x\}$ $C_x$ est fermée.
+Soit un état $x$, on dit que $C_x$ est fermée si $C_x=\{y\in E| x\rightarrow y\}$. $x$ est un état absorbant si $C_x=\{x\}$ $C_x$ est fermée.
 \bskip 
 Si une chaîne de Markov possède au moins deux éléments et un état absorbant alors elle n'est pas irréductible.
 \bigskip 
 
 \Def \ Temps de retour, état transient et récurrent
 \sskip 
-On pose $T^x = \inf_\{n\ge 1| X_n =x\}$. $x$ est dit transient si $\Prob(T^x=\pinf)>0$, il est dit récurrent si $\Prob(T^x=\pinf)=0$.
+On pose $T^x = \inf\{n\ge 1| X_n =x\}$. $x$ est dit transient si $\Prob(T^x=\pinf)>0$, il est dit récurrent si $\Prob(T^x=\pinf)=0$.
 \bskip 
 On peut alors noter $N^x=\sum_{n\in\N}1_{X_n =x}$ le nombre de passage en $x$.
 \bigskip 
@@ -450,4 +450,20 @@ Le résultat suivant est un résultat fondamental sur la construction d'une cha�
 $$\underline{X_{n+1}=f(X_n, U_{n+1}) \ \ \text{est une chaîne de Markov.}} $$
 Pour une chaîne de Markov homogène, la distribution initiale de probabilité $\mu_0$ pour $X_0$ et la matrice de transition $P$, alors:
 $$\Prob(X_0=x_0,...,X_n=x_n)=\mu_0(x_0)\prod_{j=1}^nP(x_{j-1},x_j).$$
+On a les propositions suivantes, pour une chaîne de Markov homogène:
+\begin{itemize}
+    \item $\mu_n = \mu_0P^n$
+    \item $\E(f(X_n)) = \mu_0 P^n f$
+    \item $\E(f(X_n)|\mc F_{n-1}) = Pf(X_{n-1})$
+    \item $\E(f(X_{n+k}|X_n)) = P^kf(X_n)$
+    \item $\E(X_{n+k}=y|X_n)=P^k(X_n,y)$
+    \item Si $x$ est récurrent: $P(N^x=\pinf)=1$ et $\sum_n P^n(x,x)=\pinf$
+    \item S'il est transient: $P(N^x<\pinf)=1$ et $\sum_n P^n(x,x)<\pinf$
+    \item Les états d'une même classe d'équivalence sont ou tous transients ou tous récurrents, si la classe est ouverte, ils sont tous transients
+\end{itemize}
+Une chaîne de Markov irréductible est ou bien récurrente nulle/positive ou transiente.
+\sskip 
+Si elle est récurrente nulle ou transiente, alors il n'y a pas de probabilité invariante.
+\sskip 
+On a $\frac{1}{n}\sum_{k=1}^n1_{X_k=x}\longrightarrow_{ps} 1/\E_x(T^x)$.
 \end{document}
