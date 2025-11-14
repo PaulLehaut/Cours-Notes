@@ -390,6 +390,27 @@ Si elle est récurrente nulle ou transiente, alors il n'y a pas de probabilité 
 On a finalement le résultat suivant:
 \sskip 
 $$\forall x\in E, \frac{1}{n}\sum_{k=1}^n 1_{X_k=x} \longrightarrow_{ps}\pi(x).$$
+
+\Def \ Périodicité 
+\sskip 
+Soit $(X_n)$ une chaîne de Markov homogène de matrice de transition P. La période de $x$ est le PGCD de: 
+$$\{n\in\N^*| \ P^n(x,x)>0\}$$
+si cet ensemble est vide, alors $x$ est de périodicité infinie, l'état est apériodique si sa périodicité est 1.
+\bigskip 
+
+\Prop 
+\sskip 
+Si $x$ est de période finie $d$, alors il existe $n_0\in\N$ tel que $P^{nd}$ pour tout $n\ge n_0$. Les éléments d'une même classe communicante sont de même période.
+\bigskip 
+
+\Theo
+\sskip 
+On suppose que $(X_n)$ est récurrente positive, alors:
+\begin{itemize}
+    \item $\pi$ est la seule mesure invariante de $(X_n)$ et $\pi (x)>0$ pour tout $x$
+    \item pour toute fonction à valeurs réelles $f$ telle que $(\pi,f) = \E_\pi(f(X_n))$ soit bien définie, alors: $\frac{1}{n}\sum_{k=1}^nf(X_k)\rightarrow_{ps} (\pi, f)$
+    \item si la châine est apériodique, alors on a la convergence en distribution $X_n\rightarrow\pi$ et $\lim\sum_{y\in E}-P^n(x,y)-\pi(y)|=0$.
+\end{itemize}
 \newpage
 \section{Points A Retenir}
 \subsection{Fonctions Mesurables}
