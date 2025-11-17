@@ -1,0 +1,194 @@
+\documentclass{article}
+
+\title{Analyse Complexe}
+\author{Paul Lehaut}
+\usepackage{mesraccourcis}
+
+\begin{document}
+\newcommand{\Cdiff}{$\mathbb{C}$-différentiable}
+\newcommand{\Rdiff}{$\mathbb{R}$-différentiable}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\section{Différentiabilité Complexe}
+\subsection{Préliminaires}
+Dans tout ce cours, $\Omega$ désigne un ouvert de $\C$.
+\bigskip
+
+\Def \ Différentiabilité complexe 
+\sskip 
+Soit $f:A\subset \C\longrightarrow \C$, $f$ est \Cdiff \ en un point intérieur $a$ de $A$ si:
+$$f'(a) = \lim_{h\to 0}\frac{f(a+h)-f(a)}{h} \ \ \text{existe dans } \C.$$
+\sskip 
+$f$ est \Cdiff \ sur $A$ si elle est dérivable en tout point de $A$, on dit alors qu'elle est holomorphe. Si $A=\C$, on dit que $f$ est complète.
+\bigskip 
+
+\Theo
+\sskip 
+$f$ holomorphe implique $f$ continue et $f'$ holomorphe.
+\bskip 
+\subsection{Dérivée et différentielle complexe}
+On rappelle qu'un espace vectoriel est réel (resp complexe) si son champ de scalaire est l'axe des réels (resp le plan complexe).
+\bigskip 
+
+\Def 
+\sskip 
+Soient E et F des \ev \ normés complexes, soit $l:E\longrightarrow F$, $l$ est linéaire complexe si elle est additive est homogène complexe (ie $\forall \lambda\in \C l(\lambda z) = \lambda l(z)$).
+\sskip 
+Soientt $f:A\subset E\longrightarrow F$, $z$ un point intérieur de $A$, la différentielle complexe de $f$ en $z$ est l'opérateur linéaire complexe (donc continu):
+$$df_z:E\longrightarrow F \ \ \text{tel que} \ \ \lim_{h\to 0}\frac{||f(z+h)-f(z)-df_z(h)||}{||h||}=0.$$
+On a alors: $f(z+h)=f(z)+df_z(h)+\epsilon(h)||h||$ où $\epsilon(h)\to_{h\to0}0$.
+\bigskip 
+
+\Theo 
+\sskip 
+Soit $f:A\longrightarrow \C$ $df_z$ existe si et seulement si $f'(z)$ existe et alors: $df_z(h)=f'(z)h$.
+\bigskip
+
+\Prop 
+\sskip 
+On a les résultats classiques d'addition, de produit, de quotient et de composition des fonctions \Cdiff.
+\bigskip 
+\subsection{Equations de Cauchy-Riemann }
+On note dans cette section $f=u+iv$, une fonction de $\Omega$ dans $\C$.
+\bigskip 
+
+\Theo
+\sskip 
+$f$ est \Cdiff \ si et seulement si on a l'une des équivalences suivantes:
+\begin{itemize}
+    \item $f$ est \Rdiff \ sur $\Omega$ et sa différentielle est $\C$-linéaire 
+    \item $df_z(i)=idf_z(1)$ (1)
+    \item $\frac{\partial f}{\partial x}=\frac{\partial f}{i\partial y}$ (2)
+    \item $\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}$ et $\frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}$ (3)
+\end{itemize}
+Les égalités (2) et (3) correspondent aux équations de Cauchy-Riemann.
+\bigskip 
+
+\underline{Corrolaire :}
+\sskip 
+$f$ est \Cdiff \ si et seulement si $\frac{\partial f}{\partial x}$ et $\frac{\partial f}{\partial y}$ existent, sont continues et $\frac{\partial f}{\partial x}=\frac{\partial f}{i\partial y}$ ce qui équivaut également à $\frac{\partial u}{\partial x},\ \frac{\partial v}{\partial x}, \ \frac{\partial u}{\partial y}$ et $\frac{\partial v}{\partial y}$ existent, sont continues et vérifient l'égalité de Cauchy-Riemann définie précédemment.
+
+\bigskip 
+\section{Intégrale Linéaire et Primitive}
+\subsection{Chemin}
+L'objectif principal de cette session est d'obtenir la version complexe du théorème fondamentale du calcul intégral qui donne, dans le cas réel: 
+
+Pour I un intervalle ouvert de $\R$, $a\in I$, $f:I\longrightarrow \R$ continue, alors $g$ est la primitive de $f$ si et seulement si:
+$$\forall x\in I, \ g(x)=g(a)+\int_a^x f.$$
+\bigskip 
+
+\Def \ Chemin 
+\sskip 
+Un chemin $\gamma$ est une fonction continue de $[0,1]$ dans $\C$, si $A\subset \C$, $\gamma$ est un chemin de $A$ si son image est incluse dans $A$.
+\sskip 
+Un chemin est fermé si son point de départ est égal à son point d'arrivé ie: $\gamma(0)=\gamma(1)$. Des chemins sont consécutifs si le point de départ de l'un est le point final de l'autre.
+\sskip 
+Le chemin retour de $\gamma$ est le chemin $\gamma^*(t)=\gamma(1-t)$.
+\bigskip 
+
+\Def \ Ensembles ouverts (connexes par arcs)
+\sskip 
+$\Omega$ est connexe (par arcs) si pour chacun de ces points $x,y$ il y a un chemin de $\Omega$ qui lie $x$ à $y$.
+\bigskip 
+
+\Def \ Concaténation de chemins 
+\sskip 
+Soit $0=t_0<t_1<...<t_n=1$ une partition de $[0,1]$, la concaténation de chemins consécutifs associées à cette partition est le chemin $\gamma$ défini par:
+$$\gamma = \gamma_1|_{t_1}...|_{t_{n-1}}\gamma_n \ \ \text{tel que } \forall k, \gamma|_{[t_{k-1},t_k]}=\gamma_k(\frac{t-t_{k-1}}{t_k-t_{k-1}}).$$
+Si la partition est uniforme (ie $t_k=k/n$), alors on notera: $\gamma = \gamma_1|...|\gamma_n$.
+\bigskip 
+
+\Def \ Chemin rectifiable 
+\sskip 
+Un chemin $\gamma$ est rectifiable s'il est continûment différentiable par morceaux, on peut alors écrire $\gamma = \gamma_1|_{t_1}...|_{t_{n-1}}\gamma_n$ où les $\gamma_k$ sont continûments différentiables.
+\bskip 
+On peut donc introduire le lemme suivant pour renforcer la notion de connexité:
+\smallskip 
+
+\underline{Lemme:} Connexité et chemins rectifiables
+\sskip
+$\Omega$ est connexe si et seulement si toute paire de points de $\Omega$ peut être reliée par un chemin rectifiable dans $\Omega$.
+
+\subsection{Intégrales de Ligne}
+Pour étudier les intégrales de ligne on doit d'abord introduire la notion suivante:
+\smallskip 
+
+\Def \ Longueur d'un chemin rectifiable
+\sskip 
+La longueur d'un chemin $\gamma$ continûment différentiable est:
+$$l(\gamma)=\int_0^1|\gamma'|\ge 0.$$
+Si $\gamma$ est seulement un chemin rectifiable, alors:
+$$l(\gamma)=\sum_{k=1}^nl(\gamma_k).$$
+On peut alors définir:
+\smallskip 
+
+\Def \ Intégrale de ligne 
+\sskip 
+L'intégrale de ligne le long d'un chemin continûment différentiable $\gamma$ d'une fonction complexe $f$ définie et continue sur l'image de $\gamma$ est le nombre complexe défini par:
+$$\int_\gamma f = \int_0^1f(\gamma(t))\gamma'(t)dt.$$
+Si $\gamma$ est seulement un chemin rectifiable, alors:
+$$\int_\gamma f =\sum_{k=1}^n\int_{\gamma_k}f.$$
+\bigskip 
+
+\Theo \ Inégalité M-L 
+\sskip 
+Pour tout chemin rectifiable $\gamma$ et toute fonction continue $f:\gamma([0,1])\longrightarrow\C$:
+$$|\int_{\gamma}f|\le(\max_{z\gamma([0,1])}|f(z)|)l(\gamma).$$
+\bigskip 
+
+\underline{Corrolaire:} Convergence dans les intégrales de ligne 
+\sskip 
+Pour tout chemin rectifiable $\gamma$ et toute suite de fonction continue $f_n:\gamma([0,1])\longrightarrow\C$ qui converge uniformément vers $f$, il vient:
+$$\lim_{n\to\pinf}\int_\gamma f_n = \int_\gamma f.$$
+\bigskip 
+
+\Theo \ Invariance par re-paramétrisation 
+\sskip 
+Soit $\gamma$ un chemin continûment différentiable, soit $\Phi:[0,1]\longrightarrow[0,1]$ un difféomorphisme de classe $\mc C^1$ strictement croissant tel que $\Phi(0)=0$ et $\Phi(1)=1$, alors il vient:
+\begin{itemize}
+    \item Le chemin $\mu = \gamma\circ\Phi$ est continûment différentiable, son image est la même que celle de $\gamma$,
+    \item Les longueurs de $\mu$ et de $\gamma$ sont identiques,
+    \item Pour toutes fonctions continues $f:\gamma([0,1])\longrightarrow\C$:
+    $$\int_\gamma f = \int_\mu f.$$
+\end{itemize}
+\bigskip 
+
+\Def \ Image d'un  chemin par un fonction 
+\sskip 
+Soit un chemin $\gamma$ et une fonctions continues $f:\gamma([0,1])\longrightarrow\C$, l'image de $\gamma$ par $f$ est le chemin $f\circ\gamma$.
+\bigskip 
+
+\Theo \ Changement de variable 
+\sskip 
+Soit $\gamma$ un chemin rectifiable sur $\Omega$ et $f$ une fonction \Cdiff, alors le chemin $f\circ \gamma$ est rectifiable et pour toute fonction continue $g:f\circ \gamma([0,1])\longrightarrow\C$:
+$$\int_{f\circ \gamma}g = \int_\gamma (g\circ f)(t) f'(t)dt.$$
+\bigskip 
+\subsection{Primitives}
+On va définir la primitive de façon analogue à la primitive de l'analyse réelle:
+\smallskip
+
+\Def Primitive
+Soit $f:\Omega\longrightarrow \C$, une primitive (ou antidérivée) de $f$ est une fonction holomorphique $g:\Omega\longrightarrow \C$ telle que $g'=f$.
+\bigskip 
+
+\Theo Théorème fondamental du calcul intégral 
+\sskip 
+Soit $f:\Omega\longrightarrow \C$ une fonction continue et soit $a$ un point de de $\Omega$. Une fonction $g:\Omega\longrightarrow \C$ est une primitive de $f$ si et seulement si pour tout $z\in\Omega$ et tout chemin rectifiable $\gamma$ de $\Omega$ qui lient $a$ et $z$, alors:
+$$g(z)=g(a)+\int_\gamma f(w)dw.$$
+\bigskip 
+
+\underline{Corrolaire:} Existence de primitives et ensemble de primitives
+\sskip 
+On suppose que $\Omega$ est connexe, la fonction $f:\Omega\longrightarrow\C$ admet une primitive si et seulement si elle est continue si pour tout chemin fermé rectifiable $\gamma$:
+$$\int_\gamma f =0.$$
+\sskip 
+Maintenant, si $g:\Omega\longrightarrow \C$ est une primitive de $f$, alors la fonction $h:\Omega\longrightarrow\C$ est également une primitive de $f$ si et seulement si elle est égale à $g$ à une constant près.
+\bigskip 
+
+\underline{Corrolaire:} Intégration par parties 
+\sskip 
+On suppose que $\Omega$ est connexe, soit $\gamma$ un chemin rectifiable de $\Omega$, pour toute paire de fonction holomorphe $f,g:\Omega\longrightarrow\C$, alors:
+$$\int_\gamma f'g = [fg(\gamma(1))-fg(\gamma(0))]-\int_\gamma fg'.$$
+\end{document}
