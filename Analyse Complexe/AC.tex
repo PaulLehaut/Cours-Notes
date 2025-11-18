@@ -199,4 +199,154 @@ Maintenant, si $g:\Omega\longrightarrow \C$ est une primitive de $f$, alors la f
 \sskip 
 On suppose que $\Omega$ est connexe, soit $\gamma$ un chemin rectifiable de $\Omega$, pour toute paire de fonction holomorphe $f,g:\Omega\longrightarrow\C$, alors:
 $$\int_\gamma f'g = [fg(\gamma(1))-fg(\gamma(0))]-\int_\gamma fg'.$$
+\bigskip 
+\section{Espaces Connexes}
+\subsection{Espaces Connexes (par Arcs)}
+Ils existent deux définitions légèrements différentes qui caractérise le fait d'être en un seul morceau: la connexité et la connexité par arcs. La connexité est un peu plus faible que la connexité par arcs et donc un peu plus robuste et puissante. Néanmoins, dans la majorité des cas, et pour tous les ouverts, ces deux propriétés sont équivalentes.
+\smallskip 
+
+\Def \ Espace connexe par arcs 
+\sskip 
+Un ensemble $A$ est connexe par arcs si chacune de ces paires de points peut être reliée par un chemin de $A$.
+\bigskip 
+
+\Def \ Dilatation
+\sskip 
+$B$ est une dilatation de $A$ si on peut écrire : $B=\cup_{a\in A} B(a,r_a)$ avec $r_a>0$ pour tout $a$.
+\bigskip 
+
+\Def \ Espace connexe 
+\sskip 
+Un espace est connexe si toute ses dilatations sont connexes par arcs.
+\bigskip 
+
+\Theo 
+\sskip
+Tout ensemble connexe par arcs est connexe, de façon réciproque, tout ensemble ouvert connexe est connexe par arcs. 
+\smallskip 
+Il est donc immédiat qu'un ensemble ouvert est connexe si et seulement s'il est connexe par arcs.
+\bigskip 
+\subsection{Opérations Ensemblistes}
+De nombreuses propriétés sont communes aux espaces connexes et connexes par arcs, c'est le cas, sauf mention contraire de toutes les propriétés suivantes:
+\bigskip 
+
+\Theo \ Union d'ensemble d'intersection non-vide 
+\sskip 
+Si $\mc A$ est une collection d'ensemble connexe (par arcs) dont l'intersection est non vide, alors leur union est également connexe (par arcs). 
+\bskip 
+On peut par ailleurs se convaincre facilement que l'union de deux ouverts d'intersection vide n'est pas connexe (par arcs).
+\bigskip
+
+\Theo \ Fermeture d'espaces connexes 
+La fermeture d'un espace connexe est connexe. 
+\sskip 
+Attention, ce théorème ne s'applique en général pas aux espaces connexes par arcs, considérer par exemple l'ensemble connexe par arcs $A=\{(x,\sin(1/x)); \ x\in ]0,1]\}$ dont la fermeture est $A\cup \{(0,y); \ y\in [-1,1]\}$.
+\bigskip 
+\subsection{Composantes}
+On introduit deux concepts de composantes selon le type de connexité:
+\smallskip 
+
+\Def \ Composante 
+\sskip 
+Une composante (connexe (par arcs)) d'un ensemble non vide $A$ est un sous-ensemble de $A$ qui est connexe (par arcs) et maximal au sens de l'inclusion pour de tels ensembles.
+\bigskip 
+
+\Theo \ Partition en composantes 
+\sskip 
+Les composantes d'un ensemble non vide forment une partition de $A$. 
+\bskip 
+On en déduit immédiatement qu'un ensemble non vide est connexe (par arcs) si et seulement s'il possède une unique composante. 
+\bigskip 
+
+\Theo \ Composantes d'un ensemble ouvert 
+\sskip 
+Les partitions en composante connexe et en composante connex par arcs d'un ensemble ouvert non vide sont indentiques.
+\bskip 
+On peut finalement introduire le concept de fonction localement constante:
+\smallskip 
+
+\Def \ Fonction localement constante 
+\sskip 
+Un fonction $f$ sur $A$ est localement constante si, pour tout point de $A$, il existe une boule ouverte non vide centrée sur ce point telle que $f$ soit constante sur l'intersection de $A$ et de cette boule. 
+\bigskip 
+
+\Theo \ Fonction localement constante et ensemble connexe 
+\sskip 
+Un ensemble est connexe si et seulement si toute fonction localement constante définie sur cet ensemble est en fait constante.
+\bskip 
+
+\section{Théorème Intégral de Cauchy - Version Locale}
+L'objectif de ce chapitre est d'obtenir une première version du théorème intégral de Cauchy:
+\smallskip 
+
+\Theo \ Intégrale de Cauchy (Version locale)
+\sskip 
+Soit $f:\Omega\longrightarrow \C$, \Cdiff, pour tout $a\in\Omega$, il existe un rayon $r>0$ tel que $B(a,r)\subset \Omega$ et pour tout chemin rectifiable fermé $\gamma$ de cette boule:
+$$\int_\gamma f = 0.$$
+\bskip 
+\subsection{Lemme d'Intégration sur les Chemins Polygonaux}
+On considère dans ce chapitre une fonction holomorphe $f:\Omega \longrightarrow \C$.
+\bigskip 
+
+\underline{Lemme:} Intégration de triangles 
+\sskip
+Si $\Delta\subset\Omega$ est un triangle dont les sommets sont $a,b$ et $c$, ie $\Delta = \{\lambda a + \mu b + \nu c\ ;\ \lambda,\mu,\nu\ge0 \ \ \text{et } \lambda+\mu+\nu = 1\}$, et si $\gamma = [a\to b\to c\to a]$ est un chemin 'en ligne droite' qui forme la frontière de $\Delta$, alors:
+$$\int_\gamma f =0.$$
+\bigskip 
+
+\Def \ Ensemble en étoile 
+\sskip 
+Un ensemble $A$ est étoilé s'il existe $a\in A$ tel que pour tout point $z\in A$, le segment $[a,z]$ soit inclus dans $A$. 
+\bigskip 
+
+\underline{Lemme:} Intégration sur les chemins polygonaux
+\sskip 
+Supposons que $\Omega$ soit étoilé, pour tout chemin polygonal fermé $\gamma = [a_0\to ...\to a_{n-1}\to a_0]$ de $\Omega$, alors: 
+$$\int_\gamma f =0.$$
+\bskip 
+
+\subsection{Approximation de Chemin Rectifiable par des Polygones}
+L'objectif de cette partie est d'étendre le lemme précédent à des chemins plus généraux que les chemins polygonaux fermés.
+\smallskip 
+
+\underline{Lemme:} Approximation polynomiale de chemin rectifiable 
+\sskip 
+Soit $\gamma$ un chemin rectifiable, pour tout $\epsilon_l>0$ et $\epsilon_\infty>0$, il y a un chemin polygonale orienté $\mu$ avec les mêmes points de départs et d'arrivés que $\gamma$ tel que:
+$$l(\mu-\gamma)\le\epsilon_l \ \ \text{et} \ \ |(\mu - \gamma)(t)|\le \epsilon_\infty.$$
+\bskip
+\subsection{Théorème Intégral de Cauchy}
+On peut alors énoncer un premier théorème:
+\smallskip 
+
+\Theo \ Intégrale de Cauchy (Version étoilée)
+\sskip 
+Soit $f:\Omega\longrightarrow \C$, \Cdiff \ où $\Omega$ est supposé étoilé, pour tout chemin rectifiable fermé $\gamma$, l'intégral de chemin de $f$ selon $\gamma$ est nulle.
+\bskip 
+On en déduit le théorème suivant: 
+\smallskip 
+
+\Theo \ Intégrale de Cauchy pour les disques 
+\sskip 
+On suppose désormais que $\gamma$ forme un disque de rayon $r$ et de centre $c$ avec $B_F(c,r)\subset\Omega$, $\Omega$ est simplement un ouvert de $\C$, alors pour toute fonction holomorphe $f:\Omega\longrightarrow \C$:
+$$\forall z\in B(c,r), \ f(z)=\frac{1}{2i\pi}\int_\gamma \frac{f(w)}{w-z}dw.$$
+\bskip 
+Un corrolaire immédiat de ce résultat est que la dérivée d'une fonction holomorphe est encore holomorphe.
+\bigskip 
+
+\Theo \ Morera 
+\sskip 
+Soit $f:\Omega\longrightarrow\C$, $f$ est holomorphe si et seulement si elle est continue et, localement, son intégrale de ligne selon des chemins rectifiables fermés est nulle ie:
+$$\forall c\in\Omega,\ \exists r>0: \ B(c,r)\subset\Omega\ \ \text{et } \forall \gamma \ \ \text{chemin fermé rectifiable de }B(c,r), \ \int_\gamma f =0.$$
+\bigskip 
+
+\Theo \ Limite de fonction holomorphique 
+\sskip 
+Si une suite $(f_n)$ de fonction holomorphique de $\Omega$ dans $\C$ converge localement uniformément vers $f$, ie:
+$$\forall c\in \Omega, \ \exists r>0: \ B(c,r)\subset \Omega \ \ \text{et } \lim_{n\to\infty}||f_n(z) - f(z)||_\infty = 0$$
+alors $f$ est holomorphe.
+\bigskip 
+
+\Theo \ Liouville 
+\sskip 
+Toute fonction holomorphe sur $\C$ bornée est constante.
 \end{document}
