@@ -132,6 +132,13 @@ Si $\gamma$ est seulement un chemin rectifiable, alors:
 $$\int_\gamma f =\sum_{k=1}^n\int_{\gamma_k}f.$$
 \bigskip 
 
+\Prop
+\sskip 
+L'intégrale de ligne est $\C$-linéaire.
+\sskip 
+Pour $\gamma^*$ le chemin retour de $\gamma$, alors $l(\gamma)=l(\gamma^*)$ et $\int_\gamma f = -\int_{\gamma^*}f$.
+\bigskip 
+
 \Theo \ Inégalité M-L 
 \sskip 
 Pour tout chemin rectifiable $\gamma$ et toute fonction continue $f:\gamma([0,1])\longrightarrow\C$:
@@ -169,11 +176,12 @@ $$\int_{f\circ \gamma}g = \int_\gamma (g\circ f)(t) f'(t)dt.$$
 On va définir la primitive de façon analogue à la primitive de l'analyse réelle:
 \smallskip
 
-\Def Primitive
+\Def \ Primitive
+\sskip
 Soit $f:\Omega\longrightarrow \C$, une primitive (ou antidérivée) de $f$ est une fonction holomorphique $g:\Omega\longrightarrow \C$ telle que $g'=f$.
 \bigskip 
 
-\Theo Théorème fondamental du calcul intégral 
+\Theo \ Théorème fondamental du calcul intégral 
 \sskip 
 Soit $f:\Omega\longrightarrow \C$ une fonction continue et soit $a$ un point de de $\Omega$. Une fonction $g:\Omega\longrightarrow \C$ est une primitive de $f$ si et seulement si pour tout $z\in\Omega$ et tout chemin rectifiable $\gamma$ de $\Omega$ qui lient $a$ et $z$, alors:
 $$g(z)=g(a)+\int_\gamma f(w)dw.$$
@@ -181,7 +189,7 @@ $$g(z)=g(a)+\int_\gamma f(w)dw.$$
 
 \underline{Corrolaire:} Existence de primitives et ensemble de primitives
 \sskip 
-On suppose que $\Omega$ est connexe, la fonction $f:\Omega\longrightarrow\C$ admet une primitive si et seulement si elle est continue si pour tout chemin fermé rectifiable $\gamma$:
+On suppose que $\Omega$ est connexe, la fonction $f:\Omega\longrightarrow\C$ admet une primitive si et seulement si elle est continue et si pour tout chemin fermé rectifiable $\gamma$:
 $$\int_\gamma f =0.$$
 \sskip 
 Maintenant, si $g:\Omega\longrightarrow \C$ est une primitive de $f$, alors la fonction $h:\Omega\longrightarrow\C$ est également une primitive de $f$ si et seulement si elle est égale à $g$ à une constant près.
