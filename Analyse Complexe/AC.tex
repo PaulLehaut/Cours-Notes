@@ -34,7 +34,7 @@ On rappelle qu'un espace vectoriel est réel (resp complexe) si son champ de sca
 
 \Def 
 \sskip 
-Soient E et F des \ev \ normés complexes, soit $l:E\longrightarrow F$, $l$ est linéaire complexe si elle est additive est homogène complexe (ie $\forall \lambda\in \C l(\lambda z) = \lambda l(z)$).
+Soient E et F des \ev \ normés complexes, soit $l:E\longrightarrow F$, $l$ est linéaire complexe si elle est additive est homogène complexe (ie $\forall \lambda\in \C, \ l(\lambda z) = \lambda l(z)$).
 \sskip 
 Soientt $f:A\subset E\longrightarrow F$, $z$ un point intérieur de $A$, la différentielle complexe de $f$ en $z$ est l'opérateur linéaire complexe (donc continu):
 $$df_z:E\longrightarrow F \ \ \text{tel que} \ \ \lim_{h\to 0}\frac{||f(z+h)-f(z)-df_z(h)||}{||h||}=0.$$
@@ -350,6 +350,103 @@ alors $f$ est holomorphe.
 \sskip 
 Toute fonction holomorphe sur $\C$ bornée est constante.
 \bskip 
+\section{Indice}
+On rappelle la définition de l'argument d'un nombre complexe:
+$$\arg(x+iy) = 
+\begin{cases}
+    \arctan \frac{y}{x} & \text{si } x > 0 \\
+    \frac{\pi}{2} - \arctan \frac{x}{y} & \text{si } y > 0 \\
+    -\frac{\pi}{2} - \arctan \frac{x}{y} & \text{si } y < 0
+\end{cases}$$
+
+\Theo \ Choix continu de l'argument
+\sskip 
+Soit $a$ un point du plan complex et $\gamma$ un chemin ne passant pas par $a$, soit $\theta_0\in Arg(\gamma(0)-a)$, il y a une unique fonction continue $\theta:[0,1]\longrightarrow\R$ telle que:
+$$\theta(0)=\theta_0 \ \ \text{et} \ \ \forall t, \ \theta(t)\in Arg(\gamma(t)-a)$$
+La variation de l'argument $z\mapsto Arg(z-a)$ selon $\gamma$ s'écrit alors: $[z\mapsto Arg(z-a)]_\gamma = \theta(1)-\theta(0)$.
+\bigskip 
+
+\Def \ Indice 
+\sskip 
+Soit $a$ un point du plan complex et $\gamma$ un chemin ne passant pas par $a$, l'indice de $\gamma$ autour de $a$ est:
+$$ind(\gamma, a)=\frac{1}{2\pi}[z\mapsto Arg(z-a)]_\gamma.$$
+\bskip 
+On peut alors définir l'ensemble des points à l'extérieur de $\gamma$:
+$$Ext(\gamma)=\{z\in\C\backslash\gamma([0,1])|\ ind(\gamma,z)=0\}$$
+et son intérieur:
+$$Int(\gamma)=\{z\in\C\backslash(\gamma([0,1])\cup Ext(\gamma))\}.$$
+\subsection{Propriétés}
+On s'intéresse dans cette partie à $a$ un point du plan complex et $\gamma$ un chemin ne passant pas par $a$.
+\smallskip 
+
+\Theo \ L'indice est localement constant 
+\sskip 
+Il existe $\epsilon>0$ tel que pour tout point $b$ et tout chemin fermé $\beta$, si $|b-a|<\epsilon$ et $|\beta - \gamma|<\epsilon$, alors $\beta$ ne passe pas par $b$ et: $ind(\gamma,a)=ind(\beta,b).$
+\bskip 
+On en déduit que l'indice est invariant au sein d'une composante de $\C\backslash\gamma$, par ailleurs si la composante est non bornée, son indice est nulle.
+\bskip 
+\subsection{Ensemble Simplement Connexe}
+Un trou dans une composante de $\Omega$ est, comme on s'y attend intuitivement, une composante bornée de $\C\backslash\Omega$.
+\bigskip 
+
+\Def \ Ensemble simplement connexe 
+\sskip 
+$\Omega$ est simplement connexe s'il ne possède pas de trou, sinon il est multiplement connexe.
+\bigskip 
+
+\Theo \ Ensemble simplement connexe et indice 
+\sskip 
+$\Omega$ est simplement connexe si et seulement si pour tout chemin fermé de $\Omega$, l'intérieur de ce chemin est inclus dans $\Omega$.
+\bskip 
+\subsection{Approche d'Analyse Complexe}
+Si un chemin fermé est rectifiable, on peut calculer son indice comme un intégrale de ligne, pour ça on a besoin du lemme suivant:
+
+\underline{Lemme:}
+Soit $a\in\C$ et $\gamma$ un chemin rectifiable de $\C$ ne passant pas par $a$, on note: $\gamma_t(s)=\gamma(ts)$, alors la fonction:
+$$\mu(t)=\int_{\gamma_t}\frac{dz}{z-a}$$
+vérifie: $\exists \lambda\in\C^*:\ \forall t, e^{\mu(t)}=\lambda(\gamma(t)-a)$.
+\bigskip 
+
+\Theo 
+\sskip 
+Soit $a\in\C$ et $\gamma$ un chemin rectifiable de $\C$ ne passant pas par $a$, alors:
+$$[z\mapsto Arg(z-a)]_\gamma = Im(\int_\gamma \frac{dz}{z-a}).$$
+\bigskip 
+\section{Théorème Intégral de Cauchy - Version Globale}
+\subsection{Suite de Chemins}
+Une suite de chemins est simplement définie comme la concaténation de plusieurs chemin, tous les calculs sur le chemin total se font intuitivement en passant par les chemins individuels.
+\bskip 
+\subsection{Théorème de Cauchy et Corrolaires}
+Pour la version gloabale de ce théorème, l'hypothèse de forme étoilée est remplacée par un critère géométrique plus faible:
+\smallskip
+
+\Theo \ Intégrale de Cauchy 
+\sskip 
+Soit $f:\Omega\longrightarrow\C$ une fonction holomorphe, soit $\gamma$ une suite de chemin rectifiable fermé de $\Omega$, si l'intérieur de $\gamma$ est inclus dans $\Omega$, alors:
+$$\int_\gamma f = 0.$$
+On constate par ailleurs que si $\Omega$ est simplement connexe, alors ce théorème est applicable à toute suite de chemin fermé rectifiable sur $\Omega$.
+\bigskip 
+
+\Def \ Singularité 
+\sskip 
+Une singularité d'une fonction $f$ est un point hors de son domaine de définition. Cette singularité est distante, ou isolée, si:
+$$\exists \epsilon>0 : \ \forall z\in \C\backslash\{a\}, (|z-a|<\epsilon) \implies z\in\Omega.$$
+
+\Def \ Résidu 
+\sskip 
+Soit $a$ une singularité isolée de $f:\Omega\longrightarrow\C$ \Cdiff. On note $d$ la distance de $a$ aux autres singularités. L'intégrale de $f$ selon $\gamma = a + re^{2i\pi\cdot}$ est définie indépendante de $r$ tant que $0<r<d$. On peut alors définir le résidu de $f$ en $a$ par:
+$$res(f,a)=\frac{1}{2i\pi}\int_\gamma f, \ \forall 0<r<d.$$
+
+\Theo \ Résidu de Cauchy 
+\sskip 
+Soit $f:\Omega\longrightarrow\C$ une fonction holomorphe, soit $\gamma$ une suite de chemin fermé rectifiable sur $\Omega$. Si $A$ est un ensemble fini de singularité isolée de $f$ tel que $Int(\gamma)\subset\Omega\cup A$, alors:
+$$\int_\gamma = 2i\pi\sum_{a\in A}ind(\gamma,a)res(f,a).$$
+
+\Theo \ Formule de l'intégrale de Cauchy 
+\sskip 
+Soit $f:\Omega\longrightarrow\C$ une fonction holomorphe, soit $\gamma$ une suite de chemin fermé rectifiable sur $\Omega$. Soit $a$ un point de $\Omega$ hors du tracé de $\gamma$. Si l'intérieur de $\gamma$ est inclus dans $\Omega$, alors:
+$$\int_\gamma \frac{f(z)}{z-a}dz=2i\pi ind(\gamma,a)f(a).$$
+\bigskip
 \section{Fonctions Analytiques}
 \subsection{Convergence de Séries de Fonctions}
 Cette section rappelle des résultats classiques sur les séries de fonctions.
@@ -499,7 +596,7 @@ Une singularité distante $c$ est un pôle de multiplicié $p$ si et seulement s
     \item La série de Laurent de $f$ sur $A(c,0,r)$ est $f(z)=\sum_{-p}^{\pinf}a_nz^n$
     \item il existe $h:\Omega\longrightarrow\C$ holomorphe telle que $h(c)\neq0$ et $f(z)=\frac{h(c)}{(z-c)^p}$ pour tout $z\in\Omega$
 \end{itemize}
-\bskip 
+\bigskip
 \subsection{Calcul des Résidus}
 On considère toujours $c$ une singularité isolée de $f$.
 \smallskip 
@@ -518,4 +615,5 @@ alors $res(f,c)=a_{-1}$.
 $$res(f,c)=\lim_{z\to c}\frac{1}{(p-1)!}\frac{d^{p-1}(f(z)(z-c)^p)}{dz^{p-1}}$$
     \item $c$ est un pôle simple de $f$ si et seulement si $f(z)(z-c)\longrightarrow_{z\to c} a$, alors: $res(f,c)=\lim_{z\to c}f(z)(z-c)$
     \item pour $g,h:\Omega\longrightarrow \C$ \Cdiff, si $f=\frac{g}{h}$, supposons que $g(c)\neq 0$, $h(c)=0$ et $h'(c)=0$, alors $res(f,c)=\frac{g(c)}{h'(c)}$
+\end{itemize}
 \end{document}
