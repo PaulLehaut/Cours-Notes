@@ -349,4 +349,173 @@ alors $f$ est holomorphe.
 \Theo \ Liouville 
 \sskip 
 Toute fonction holomorphe sur $\C$ bornée est constante.
+\bskip 
+\section{Fonctions Analytiques}
+\subsection{Convergence de Séries de Fonctions}
+Cette section rappelle des résultats classiques sur les séries de fonctions.
+\smallskip 
+
+\Def \ Série entière 
+\sskip 
+Soient $c\in \C$ et $(a_n)\in\C^\N$, on peut définir la série entière: 
+$$\sum_n a_n (z-c)^n$$
+le rayon de convergence $R$ de cette série définit le disque $B(c,R)$ sur lequel cette série est absolument convergente.
+\smallskip 
+
+\Theo \ Calcul du rayon de convergence 
+\sskip 
+On définit le rayon de convergence comme: $r=\frac{1}{\lim\sup_n|a_n|^{1/n}}$.
+\bskip 
+On peut également calculer $R$ à l'aide de la méthode suivante:
+
+On s'intéresse à la borne de croissance de la suite $(a_n)$ définie par: $\sigma_0 = \inf\{\sigma\in[0,\pinf] | \ |a_n|\le\sigma^n \ \text{APCR}\}$, alors $R=1/\sigma_0$.
+\bigskip 
+
+\Theo \ Dérivation terme à terme 
+\sskip 
+On s'intéresse à $f$ définie sur $B(c,R)$ par $f(z)=\sum_{n=0}^{\pinf }a_n (z-c)^n$, alors cette fonction est continue et dérivable et sa dérivée est:
+$$f'(z)=\sum_{n=0}^{\pinf} a_{n+1}(n+1)(z-c)^n$$
+définie avec le même rayon de convergence $R$.
+\bigskip 
+
+\Theo \ Intégration terme à terme 
+\sskip 
+La somme $\sum_{n} a_n (z-c)^n$ définie sur $B(c,R)$ est intégrable et son intégrale se calcule terme à terme: 
+$$\int_\gamma\sum_{n=0}^{\pinf} a_n (w-c)^ndw = \sum_{n=0}^{\pinf}\int_\gamma a_n(w-c)^ndw.$$
+\bskip 
+\subsection{Fonction Holomorphique et Série Entière}
+On commence par rappeler le résultat suivant:
+\smallskip 
+
+\Def \ Série de Taylor
+\sskip 
+La série de Taylor d'une fonction $f$ est, sous réserve d'existence, définie par: 
+$$f(z)=\sum_{n=0}^{\pinf}\frac{f^{(n)}(c)}{n!}(z-c)^n$$
+\smallskip 
+
+\Theo 
+\sskip
+Si une fonction $f:\Omega\longrightarrow \C$ est développable en série entière sur $B(c,R)\subset\Omega$, alors cette série est sa série de Taylor.
+\bskip 
+Une fonction développable en série entière au voisinage de chacun des points de son domaine de définition est appelée une fonction analytique.
+\bigskip 
+
+\Theo \ Fonction analytique et holomorphe
+\sskip 
+Une fonction est analytique si et seulement si elle est holomorphe.
+\bskip 
+\subsection{Séries de Laurent}
+On appelle anneau de centre $c$, de rayon intérieur $r_1$ et extérieur $r_2$ l'ensemble: 
+$$A(c,r_1,r_2)=\{z\in\C|\ r_1<|z-c|<r_2 \}.$$
+
+\Def \ Série de Laurent
+\sskip 
+La série de Laurent centrée en $c$ est définie par:
+$$\sum_{n=\ninf}^{\pinf}a_n(z-c)^n.$$
+Cette série est convergente pour $z\in\C$ si les séries $\sum_n a_n(z-c)^n$ et $\sum_{n\in\N^*} a_{-n}(z-c)^{-n}$ le sont. Dans le cas de convergence, sa somme est définie comme la somme des deux séries précédentes.
+\bigskip 
+
+\Theo \ Convergence des séries de Laurent 
+\sskip 
+Les rayons de convergence intérieur $r_1$ et extérieur $r_2$ définis par:
+$$r_1=\limsup_n |a_{-n}|^{1/n}\ \ \text{et} \ \ r_2=\frac{1}{\limsup_n |a_{-n}|^{1/n}}$$
+sont tels que la série de Laurent $\sum_{n\in\Z}a_n(z-c)^n$ converge uniquement dans $A(c,r_1,r_2)$, dans cette anneaux, la convergence est localement normale.
+\bigskip 
+
+\Theo \ Série de Laurent et fonction holomorphique
+\sskip 
+Pour toute fonction holomorphe $f$ définie sur $\Omega$, pour tout anneau $A(c,r_1,r_2)\subset\Omega$, $f$ est développable en série de Laurent sur cet anneau.
+\bskip 
+\section{Zeros et Pôles}
+On introduit le concept de point distant, un point $a\in Z\subset\C$ est distant s'il est au moins à une distance $d$ des autres points de $Z$.
+\bskip 
+\subsection{Zeros}
+On considère $f:\Omega\longrightarrow\C$ holomorphique.
+\smallskip 
+
+\Def 
+\sskip 
+Un point $a\in\Omega$ est un zéro de $f$ si $f(a)=0$.Le point $a$ est de multiplicité $p$ si:
+$$\exists a^*\in\C^*:\ f(z)\sim_{z\to a} a^*(z-a)^p.$$
+
+\Theo 
+\sskip 
+Un zéro de $f$ est de multiplicité $p$ si et seulement si:
+$$f'(a)=f^{(2)}(a)=...=f^{(p-1)}=0 \ \ \text{et } f^{(p)}\neq 0.$$
+\bskip 
+On peut alors écrire la série de Taylor de $f$ en $a$:
+$$f(z)=\sum_{n=p}^{\pinf}a_n(z-a)^n$$
+avec $a_p\neq 0$.
+\bigskip 
+
+\Theo \
+Si $a$ est un zéro d'ordre $p$ de $f$, alors il existe $h:\Omega\longrightarrow\C$ \Cdiff \ telle que:
+$$\forall z\in\Omega, \ f(z)=h(z)(z-a)^p \ \ \text{et} \ \ h(a)\neq 0.$$
+\bigskip 
+
+\underline{Lemme:}
+\sskip 
+Si $a$ est un zéro de $f$ de multiplicité infinie, alors $f$ est nulle sur $\Omega$ si $\Omega$ est connexe.
+\bigskip 
+
+\underline{Lemme:}
+Soit $a$ un zéro de $f$ de multiplicité $p$ finie, alors $a$ est isolé ie:
+$$\exists r\in \R_+^*:\ \forall z\in B(a,r), \ f(z)=0 \implies  z=a. $$
+\bigskip 
+
+\Theo \ Zéros isolés 
+\sskip 
+Si $f$ n'est pas constante nulle, alors ces zéros sont isolés.
+\bskip 
+\subsection{Pôles et singularités}
+Soit $c$ un singularité distante de $f$.
+\smallskip 
+
+\Def \ Singularité supprimable 
+$c$ est supprimable s'il existe $h:\Omega\cup\{c\}\longrightarrow \C$ \Cdiff \ telle que $h(z)=f(z)$ pour tout $z\in\Omega$.
+\bigskip 
+
+\Def \ Pôle de multiplicité $p\in \N^*$
+\sskip 
+Il s'agit d'une singularité telle qu'il existe $a^*\in\C^*$ tel que $f(z)\sim_{z\to c}\frac{a^*}{(z-c)^p}$.
+\bskip 
+Les autres singularités sont dites essentielles.
+\bigskip 
+
+\Theo \ Caractérisation des singularités supprimables 
+\sskip 
+Une singularité distante $c$ est supprimable si et seulement si:
+\begin{itemize}
+    \item $f(z)\longrightarrow _{z\to c} a^*\in \C$
+    \item $f$ est bornée sur $A(c,0,r)$
+    \item La série de Laurent de $f$ en $c$ est une série entière.
+\end{itemize}
+\bigskip 
+
+\Theo \ Caractérisation de la multiplicité d'un pôle 
+\sskip 
+Une singularité distante $c$ est un pôle de multiplicié $p$ si et seulement si:
+\begin{itemize}
+    \item La série de Laurent de $f$ sur $A(c,0,r)$ est $f(z)=\sum_{-p}^{\pinf}a_nz^n$
+    \item il existe $h:\Omega\longrightarrow\C$ holomorphe telle que $h(c)\neq0$ et $f(z)=\frac{h(c)}{(z-c)^p}$ pour tout $z\in\Omega$
+\end{itemize}
+\bskip 
+\subsection{Calcul des Résidus}
+On considère toujours $c$ une singularité isolée de $f$.
+\smallskip 
+
+\Theo 
+\sskip 
+Si la série de Laurent de $f$ sur $A(c,0,r)$ est: 
+$$f(z)=\sum_{n=\ninf}^{\pinf}a_n(z-c)^n$$
+alors $res(f,c)=a_{-1}$.
+\bigskip 
+
+\underline{Corrolaires}
+\sskip 
+\begin{itemize}
+    \item Si $c$ est un pôle de multiplicité $p$, alors: 
+$$res(f,c)=\lim_{z\to c}\frac{1}{(p-1)!}\frac{d^{p-1}(f(z)(z-c)^p)}{dz^{p-1}}$$
+    \item $c$ est un pôle simple de $f$ si et seulement si $f(z)(z-c)\longrightarrow_{z\to c} a$, alors: $res(f,c)=\lim_{z\to c}f(z)(z-c)$
+    \item pour $g,h:\Omega\longrightarrow \C$ \Cdiff, si $f=\frac{g}{h}$, supposons que $g(c)\neq 0$, $h(c)=0$ et $h'(c)=0$, alors $res(f,c)=\frac{g(c)}{h'(c)}$
 \end{document}
