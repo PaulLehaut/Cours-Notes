@@ -238,6 +238,7 @@ On peut par ailleurs se convaincre facilement que l'union de deux ouverts d'inte
 \bigskip
 
 \Theo \ Fermeture d'espaces connexes 
+\sskip
 La fermeture d'un espace connexe est connexe. 
 \sskip 
 Attention, ce théorème ne s'applique en général pas aux espaces connexes par arcs, considérer par exemple l'ensemble connexe par arcs $A=\{(x,\sin(1/x)); \ x\in ]0,1]\}$ dont la fermeture est $A\cup \{(0,y); \ y\in [-1,1]\}$.
@@ -440,7 +441,7 @@ $$res(f,a)=\frac{1}{2i\pi}\int_\gamma f, \ \forall 0<r<d.$$
 \Theo \ Résidu de Cauchy 
 \sskip 
 Soit $f:\Omega\longrightarrow\C$ une fonction holomorphe, soit $\gamma$ une suite de chemin fermé rectifiable sur $\Omega$. Si $A$ est un ensemble fini de singularité isolée de $f$ tel que $Int(\gamma)\subset\Omega\cup A$, alors:
-$$\int_\gamma = 2i\pi\sum_{a\in A}ind(\gamma,a)res(f,a).$$
+$$\int_\gamma f= 2i\pi\sum_{a\in A}ind(\gamma,a)res(f,a).$$
 
 \Theo \ Formule de l'intégrale de Cauchy 
 \sskip 
@@ -521,7 +522,8 @@ sont tels que la série de Laurent $\sum_{n\in\Z}a_n(z-c)^n$ converge uniquement
 
 \Theo \ Série de Laurent et fonction holomorphique
 \sskip 
-Pour toute fonction holomorphe $f$ définie sur $\Omega$, pour tout anneau $A(c,r_1,r_2)\subset\Omega$, $f$ est développable en série de Laurent sur cet anneau.
+Pour toute fonction holomorphe $f$ définie sur $\Omega$, pour tout anneau $A(c,r_1,r_2)\subset\Omega$, $f$ est développable en série de Laurent sur cet anneau. On alors:
+$$a_n=\frac{1}{2i\pi}\int_\gamma\frac{f(z)}{(z-c)^{n+1}}dz.$$
 \bskip 
 \section{Zeros et Pôles}
 On introduit le concept de point distant, un point $a\in Z\subset\C$ est distant s'il est au moins à une distance $d$ des autres points de $Z$.
@@ -569,6 +571,7 @@ Soit $c$ un singularité distante de $f$.
 \smallskip 
 
 \Def \ Singularité supprimable 
+\sskip
 $c$ est supprimable s'il existe $h:\Omega\cup\{c\}\longrightarrow \C$ \Cdiff \ telle que $h(z)=f(z)$ pour tout $z\in\Omega$.
 \bigskip 
 
@@ -594,7 +597,7 @@ Une singularité distante $c$ est supprimable si et seulement si:
 Une singularité distante $c$ est un pôle de multiplicié $p$ si et seulement si:
 \begin{itemize}
     \item La série de Laurent de $f$ sur $A(c,0,r)$ est $f(z)=\sum_{-p}^{\pinf}a_nz^n$
-    \item il existe $h:\Omega\longrightarrow\C$ holomorphe telle que $h(c)\neq0$ et $f(z)=\frac{h(c)}{(z-c)^p}$ pour tout $z\in\Omega$
+    \item il existe $h:\Omega\longrightarrow\C$ holomorphe telle que $h(c)\neq0$ et $f(z)=\frac{h(z)}{(z-c)^p}$ pour tout $z\in\Omega$
 \end{itemize}
 \bigskip
 \subsection{Calcul des Résidus}
@@ -614,6 +617,6 @@ alors $res(f,c)=a_{-1}$.
     \item Si $c$ est un pôle de multiplicité $p$, alors: 
 $$res(f,c)=\lim_{z\to c}\frac{1}{(p-1)!}\frac{d^{p-1}(f(z)(z-c)^p)}{dz^{p-1}}$$
     \item $c$ est un pôle simple de $f$ si et seulement si $f(z)(z-c)\longrightarrow_{z\to c} a$, alors: $res(f,c)=\lim_{z\to c}f(z)(z-c)$
-    \item pour $g,h:\Omega\longrightarrow \C$ \Cdiff, si $f=\frac{g}{h}$, supposons que $g(c)\neq 0$, $h(c)=0$ et $h'(c)=0$, alors $res(f,c)=\frac{g(c)}{h'(c)}$
+    \item pour $g,h:\Omega\longrightarrow \C$ \Cdiff, si $f=\frac{g}{h}$, supposons que $g(c)\neq 0$, $h(c)=0$ et $h'(c)\neq0$, alors $res(f,c)=\frac{g(c)}{h'(c)}$
 \end{itemize}
 \end{document}
