@@ -400,7 +400,7 @@ si cet ensemble est vide, alors $x$ est de périodicité infinie, l'état est ap
 
 \Prop 
 \sskip 
-Si $x$ est de période finie $d$, alors il existe $n_0\in\N$ tel que $P^{nd}$ pour tout $n\ge n_0$. Les éléments d'une même classe communicante sont de même période.
+Si $x$ est de période finie $d$, alors il existe $n_0\in\N$ tel que $P^{nd}(x,x)>0$ pour tout $n\ge n_0$. Les éléments d'une même classe communicante sont de même période.
 \bigskip 
 
 \Theo
@@ -409,7 +409,7 @@ On suppose que $(X_n)$ est récurrente positive, alors:
 \begin{itemize}
     \item $\pi$ est la seule mesure invariante de $(X_n)$ et $\pi (x)>0$ pour tout $x$
     \item pour toute fonction à valeurs réelles $f$ telle que $(\pi,f) = \E_\pi(f(X_n))$ soit bien définie, alors: $\frac{1}{n}\sum_{k=1}^nf(X_k)\rightarrow_{ps} (\pi, f)$
-    \item si la châine est apériodique, alors on a la convergence en distribution $X_n\rightarrow\pi$ et $\lim\sum_{y\in E}-P^n(x,y)-\pi(y)|=0$.
+    \item si la châine est apériodique, alors on a la convergence en distribution $X_n\rightarrow\pi$ et $\lim\sum_{y\in E}|P^n(x,y)-\pi(y)|=0$.
 \end{itemize}
 \newpage
 \section{Points A Retenir}
@@ -438,7 +438,7 @@ Inégalités:
 Pour $p\in[1,\pinf)$, l'\evn \ $(L^p, \ ||\cdot||_p)$ est complet.
 \bigskip 
 
-\subsection{Espérance}
+\subsection{Espérance (Conditionnelle)}
 Inégalité de Tchebychev: pour $a>0$, on a: $\Prob (|X|\ge a)\le \frac{\E(X^2)}{a^2}$.
 Inégalité de Jensen: pour $f$ convexe: $f(\E(X))\le\E(f(X))$.
 \bskip
@@ -487,4 +487,13 @@ Une chaîne de Markov irréductible est ou bien récurrente nulle/positive ou tr
 Si elle est récurrente nulle ou transiente, alors il n'y a pas de probabilité invariante.
 \sskip 
 On a $\frac{1}{n}\sum_{k=1}^n1_{X_k=x}\longrightarrow_{ps} 1/\E_x(T^x)$.
+\bskip 
+Si $x$ est de périodicité $d$, alors il existe $n_0\in \N$ tel que: $\forall n\ge n_0, \ P^{nd}(x,x)>0$. Par ailleurs les éléments d'une même classe communicante sont de même période.
+\bskip
+Si $(X_n)$ est récurrente positive, on a les théorèmes asymptotiques suivants:
+\begin{itemize}
+    \item $\pi$ est la seule proba invariante de $(X_n)$ et $\pi(x)>0$ pour tout $x$
+    \item pour toute fonction réelle $f$, alors $\lim_n\frac{1}{n}\sum_{k=1}^n f(X_n) = \E_\pi(f(X_n))$ presque sûrement
+    \item si la chaîne est apériodique, alors on a la convergence en distribution de $X_n$ vers $\pi$ et $\lim_n\sum_{y\in E}|P^n(x,y) - \pi(y)|=0$.
+\end{itemize}
 \end{document}
