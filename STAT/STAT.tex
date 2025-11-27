@@ -616,4 +616,73 @@ $$K_n(\theta) \succeq \frac{I^{-1}(\theta)}{n}.$$
 Un estimateur est dit efficace s'il est non-biaisé et si sa matrice de covariance vérifie $K_n(\theta) = \frac{I^{-1}(\theta)}{n}$.
 \bskip 
 On rappelle que si $\tilde \theta_n$ est un estimateur non-biaisé, alors: $MSE(\tilde \theta_n,\theta)=\V_\theta(\tilde\theta_n)=tr(K_n(\theta))\ge \frac{tr(I^{-1}(\theta))}{n}$. En conséquences, dans un modèle régulier, les estimateurs efficaces minimisent la MSE pour les estimateurs non-biaisés.
+\bskip 
+\section{Estimation Bayesienne}
+Les techniques utilisées jusqu'à présent sont essentiellement motivées par le fait que les estimateurs sont consistants. Ainsi, si suffisament de données sont relevées, on peut retrouver la valeur réelle de la quantité d'intérêt, c'est l'approche fréquentiste.
+\sskip 
+Néanmoins, dans le certains cas, comme lorsque les données sont manquantes, il peut être intéressant d'avoir des connaissances, indépendantes des données observées, a priori sur la valeur de la quantité d'intérêt. C'est le principe des l'inférence bayésienne.
+\bskip 
+\subsection{Formalisation de l'Estimation Bayésienne}
+On travaille toujours dans le cadre d'un modèle paramétrique $\mc P = \{\Prob_\theta; \ \theta\in\Theta\}$ où $\Theta$ est fini ou un sous-ensemble de $\R^q$.
+\bskip 
+La distribution a priori est une mesure de probabilité sur $\Theta$ qui évalue la crédibilité de chaque valeur de $\theta$ avant d'observer les données.
+\bigskip 
+
+\Def \ Distribution a posteriori 
+\sskip 
+Pour une distribution a priori $Q$, la distribution a posteriori est la mesure de probabilité $Q(\cdot | x_n^*)$ définie sur $\Theta$ par:
+$$Q(d\theta | x_n^*) = \frac{L_n(x_n^*,\theta)Q(d\theta)}{\int_{\omega\in\Theta} L_n(x_n^*,\omega)Q(d\omega)},$$
+où $L_n(x_n^*,\theta)$ est la vraisemblance de l'observation $x_n^*$.
+\sskip 
+Ainsi, pour tout sous-ensemble $B\subset \Theta$ mesurable, il vient:
+$$Q(B | x_n^*) = \frac{\int_{\theta\in B}L_n(x_n^*,\theta)Q(d\theta)}{\int_{\omega\in\Theta} L_n(x_n^*,\omega)Q(d\omega)}.$$
+\bskip 
+Plus généralement, si $\Theta$ est dénombrable, alors:
+$$Q(d\theta | x_n^*) = \frac{L_n(x_n^*,\theta)Q(\theta)}{\sum_{\omega\in\Theta} L_n(x_n^*,\omega)Q(\omega)},$$
+si $Q$ a une densité $q$, alors $Q(\cdot, x_n^*)$ a la densité:
+$$q(\theta| x_n^*)=\frac{L_n(x_n^*,\theta)q(\theta)}{\int_{\omega\in\Theta}L_n(x_n^*,\omega)q(\omega)d\omega}.$$
+\bigskip 
+La distributtion a posteriori doit être interprétée comme la crédibilité de $\theta$ étant donnée l'observation de $x_n^*$.
+\bskip 
+\subsection{Estimateur Bayesien}
+La distribution a posteriori possède toutes les informations nécessaires pour l'étude de $\theta$. Toutefois, en tant que mesure de distribution de probabilité, elle n'est pas évidente à manipuler, il est donc intéressant d'introduire les notions d'estimateur (Bayesien) ou d'intervalle de confiance.
+\bigskip 
+
+\Def \ Moyenne postérieure (Sous l'hypothèse $\Theta\subset\R^q$ convexe)
+\sskip 
+La moyenne postérieure (PM) est la moyenne de la distribution a posteriori:
+$$\widehat{\theta_n^{PM}} = \theta_n^{PM}(X_n), \ \ \text{avec} \ \ \theta_n^{PM}(x_n^*)= \int_{\theta\in\Theta}\theta Q(d\theta|x_n^*).$$
+La VA $\widehat{\theta_n^{PM}}$ est une statistique et donc un estimateur de $\theta$ dans le sens fréquentiste.
+\bskip 
+Dans la définition suivante, on suppose que ou bien $\Theta$ est discret et on pose $q(\theta)=Q(\{\theta\})$ ou bien $Q$ a une densité $q$.
+\smallskip 
+
+\Def \ Maximum a posteriori (MAP)
+\sskip 
+Supposons que, pour tout $x_n^*\in E^n$, la fonction $\theta\mapsto q(\theta|x_n^*)$ possède un maximum unique atteint en $\theta = \theta_n^{MAP}(x_n^*)$, alors le MAP est défini par :
+$\widehat{\theta_n^{MAP}} = \theta_n^{MAP}(X_n)$. Comme la PM, le MAP est un estimateur de $\theta$ dans le sens fréquentiel.
+\bskip 
+Il est généralement attendu que la distribution a posteriori se concentre autour de $\theta$ de façon asymptotique. Quand $\Theta$ est discrèt, la définition de ce phénomène est immédiate:
+\smallskip 
+
+\Def \ Consistence de la distribution a posteriori (cas discret)
+\sskip 
+L'estimateur Bayesien de $\theta$ avec la distribution a priori $Q$ est consistant si:
+$$\forall \theta \in\Theta, \ \lim_{n\to\infty}Q(\theta|X_n)=1, \ \ \text{C } \Prob_\theta.$$
+Pour le cas général, la définition est un peu plus technique:
+
+\Def \ Consistence de la distribution a posteriori (cas $\Theta\subset\R^q$)
+\sskip 
+L'estimateur Bayesien de $\theta$ avec la distribution a priori $Q$ est consistant si:
+$$\forall \theta \in\Theta, \ \forall\epsilon >0, \ \lim_{n\to\infty}Q(\{\omega\in\Theta | \ ||\omega - \theta||\ge\epsilon\}|X_n)=0, \ \ \text{presque sûrement selon } \Prob_\theta.$$
+
+\Prop \ Condition suffisante de consistance
+\sskip 
+Pour tout $x_n^*\in E^n$, on définit la variance de la distribution a posteriori par:
+$$V_n(x_n^*)=\int_{\theta\in\Theta}||\theta - \theta_n^{PM}(x_n^*)||^2Q(d\theta|x_n^*).$$
+On peut alors vérifier que, si la PM $\widehat{\theta_n^{PM}}$ est fortement consistante et si $V_n(X_n)\longrightarrow 0$ presque sûrement selon $\Prob_\theta,$ pour tout $\theta$, alors l'estimateur bayésien de $\theta$, pour la distribution a priori $Q$, est consistant.
+Dans le cas où $\Theta\subset\R^q$, on peut alors introduire le concept d'intervalle de crédibilité de niveau $1-\alpha$ qui définit un intervalle $I$ dont les bornes sont des statistiques telles que:
+$$Q(I|X_n)=1-\alpha.$$
+Ces intervalles sont l'équivalent Bayesien des intervalles de confiances.
+
 \end{document}
