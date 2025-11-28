@@ -422,7 +422,8 @@ Soit un intervalle $I_n$ tel que $I_n^-$ et $I_n^+$ soient des statistiques, alo
     \item de confiance par excès si, pour tout $\theta\in\Theta$, $\lim_n \Prob_\theta (g(\theta)\in I_n)\ge 1-\alpha$.
 \end{itemize}
 \bigskip 
-
+Lorsque $g(\theta)\in \R^d$, on peut alors généraliser la notion d'intervalle de confiance à celle de région de confiance définie, pour un niveau $1-\alpha$, par une fonction $C_n$ de $E^n$ dans l'espace des sous-ensembles mesurables de $\R^d$ telle que:
+$$\forall z\in \R^d, \ 1_{z\in C_n(X_n)} \ \ \text{est une statistique et} \ \ \forall\theta\in\Theta, \ \Prob_\theta(g(\theta)\in C_n(X_n)) = 1-\alpha.$$
 \subsection{Construction d'Intervalles de Confiance Exact}
 
 \subsubsection{Fonction Pivot}
@@ -684,5 +685,121 @@ On peut alors vérifier que, si la PM $\widehat{\theta_n^{PM}}$ est fortement co
 Dans le cas où $\Theta\subset\R^q$, on peut alors introduire le concept d'intervalle de crédibilité de niveau $1-\alpha$ qui définit un intervalle $I$ dont les bornes sont des statistiques telles que:
 $$Q(I|X_n)=1-\alpha.$$
 Ces intervalles sont l'équivalent Bayesien des intervalles de confiances.
+\bskip 
+\section{Formalisme des Tests d'Hypothèses Statistiques }
+\subsection{Formalisme Général}
+On se donne ici $\Theta\subset\R^q$ et $H_0,H_1$ une partition de $\Theta$. $H_0$ est l'hypothèse nulle qui correspond à une absence d'effet. $H_1$ est l'hypothèse alternative, elle correspond à la présence d'un effet et on cherchera en général à prouver que $\theta\in H_1$.
+\bigskip
+
+\Def \ Test 
+\sskip 
+Un test de $H_0$ contre $H_1$ est une règle de décision déterminant, pour une observation, si $\theta\in H_0$ ou $\theta\in H_1$. Il s'agit d'une fonction déterministe de $E^n$ dans $\{H_0,H_1\}$.
+\bigskip 
+
+\Def \ Région de rejet 
+\sskip
+Il s'agit de l'ensemble de test $W_n$ pour lesquels l'hypothèse $H_0$ est rejetée.
+\bskip 
+Dans le cadre d'un modèle de Bernoulli où l'on chercherait à savoir si une pièce est truquée ou non, alors on aurait:
+$$H_0 = \{1/2\} \ \ \text{et} \ \ H_1=[0,1]\backslash \{1/2\}.$$
+\subsubsection{Erreurs de Type I et II}
+Néanmoins, comme le test $x_n^*$ n'est que la réalisation d'une VA $X_n$, il se peut qu'il donne un résultat incorrect. On distingue alors deux types d'erreurs.
+\smallskip 
+
+\Def \ Erreurs de type I et II 
+\sskip 
+Une erreur de type I est une rejection incorrecte de l'hypothèse nulle, elle est mesurée par le risque de type I: $$\theta\in H_0\mapsto \Prob_\theta (X_n\in W_n).$$
+Une erreur de type II est la validation incorrecte de l'hypothèse nulle, elle est mesurée par le risque de type II:
+$$\theta\in H_1\mapsto \Prob_{\theta}(X_n\notin W_n).$$
+
+\Def Puissance statistique d'un test 
+\sskip 
+La puissance statistique d'un test est définie par la fonction: 
+$$\theta \in H_1 \mapsto \Prob_\theta (X_n\in W_n) = \Prob_\theta(W_n) = 1 - \text{erreur de type II}.$$
+\Def \ Propriétés asymptotiques
+\sskip 
+Un test est dit consistant si: $\forall\theta\in H_1, \ \lim_n \Prob_\theta(X_n\in W_n) = 1$. Le test est de niveau asymptotique $\alpha $ si:
+$$\alpha = \sup_{\theta\in H_0}\limsup_{n}\Prob_\theta (X_n\in W_n).$$
+Une question naturelle se pose alors: comment choisir un test pertinent ? D'après les définitions précédentes, il est tout d'abord notable que:
+\begin{itemize}
+    \item seuls les test de même niveau $\alpha$ peuvent être comparés
+    \item un test est alors préférable à un autre s'il est plus puissant, c'est-à-dire que son erreur de type II est plus faible.
+\end{itemize}
+\subsubsection{Procédure Générale Pour Construire un Test}
+On commence par définir les ensembles $H_0$ et $H_1$ (il est souvent judicieux de construire $H_1$ en premier).
+\sskip 
+On définit alors la région de rejet $W_n$, on préfère les cas où on peut écrire, avec $g:\Theta\to\R$ et $g_0\in\R$:
+\begin{itemize}
+    \item $H_1=\{g(\theta)>g_0\} \ \ \text{ou} \ \ H_1=\{g(\theta)<g_0\}$ on dit alors que le test est one-sided
+    \item $H_1=\{g(\theta)\ne g_0\}$ on dit alors que le test est two-sided.
+\end{itemize}
+Supposons par ailleurs qu'on possède un estimateur $Z_n$ de $g(\theta)$, on peut alors réécrire $W_n$ comme:
+\begin{itemize}
+    \item $\{Z_n\ge g_0+a_n\}$ si $H_1=\{g(\theta)>g_0\}$
+    \item $\{Z_n\le g_0-a_n\}$ si $H_1=\{g(\theta)<g_0\}$
+    \item $\{Z_n\notin (g_0-a_n, g_0+b_n)\}$ sinon
+\end{itemize}
+pour $a_n,b_n\ge 0$.
+
+On se place pour l'instant dans le cadre d'un test one-sided de la forme $H_1=\{g(\theta)>g_0\}$. Pour tout $a_n\ge 0$, l'erreur de type I est de la forme:
+$$\Prob_\theta (W_n) = \Prob_\theta (Z_n\ge g_0 + a_n), \ \ \theta\in H_0.$$
+Supposons par ailleurs qu'il existe $\theta_0\in H_0$ tel que:
+$$\forall a_n\ge 0, \ \ \sup_{\theta\in H_0}\Prob_\theta (Z_n\ge g_0 + a_n)=\Prob_{\theta_0}(Z_n\ge g_0 + a_n).$$
+Alors, en notant $z_{\theta_0,n,r}$ le quantile d'ordre $r$ de la loi de $Z_n$ selon $\Prob_{\theta_0}$, on obtient:
+$$\sup_{\theta\in H_0}\Prob_\theta (W_n)<\alpha \ \ \text{si et seulement si } g_0+a_n\ge z_{\theta_0,n,1-\alpha}.$$
+De plus, pour tout $\theta\in H_1$, le risque de type II $P_\theta(Z_n<g_0 + a_n)$ est une fonction croissante de $g_0+a_n$ qui est donc minimum en $z_{\theta_0,n,1-\alpha}$. La région de rejet finale de puissance statistique maximum sous la contrainte d'un niveau inférieur à $\alpha$ est:
+$$W_n = \{Z_n\ge z_{\theta_0,n,1-\alpha}\}.$$
+Si $H_1 = \{g(\theta)<g_0\}$, alors on peut écrire symétriquement: $W_n=\{Z_n\le z_{\theta_0,n,\alpha}\}$ comme région de rejet finale.
+\bigskip
+
+Considérons désormais le cas d'un test two-sided. On suppose de nouveau qu'il existe $\theta_0\in H_0$ tel que:
+$$\forall a_n,b_n, \ \sup_{\theta\in H_0}\Prob_\theta(Z_n\notin (g_0-a_n,g_0+b_n))=\Prob_{\theta_0}(Z_n\notin (g_0-a_n, g_0+b_n)).$$
+Il est alors clair que le risque de type I est borné supérieurement par $\alpha$ dès qu'on choisit $a_n,b_n$ tels que:
+$$\exists r\in[0,\alpha]: \ g_0-a_n\le z_{\theta_0,n,r} \ \ \text{et} \ \ g_0+b_n\ge z_{\theta_0,n,1-\alpha+r}.$$
+De plus le risque de type II est nécessairement réduit si ces inégalités sont transformées en égalités, mais la valeur de $r$ qui minimise le risque de type II risque, en général, de dépendre de $\theta$, ce qui n'était pas le cas pour l'étude one-sided. Il est alors courant de choisir $r=\alpha/2$ de sorte que:
+$$W_n = \{Z_n\le z_{\theta_0,n,\alpha/2} \ \ \text{ou} \ \ Z_n\ge z_{\theta_0,n,1-\alpha/2}\}.$$
+Il arrive parfois que la loi de $Z_n-g_0$ soit symétrique pour $\Prob_{\theta_0}$, donc:
+$$z_{\theta_0,n,\alpha/2} = g_0 - z_{n,1-\alpha/2}, \ \ z_{\theta_0,n,1-\alpha/2} = g_0 + z_{n,1-\alpha/2}$$
+avec $z_{n,1-\alpha/2}$ le quantile d'ordre $1- \alpha/2$ de la loi de $Z_n-g_0$, on peut alors réécrire:
+$$W_n = \{|Z_n-g_0|\ge z_{n,1-\alpha/2}\}.$$
+
+Pour les deux cas, la consistance se déduit de la consistance de $Z_n$.
+\smallskip 
+
+\Prop \ Consistance
+\sskip 
+Soit $W_n$ une région de rejet dont la forme est l'une de celle décrite précédemment, alors si $Z_n$ est un estimateur consistant de $g(\theta)$, alors le test est consistant.
+\bskip 
+\subsubsection{p-Value}
+On traite tout d'abord le cas particulier dans lequel il existe une statistique $\zeta_n (X_n)$ et $\theta_0\in H_0$ tel que $W_n = \{\zeta(X_n)\ge \zeta_{\theta_0,n,1-\alpha}\}$ où $\zeta_{\theta_0,n,1-\alpha}$ est le quantile d'ordre $1-\alpha$ de $\zeta_n(X_n)$ pour $\Prob_{\theta_0}$.
+\sskip 
+Ces hypothèses couvrent les cas suivants:
+\begin{itemize}
+    \item les test one-sided de la rubrique précédente avec $\zeta_n(X_n)=Z_n$ si $H_1=\{g(\theta)>g_0\}$, $\zeta_n (X_n) = -Z_n$ dans l'autre cas
+    \item les test one-sided de la rubrique précédente dans le cas spécifique de symétrie avec $\zeta(X_n)=|Z_n - g_0|$. 
+\end{itemize}
+
+\Def \ p-value
+\sskip 
+Dans les cas précis cités précédemment, pour tout $x_n^*\in E^n$ la p-value de l'observation $x_n^*$ est:
+$$p-value = \Prob_{\theta_0}(\zeta(X_n)\ge \zeta(x_n^*)).$$
+La p-value doit être comprise comme la probabilité selon $H_0$ que la statistique du test prenne des valeurs plus défavorables à la validation de $H_0$ que les valeurs observées dans les données.
+\bigskip 
+
+\Prop \ p-value et niveau 
+\sskip 
+Sous les hypothèses précédentes, il vient que $ H_0$ est rejetée si et seulement si $p-value\le\alpha$.
+\bigskip 
+\subsubsection{Dualité entre Tests et Régions de Confiance}
+Considérons des hypothèses nulles et alternatives de la forme: 
+$$H_0 = \{g(\theta) = g_0\}, \ \ H_1=\{g(\theta)\neq g_0\}$$
+pour $g:\Theta\to \R^d, \ g_0\in g(\Theta)$. Supposons de plus qu'une région de confiance $C_n$ de niveau $1-\alpha$ soit disponible pour $g(\theta)$, alors, par définition :
+$$\forall\theta\in H_0, \ \Prob_\theta (g_0\notin C_n)=\Prob_\theta(g(\theta)\notin C_n)=\alpha,$$
+de sorte que le test avec la région de rejet $W_n=\{g_0\notin C_n\}$ soit de niveau $\alpha$.
+\bskip 
+\subsection{Comparaisons Multiples}
+Supposons qu'on est construit un test avec la région de rejet $W_n$ et le niveau $\alpha$ pour des hypothèses $H_0$ et $H_1$. On suppose de plus que $H_0=\{\theta_0\}$, si on observe $X_n$ distribuée selon $H_0$, alors la probabilité d'un faux positif est, par construction, $\alpha$. Ainsi, pour $m$ observations indépendantes, la probabilité d'avoir au moins un faux positifs devient:
+$$\Prob_{\theta_0}(\cup_{k=1}^m\{X_{k,n}\in W_n\})=1-\prod_{k=1}^m\Prob_{\theta_0}(X_{k,n}\notin W_n)=1-(1-\alpha)^m\longrightarrow_{m\to\pinf}1.$$
+Ainsi, en répétant suiffisament de fois l'expérience, alors on peut conclure que l'effet qu'on cherche est présent alors même que dans les faits il ne l'est pas.
 
 \end{document}
