@@ -411,6 +411,67 @@ On suppose que $(X_n)$ est récurrente positive, alors:
     \item pour toute fonction à valeurs réelles $f$ telle que $(\pi,f) = \E_\pi(f(X_n))$ soit bien définie, alors: $\frac{1}{n}\sum_{k=1}^nf(X_k)\rightarrow_{ps} (\pi, f)$
     \item si la châine est apériodique, alors on a la convergence en distribution $X_n\rightarrow\pi$ et $\lim\sum_{y\in E}|P^n(x,y)-\pi(y)|=0$.
 \end{itemize}
+\bigskip 
+\section{Martingales}
+\subsection{Temps d'Arrêt}
+Dans toute la suite $\tau$ désignera un temps d'arrêt.
+\smallskip 
+
+\Def \ Temps d'arrêt 
+\sskip 
+Il s'agit d'une variable aléatoire définie sur une filtration $\mathbb{F} $ si $\{\tau\le n\}\in\mc F_n$ pour tout $n$. $\tau$ est à valeur dans $\bar \N$.
+\bigskip 
+
+\underline{Lemme:}
+\sskip 
+$\tau$ est un temps d'arrêt si et seulement si $\{\tau> n\}\in\mc F_n$ pour tout $n$ ie si et seulement si $\{\tau= n\}\in\mc F_n$ pour tout $n$.
+\bigskip 
+
+\Def \ Tribu engendrée par un temps d'arrêt 
+\sskip 
+La tribu des évènements antécédents à $\tau$ est définie par:
+$$\mc F_\tau =\{B\in \mc F_{\infty}|\ B\cap\{\tau = n\}\in \mc F_n, \ \forall n\}.$$
+\bigskip 
+
+\underline{Lemme:}
+\sskip 
+Soit $Y$ une VA $\mc F_{\infty}$-mesurable: $Y$ est $\mc F_\tau $-mesurable si et seulement si $Y1_{\tau =n}$ est $\mc F_n$-mesurable pour tout $n$.
+\sskip 
+Si $\E(Y)$ est bien définie, alors $\E(Y|\mc F_\tau)=\sum_{n\in\bar\N}1_{\tau =n}\E(Y|\mc F_n)$.
+\bigskip
+
+\Def 
+\sskip 
+Soit $(X_n)$ une suite de VA $\mathbb{F}$-adaptée, on peut alors définir: $X_\tau = \sum_{n\in\bar\N}X_n1_{\tau = n}$.
+\bigskip 
+
+\Prop \ Propriété de Markov forte 
+\sskip 
+Soit $(X_n)$ une \CM \ pour $\mathbb{F}$ à valeurs dans un espace $E$ discret, on note $P$ sa matrice de transition, on note $\tilde{X_k} = X_{\tau+k}$ pour tout $k$, alors, conditionnellement à $X_\tau$:
+$$\mc F_\tau\bot \tilde{X_k}, \ \forall k \ \ \text{et }  (\tilde{X_k})_k \ \ \text{est une \CM \ de matrice de transition } P.$$
+En temps discret, cette propriété est équivalente à la propriété de Markov faible: $((X_k)_{k\ge n}\bot\mc F_n$ sachant $X_n)$.
+\bigskip 
+\subsection{Martingales et Théorème de Temps d'Arrêt Optimal}
+On raisonne dans toute la suite par rapport à une filtration $\mathbb{F}$.
+\bigskip 
+
+\Def \ Martingales 
+\sskip 
+Une suite de VAs $(M_n)$ est une $\mathbb{F}$-martingales si elle est $\mathbb{F}$-adaptée, intégrable et:
+$$\forall n \in \N, \ \E(M_{n+1}|\ \mc F_n)=M_n.$$
+si $\E(M_{n+1}|\ \mc F_n)\ge M_n$ alors c'est une sous-martingales, si $\E(M_{n+1}|\ \mc F_n)\le M_n$ alors c'est une sur-martingales. 
+\bigskip 
+
+\Prop 
+\sskip 
+Soit $(M_n)$ une martingales (respectivement une sous/sur-martingales), alors $M_n^\tau=(M_{\min(\tau,n)})$ est une martingales (respectivement une sous/sur-martingales).
+\bigskip 
+
+\Theo \ Théorème d'arrêt optimal
+\sskip 
+Soit $(M_n)$ une martingales, soient $\tau$ et $\nu$ des temps d'arrêt bornés tels que $\nu\le\tau$, alors $\E(M_\tau|\ \mc F_\nu)=M_\nu$.
+\sskip 
+Si $(M_n)$ est une sur/sous-martingales, alors on a plutôt respectivement: $\E(M_\tau|\ \mc F_\nu)\le M_\nu$ ou $\E(M_\tau|\ \mc F_\nu)\ge M_\nu$.
 \newpage
 \section{Points A Retenir}
 \subsection{Fonctions Mesurables}
