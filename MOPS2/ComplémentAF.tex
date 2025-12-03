@@ -257,4 +257,70 @@ On dit que $\Omega$ est régulier si il est de classe $\mc C^k$ pour tout $k\in 
 \sskip 
 Si $\Omega$ est lipschitzien, on peut définir $\sigma$ une mesure de surface sur sa frontière et une normale sortante $n(x)$ presque partout (pour la mesure $\sigma$) telles que:
 $$\forall X\in\mc C^1(\bar\Omega, \R^d), \ \int_\Omega \text{div} X = \int_{\partial \Omega}X\cdot n d\sigma.$$
+\subsection{Théorèmes de Traces}
+La théorie des distributions est idéale pour traiter des problèmes linéaires posés dans tout l'espace, elle se révèle par contre inadaptée pour les études aux limites ou pour les problèmes non linéaires.
+L'objectif des espaces de Sobolev est de lever ces contraintes.
+\bskip 
+Une fonction de $L^2(\Omega)$ n'a pas forcément de valeur bien définie sur le bord de $\Omega$. 
+\sskip 
+En dimension 1, une fonction de $H^1((a,b))$ admet un unique représentant continue dans $\mc C^0([a,b])$. On peut donc donner un sens à ses valeurs aux bords.
+\sskip 
+Dans des dimensions supérieures néanmoins, les fonctions de $H^1(\Omega)$ n'ont en général pas de représentant continu. Si $\Omega$ est uniformément lipschitzien, on peut toutefois donner un sens aux valeurs aux bords de ces fonctions.
+\smallskip
+
+\Theo \ De la trace 
+\sskip 
+On suppose donc $\Omega$ uniformément lipschitzien dans $\R^d$, alors l'application linéaire de $H^1(\Omega)\cap\mc C^p_c(\bar\Omega)$ dans $L^2(\partial\Omega)$ définie par
+$$u\mapsto u_{|\partial\Omega}$$
+admet un unique prolongement par continuité $\gamma_0:H^1(\Omega)\to L^2(\partial\Omega)$, son noyau est $H_0^1(\Omega)$.
+\sskip 
+Enfin, on a: 
+$$\forall u,v\in H^1(\Omega), \ \int_\Omega \frac{\partial u}{\partial x_i}v = \int_{\partial\Omega}\gamma_0(u)\gamma_0(v)(n\cdot e_i)d - \frac{\partial v}{\partial x_i}u.$$
+
+\Theo \ Dérivé normale sortante 
+\sskip 
+Sous la même hypothèse sur $\Omega$, l'application de $H^2(\Omega)\cap\mc C^1_c(\bar\Omega)$ dans $L^2(\partial\Omega)$ définie par: 
+$$u\mapsto \frac{\partial u}{\partial x} = \nabla u \cdot x$$
+admet également un unique prolongement continu : $\gamma_n$ de $H^2(\Omega)$ dans $L^2(\partial\Omega)$.
+\sskip 
+De plus:
+$$\forall u\in H^2(\Omega), \ v\in H^1(\Omega), \ \int_\Omega (-\Delta u)v = -\int_{\partial \Omega}\gamma_n(u)\gamma_0(v)+\int_\Omega\nabla u\cdot\nabla v.$$
+
+\Def 
+\sskip 
+On suppose que $\Omega$ est un ouvert quelconque de $\R^d$, alors: $H_{div}(\Omega)=\{v\in (L^2(\Omega))^d|\text{ div}v\in L^2(\Omega)\}$, on munit cette espace du produit scalaire:
+$$(v,w)_{H_{div}(\Omega)}=\int_\Omega v\cdot w + \int_\Omega \text{div} v\cdot \text{div}w$$
+alors $H_{div}(\Omega)$ est un espace de Hilbert.
+\bigskip 
+
+\Theo \ Flux normal sortant 
+\sskip 
+L'application linéaire de $H_{div}(\Omega)\cap \mc C^1_c(\Omega)$ dans $H^{1/2}(\partial \Omega)^*$ (dual de $H^{1/2}(\Omega)$) définie par:
+$$v\mapsto v\cdot n$$
+se prolonge en une unique application linéaire continue $\gamma_\phi :H_{\text{div}}(\Omega)\to H^{-1/2}(\partial\Omega)$.
+\sskip 
+On a alors la formule:
+$$\forall v\in H_{div}(\Omega), \ \forall u\in H^1(\Omega), \ \int_\Omega \text{div}v\ u = <\gamma_\phi,\gamma_0(u)>_{H^{-1/2}(\partial\Omega)}-\int_\gamma v\cdot\nabla u.$$
+\subsection{Injections Continues de Sobolev}
+On rappelle que pour $V$ et $W$ des espaces-vectoriels \ normés, la notation $V\hookrightarrow W$ s'injecte de façon naturelle dans $W$ et qu'il existe une constante $C\ge 0$ telle que: $\forall u \in V$, $||u||_W\le C||u||_V$.
+\bigskip 
+
+\Theo \ Sobolev - Gagliadov - Niremberg 
+\sskip 
+Soit un entier $d$ et $1\le p< d$, on a $W^{1,p}(\R^d)\hookrightarrow L^{\frac{dp}{d-p}}(\R^d)$.
+\bigskip 
+
+\Theo 
+\sskip 
+$$W^{1,d}(\R^d)\hookrightarrow L^q(\R^d), \ 2\le q<\pinf.$$
+
+\Theo \ Money 
+\sskip 
+Soit $\alpha = 1-\frac{d}{p}\in (0,1)$ pour $d<p\le \pinf$, alors:
+$$W^{1,p}(\R^d)\hookrightarrow L^\infty (\R^d)\cap C^{0,\alpha}(\R^d) \ \ \text{avec} \ \ C^{0,\alpha}(\R^d)=\{u\in\mc C^0(\R^d)|\ \sup_{x,y\in\R^d}\frac{|u(x)-u(y)|}{|x-y|^\alpha}<\pinf\}.$$
+
+\Theo \ Interpolation 
+\sskip 
+On suppose que $\Omega$ est un ouvert de $\R^d$, soient $1\le p\le q\le\pinf$, si $f\in L^p(\Omega)\cap L^q(\Omega)$, alors, pour tout $p\le r\le q$, $f\in L^r(\Omega)$ et:
+$$||f||_{L^r}\le||f||_{L^p}^\alpha||f||_{L^q}^{1-\alpha}, \ \ \text{avec}\ \ \frac{1}{r} = \frac{\alpha}{p}+\frac{1-\alpha}{q}.$$
 \end{document}
