@@ -669,7 +669,7 @@ Il est généralement attendu que la distribution a posteriori se concentre auto
 \Def \ Consistence de la distribution a posteriori (cas discret)
 \sskip 
 L'estimateur Bayesien de $\theta$ avec la distribution a priori $Q$ est consistant si:
-$$\forall \theta \in\Theta, \ \lim_{n\to\infty}Q(\theta|X_n)=1, \ \ \text{C } \Prob_\theta.$$
+$$\forall \theta \in\Theta, \ \lim_{n\to\infty}Q(\theta|X_n)=1, \ \ \text{selon } \Prob_\theta.$$
 Pour le cas général, la définition est un peu plus technique:
 
 \Def \ Consistence de la distribution a posteriori (cas $\Theta\subset\R^q$)
@@ -776,7 +776,7 @@ On traite tout d'abord le cas particulier dans lequel il existe une statistique 
 Ces hypothèses couvrent les cas suivants:
 \begin{itemize}
     \item les test one-sided de la rubrique précédente avec $\zeta_n(X_n)=Z_n$ si $H_1=\{g(\theta)>g_0\}$, $\zeta_n (X_n) = -Z_n$ dans l'autre cas
-    \item les test one-sided de la rubrique précédente dans le cas spécifique de symétrie avec $\zeta(X_n)=|Z_n - g_0|$. 
+    \item les test two-sided de la rubrique précédente dans le cas spécifique de symétrie avec $\zeta(X_n)=|Z_n - g_0|$. 
 \end{itemize}
 
 \Def \ p-value

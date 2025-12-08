@@ -472,6 +472,66 @@ Soit $(M_n)$ une martingales (respectivement une sous/sur-martingales), alors $M
 Soit $(M_n)$ une martingales, soient $\tau$ et $\nu$ des temps d'arrêt bornés tels que $\nu\le\tau$, alors $\E(M_\tau|\ \mc F_\nu)=M_\nu$.
 \sskip 
 Si $(M_n)$ est une sur/sous-martingales, alors on a plutôt respectivement: $\E(M_\tau|\ \mc F_\nu)\le M_\nu$ ou $\E(M_\tau|\ \mc F_\nu)\ge M_\nu$.
+\bigskip 
+\subsection{Inégalités de Martingales}
+On introduit la notation suivante: $M_n^+ = \max(M_n,0)$.
+\bigskip 
+
+\Theo \ Inégalité maximale de Doob 
+\sskip 
+Soit $(M_n)$ une $\mathbb{F}$ sous-martingale et $a>0$, alors, pour tout $n\in\N$:
+$$a\Prob(\max_{k\in[|0,n|]}M_k\ge a)\le\E(M_n 1_{\max_{k\in[|0,n|]}M_k\ge a})\le \E(M_n^+).$$
+\bigskip 
+
+\Prop 
+\sskip 
+Soit $(M_n)$ une martingale telle qu'il existe $n\in\N$ et $p>1$ tels que $M_n\in L^p$, alors, pour $c_p=(\frac{p}{p-1})^{p}$, il vient:
+$$\E(\max_{k\in[|1,n|]}|M_k|^p)\le c_p\E(|M_n|^p).$$
+\subsection{Convergence de Martingales}
+L'objectif de cette partie est d'alléger les hypothèses du théorème d'arrêt optimal.
+\bigskip 
+
+\Theo
+\sskip 
+Si $(M_n)$ est une martingale (respectivement super/sous-martingale) bornée dans $L^1$, alors il existe $M_\infty$ telle que:
+$$M_n\longrightarrow_{ps} M_\infty, \ \ \text{et} \ \ \E(|M_\infty|)<\pinf$$
+on obtient également $\liminf\E(|M_n|)\ge\E(|M_\infty|)$.
+\bigskip 
+
+\underline{Corollaires:}
+\sskip 
+Si $(M_n)$ est une sous-martingale telle que $\sum_{n\in\N}\E(M_n^+)<\pinf$, alors on peut utiliser le théorème précédent sur $(M_n)$.
+\sskip 
+Si $(M_n)$ est une martingale positive, alors il existe $M_\infty$ telle que: $M_n\longrightarrow_{ps}M_\infty$ et $\E(M_\infty)\le\lim_{n\to\pinf}\E(M_n)$.
+\bigskip 
+
+\Theo 
+\sskip 
+Si $(M_n)$ est une martingale, alors les propositions suivantes sont équivalentes:
+$$M_n\longrightarrow_{ps}M_\infty \ \ \text{et} \ \ M_n\longrightarrow_{L^1}M_\infty$$
+$$\text{il existe } Z \ \ \text{telle que} \ \ \E(|Z|)<\pinf \ \ \text{et} \ \ M_n = \E(Z|\mc F_n)$$
+dans ce cas, pour tout $n\in\N$, $M_n = \E(M_\infty|\mc F_n)$ ps, c'est une martingale dite fermée.
+\bigskip 
+
+\underline{Corollaire:}
+\sskip 
+Si $Z$ est une VA intégrable, alors $(\E(Z|\mc F_n))_n$ est une martingale fermée telle que: $\E(Z|\mc F_n)\to\E(Z|\mc F_\infty)$ ps et dans $L^1$.
+\bskip 
+On en arrive à la propriété qui fait l'objet de cette partie: 
+\smallskip 
+
+\Prop 
+\sskip 
+Si $(M_n)$ est une martingale fermée avec $M_\infty$ sa limite, si $\tau$ et $\nu$ sont des temps d'arrêt tels que : $\nu\le\tau$, alors:
+$$\E(M_\tau|\mc F_\nu)=M_\nu.$$
+\bigskip 
+
+\Prop 
+\sskip 
+Si $(M_n)$ est une martingale telle que $\sum_{n\in\N}\E(|M_n|^p)<\pinf$, alors il existe $M_\infty$ telle que $(M_n)$ converge ps et dans $L^1$ vers $M_\infty$ avec $M_n = \E(M_\infty|\mc F_n)$ ps.
+\smallskip 
+De plus, en posant $M_\infty^+ = \sup_{n\in\N}|M_n|\in L^p$ et $c_p=(\frac{p}{p-1})^p$, alors:
+$$E({M_\infty^+}^p)\le c_p\E(|M_\infty|^p) \ \ \text{et } \E(|M_\infty|^p)=\sup_{n\in\N}\E(M_n^p).$$
 \newpage
 \section{Points A Retenir}
 \subsection{Fonctions Mesurables}
