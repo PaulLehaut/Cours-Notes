@@ -532,6 +532,38 @@ Si $(M_n)$ est une martingale telle que $\sum_{n\in\N}\E(|M_n|^p)<\pinf$, alors 
 \smallskip 
 De plus, en posant $M_\infty^+ = \sup_{n\in\N}|M_n|\in L^p$ et $c_p=(\frac{p}{p-1})^p$, alors:
 $$E({M_\infty^+}^p)\le c_p\E(|M_\infty|^p) \ \ \text{et } \E(|M_\infty|^p)=\sup_{n\in\N}\E(M_n^p).$$
+\section{Arrêt Optimal}
+On s'intéresse à $(\Omega,\mc F, \mathbb{F}=(\mc F_n),\Prob)$ ainsi qu'à une suite de gains $(G_n)_n$ et à un horizon $N\in\bar\N$.
+\sskip 
+On note $\tau^N=\{\text{Temps d'arrêt} \ \ \tau \ \ \text{pour}\ \ \mathbb{F}| \ \tau\le N\}$ et $V_*=\sup_{\tau\in\tau^N}\E(G_\tau)$ le gain maximal.
+\sskip 
+Un temps d'arrêt $\tau$ est dit optimal si : $\E(G_\tau)=V_*$.
+\bigskip 
+
+Premier cas: $N$ est fini et $(G_n)$ est $\mathbb{F}$-adaptée, alors:
+\begin{itemize}
+    \item à date $N$, pas le choix: $G_N$ 
+    \item à date $N-1$, choix entre $G_{N-1}$ et $\E (G_N|\mc F_{N-1})$, si $G_{N-1}>\E (G_N|\mc F_{N-1})$ on s'arrête
+    \item à date $N-2$, choix entre $G_{N-2}$ et $\E(\max (G_{N-1},\E (G_N|\mc F_{N-1})|\mc F_{N-2}))$
+    \item on définit alors $S_N=G_N$ et, par récurrence descendante: $S_n=\max (G_n, \E(S_{n+1}|\mc F_n))$, on note également $\tau_*=\inf\{n\in\N|\ S_n=G_n\}$ et $\tau_{**}=\inf\{n\in\N|\ S_n>\E(S_{n+1}|\mc F_n)\}$.
+\end{itemize}
+
+\Prop 
+\sskip 
+$\tau_*$ et $\tau_{**}$ sont des temps d'arrêt optimaux tels que $V_*=\E(G_{\tau_*}=\E(G_{\tau_{**}}))$, de plus, pour tout $\tau\in\tau^N$, $\tau$ est un temps d'arrêt optimal si et seulement si $\tau_*\le \tau\le\tau_{**}$.
+\bskip 
+Il est intéressant de constater que $(S_n)$ est la plus petite sur-martingale qui majore $(G_n)$.
+\bigskip 
+
+On s'intéresse désormais au second cas: l'horizon est infini, on définit alors pour une famille de VA$\R$ $(X_i)$ son majorant 'absolu' ps par:
+$$\text{ess}\sup_i X_i = X_*\Leftrightarrow  \Prob(X_i\le X_*)= 1 \ \ \text{et} \ \ \exists Y : \ \Prob(Y\ge X_i)=1 \implies Y\ge X_* \ \ ps, \ \forall i.$$
+On peut ainsi poser $S_n = $ess$\ \sup_{\tau\in\tau^N}\E(G_\tau|\ \mc F_n)$.
+\bskip 
+Dans tous les cas, on a le théorème suivant:
+
+\Theo 
+\sskip 
+Si $\E(\sup_{n\in[|0,N|]}G_n^+)<\pinf$ et si ou bien $N<\pinf$, ou bien $N=\pinf$ et $\limsup G_n\le G_\infty$ ps, alors il existe un temps d'arrêt optimal.
 \newpage
 \section{Points A Retenir}
 \subsection{Fonctions Mesurables}
