@@ -1,0 +1,75 @@
+\documentclass{article}
+
+\title{Statistiques et Analyse de Données}
+\author{Paul Lehaut}
+\usepackage{mesraccourcis}
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\section{Introduction}
+La théorie des jeux est une branche des mathématiques qui étudie les interactions stratégiques. Elle s'applique dans de nombreux domaines comme l'économie, les sciences politiques, la biologie...
+\sskip 
+Le rôle de la théorie des jeux est à la fois de modéliser et d'analyser les situations. Idéalement, les compertements purement individuels permettraient d'atteindre des objectifs collectifs.
+\bigskip 
+\section{Jeux Sous Forme Normale: Stratégies Pures}
+La forme normale est une manière standard de décrire formellement un jeu. On spécifie pour chaque joueur son ensemble de stratégies et sa fonction de paiement.
+\sskip 
+Dans ce chapitre (et le suivant), on supposera que les joueurs connaissent la description exacte du jeu.
+\sskip 
+On définit deux types de stratégies:
+\begin{itemize}
+    \item stratégie pure: spécifie, pour chaque situation, une décision bien déterminée
+    \item stratégie mixte: elle intègre des choix aléatoires
+\end{itemize}
+dans ce chapitre, on se restreindra à des stratégies pures (désignées dès lors par stratégie).
+\bigskip 
+\subsection{Description d'un Jeu Sous Forme Normale}
+Un jeu sous forme normale est défini pour un nombre fini $N$ de joueurs par:
+
+\Def \ Jeu sous forme normale 
+\sskip 
+Un ensemble de stratégies $S_i$ pour chaque joueur $i$ et une fonction de paiement $g_i:\prod_{j=1}^N S_j\to\R$.
+\sskip 
+L'interprétation est la suivante: chaque joueur joue une fois, indépendamment des autres joueurs, et reçoit ensuite un paiement.
+\bskip 
+Il est intuitif de considérer que chaque joueur cherche à maximiser son profit. On étudie donc la question suivante: 
+
+Si les joueurs sont rationnels, quelles stratégies vont-ils le plus probablement choisir ?
+\bskip 
+Dans ce chapitre, on se limite à des jeux statiques (les joueurs jouent une unique fois) et à information complète (les joueurs connaissent les paiements et stratégies des autres joueurs). On définit les classes de jeux particulièrement importantes suivantes:
+\begin{itemize}
+    \item Jeux à intérêts communs: tous les joueurs ont les mêmes intérêts ou préférences.
+    \item Jeux à somme nulle: jeux à deux joueurs dont les intérêts sont antagonistes $ (g_1 = -g_2)$.
+    \item Jeux de la bataille des sexes: ces jeux font intervenir une part de coordination et de conflit entre les agents.
+    \item Jeux de la fureur de vivre: deux adolescents en voiture foncent l'un vers l'autre, aucun d'entre eux ne veut sortir de la route, si les deux sortes le résultat est neutre.
+    \item Le dilemme du prisonnier: ce jeux fait ressortir une tension entre l'intérêt collectif et individuel, de nombreuses situations possèdent une structure similaire à celle-ci.
+    \item Compétition en quantités dite de Cournot: deux entreprises produisent en quantité $q_i$ et à un coût $c_i(q_i)$, des biens identiques, le prix résultant de la loi de l'offre et de la demande est $p(q_1 + q_2)$, la situation se formalise alors par:
+$$S_i = \R_+ \ \ \text{et} \ \ g_i(q_i, q_j) = q_i p(q_i + q_j) - c_i(q_i).$$
+    \item Compétition en prix dite de Bertrand: il s'agit d'un modèle de compétition par les prix, chaque entreprise décide d'un prix de vente du bien et les consommateurs d'une quantité à acheter à la firme au prix le plus bas.
+\end{itemize}
+\bigskip 
+\subsection{Stratégies Dominantes et Dominées}
+Dans toute la suite on utilisera les notations suivantes: 
+$$S = \prod_{j=1}^NS_j, \ \ S_{-i} = \prod_{j=1, \ j\ne i}^N S_j \ \ \text{et} g = (g_i).$$
+on considèrera par ailleurs un jeu sous forme normale $\Gamma(N,S,g)$.
+\bigskip 
+
+\Def \ Stratégie strictement dominée 
+\sskip 
+Il s'agit d'une stratégie $s_i\in S_i$ telle qu'il existe $t_i\in S_i$ qui domine strictement $s_i$, c'est-à-dire:
+$$\forall s_{-i}\in S_{-i}, \ g_i(t_i,s_{-i})>g_i(s_i,s_{-i}).$$
+Un joueur 'rationnel' ne devrait jamais joué une stratégie strictement dominée. 
+\bskip 
+Une stratégie strictement dominante est une stratégie qui domine strictement toutes les autres, une telle stratégie, si elle existe, est évidemment unique.
+\bigskip
+
+\Def \ Equilibre en stratégies strictement dominantes
+\sskip 
+Il s'agit d'un profil de stratégies $s=(\ind s N)$ tel que, pour tout $i$, $s_i$ soit strictement dominante.
+\bskip 
+Si une telle stratégie existe, alors on peut considérer qu'il s'agit de la seule issue rationnelle du jeu.
+On peut, par ailleurs, considérer une jeu $\Gamma(N,S^*,g)$ dans lequel on ne conserve que les stratégies strictement dominantes (si elles existent).
+\end{document}
