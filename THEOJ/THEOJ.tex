@@ -71,5 +71,224 @@ Une stratégie strictement dominante est une stratégie qui domine strictement t
 Il s'agit d'un profil de stratégies $s=(\ind s N)$ tel que, pour tout $i$, $s_i$ soit strictement dominante.
 \bskip 
 Si une telle stratégie existe, alors on peut considérer qu'il s'agit de la seule issue rationnelle du jeu.
-On peut, par ailleurs, considérer une jeu $\Gamma(N,S^*,g)$ dans lequel on ne conserve que les stratégies strictement dominantes (si elles existent).
+On peut, par ailleurs, considérer une jeu $\Gamma(N,S^*,g)$ dans lequel on ne conserve que les stratégies strictement dominantes (si elles existent). Ainsi, si, pour tout $i$, $S_i^* = \{s_i^*\}$, alors le profil de stratégies $(s_i^*)$ ne dépend pas de l'ordre d'élimination des stratégies, on dit que le jeu est résoluble par élimination itérée des stratégies strictement dominées.
+\sskip 
+Ainsi, lorsqu'un jeu est résoluble par élimination itérée des stratégies strictement dominées, on peut lui associer une prédiction unique des stratégies suivies par les joueurs: le profil $(s_i^*)$.
+\bskip 
+Toutefois, il n'est pas rare de se retrouver dans une situation où il n'existe pas (ou plus) de stratégie absolument dominée, on introduit donc le concept de stratégie dominée:
+\smallskip
+
+\Def \ Stratégie dominée 
+\sskip 
+Il s'agit simplement d'une stratégie pour $s_i$ telle qu'il existe $t_i$ telle que:
+$$\forall s_{-i}\in S_{-i}, \ g(s_i,s_{-i})\le g(t_i,s_{-i}).$$
+Un stratégie dominante représente un choix raisonnable (on ne peut pas le regretter). On peut alors définir comme précédemment les profils de stratégies dominantes, lorsqu'un tel profil existe, il semble raisonnable que les joueurs le jouent.
+\sskip 
+On peut donc, comme précédemment, penser à supprimer les stratégies dominées de l'ensemble des stratégies, néanmoins, cette fois, l'ordre des suppressions influence le résultat.
+\bigskip 
+\subsection{Equilibre de Nash}
+Dans le cas général, un jeu n'a que peu de chance d'être résoluble par élimination itérée des stratégies strictement dominées. Pour étudier ces jeux, on introduit le concept d'équilibre de Nash. Cette équilibre peut être interprété comme une convention sociale stable, on introduit les notations suivantes: si $s\in S$ et $i\in [|1,N|]$, on note $s_{-i}$ le profil de stratégies où on a retiré la stratégie du joueur $i$. On peut alors définir l'équilibre de Nash:
+\smallskip 
+
+\Def \ Equilibre de Nash 
+\sskip 
+Il s'agit d'un profil de stratégies $s$ tel que:
+$$\forall i,\ \forall t_i\in S_i, \ g_i(s_i,s_{-i})\ge g_i(t_i,s_{-i}).$$
+On notera $NE(\Gamma)$ l'ensemble des équilibres de Nash de $\Gamma$ et $E(\Gamma)$ l'ensemble des paiements pour ces équilibres.
+\bskip 
+On peut reformuler la définition d'équilibre de Nash à l'aide de la notion de meilleure réponse:
+
+\Def \ Meilleure réponse 
+\sskip 
+$s_i$ est la meilleure réponse à $s_{-i}$ si, pour tout $t_i$, $g_i(s_i,s_{-i})\ge g_i(t_i,s_{-i})$.
+\sskip 
+L'ensemble des meilleures réponses à $s_{-i}$ est noté $BR_i(s_{-i})$, on peut alors introduire la reformulation suivante:
+
+\Prop 
+\sskip 
+Un profil de stratégie $s\in S$ est un équilibre de Nash si et seulement si pour tout $i$, $s_i\in BR_i(s_{-i})$.
+\bskip
+On peut alors se demander quel est le lien entre l'équilibre de Nash et les notions de solutions rationnelles vues précédemment ? 
+\bigskip 
+
+\Prop 
+\sskip 
+\begin{itemize}
+    \item Un équilibre en stratégies strictement dominantes est l'unique équilibre de Nash, le profil de stratégies obtenu est alors celui de l'équilibre de Nash.
+    \item Soit $(\Gamma^k)_k$ la suite de jeux obtenus par élimination successive des stratégies strictement dominées, alors $NE(\Gamma^k)=NE(\Gamma)$ pour tout $k$.
+    \item Un équilibre en stratégies dominantes est un équilibre de Nash.
+    \item Soit $(\Gamma^k)_k$ la suite de jeux obtenus par une élimination successive des stratégies dominées, alors $NE(\Gamma^{k+1})\subset NE(\Gamma^k)$ pour tout $k$.
+\end{itemize}
+\bigskip 
+\section{Jeux Sous Forme Normale: Stratégies Mixtes}
+Un équilibre de Nash ne peut être atteint que si chaque joueur n'a pas d'intérêt à dissimuler sa stratégie. La théorie des stratégies mixtes permet alors d'étudier les cas pour lesquels les joueurs on intérêt à bluffer, voire joue aléatoirement.
+\bigskip 
+\subsection{Définitions}
+On supposera dans tout ce chapitre que chaque joueur ne possède qu'un nombre fini de stratégies.
+\bigskip 
+
+\Def \ Stratégies mixtes 
+\sskip 
+Il s'agit, pour le joueur $i$, d'une distribution de probabilités sur $S_i$. On note $\Sigma_i$ l'ensemble des stratégies mixtes, on appellera désormais les éléments de $S_i$ 'stratégies pures'.
+\bskip 
+Un stratégie pure $s_i$ peut-être vue comme une stratégie mixte avec probabilité $1$ de joueur $s_i$, on peut donc écrire $S_i\subset \Sigma_i$, comme $S_i$ est fini, alors on peut identifier:
+$$\Sigma_i= \{p\in\R^{|S_i|} |\ \forall k, \ p_k\ge 0 \ \ \text{et } \sum_{k=1}^{|S_i|}p_k=1\}.$$
+
+\Prop 
+\sskip 
+Cet ensemble est convexe.
+\bskip 
+Cette propriété joueura un rôle essentielle dans le théorème d'existence de l'équilibre de Nash en stratégies mixtes.
+\bskip 
+Si chaque joueur joue la stratégie $\sigma_i$, la probabilité que la stratégie pure $s=(\ind s N)$ soit le profil de stratégie effectivement joué est $\prod_{j=1}^N\sigma_j(s_j)$, le paiement espéré du joueur $i$ est alors:
+$$\sum_{s\in S}(\prod_{j=1}^N\sigma_j(s_j))g_i(s).$$
+Pour définir l'extension mixte d'un jeu, il reste finalement à dire que chaque joueur cherche désormais à maximiser son gain en moyenne (soit l'espérance de son paiement). La fonction $g_i:\Sigma \to \R$ ainsi définie est alors multilinéaire, en particulier, pour tout $i$ et $\sigma$, alors:
+$$g_i(\sigma_i,\sigma_{-i}) = \sum_{s_i\in S_i}\sigma_i(s_i)g_i(s_i,\sigma_{-i}).$$
+
+\Def \ Equilibre de Nash en stratégies mixtes 
+\sskip 
+Il s'agit d'un profil de stratégies mixtes $\sigma$ tel que, pour tout $i$:
+$$\forall \tau_i\in\Sigma_i, \ g_i(\sigma_i,\sigma_{-i})\ge g_i(\tau_i,\sigma_{-i}).$$
+Un tel équilibre peut s'interprété comme la satisfaction de chaque joueur vis-à-vis de sa probabilité, s'il connait les autres probabilités choisies. On notera $NE_{mix}(\Gamma)$ l'ensemble des équilibres de Nash en stratégies mixtes.
+\bigskip 
+
+\Prop 
+\sskip 
+$\sigma$ est un équilibre de Nash en stratégies mixtes si et seulement si:
+$$\forall i, \ \forall s_i\in S_i, \ g(\sigma_i,\sigma_{-i})\ge g(s_i,\sigma_{-i}).$$
+On en déduit alors que tout équilibre de Nash en stratégies pures en est également un en stratégies mixtes.
+\bigskip 
+
+\Theo \ Nash (considéré comme le théorème le plus important de la théorie des jeux)
+\sskip 
+Tout jeu fini (ie avec des ensembles de stratégies finis) admet un équilibre de Nash en stratégies mixtes.
+\bskip 
+On peut ensuite réintroduire les concepts de stratégie strictement dominée, dominée. On retrouve alors les propositions précendentes de relation entre les équilibres.
+\bskip 
+On peut, comme précédemment, éliminer une stratégie mixte qui est strictement dominée par une autre stratégie mixte. Néanmoins, cela ne possède pas de grand intérêt puisque les stratégies mixtes sont infinies. Par contre, il peut être intéressant de supprimer une stratégie pure et donc, par conséquent, toute les stratégies mixtes qui accordaient un poids à cette stratégie pure.
+\bskip 
+On présente désormais une méthode générale pour calculer tous les équilibres de Nash mixtes d'un jeu. On commence par réintroduire le concept de meilleure réponse:
+
+\Def \ Meilleure réponse
+\sskip 
+$\sigma_i\in\Sigma_i$ est la meilleure réponse à $\sigma_{-i}\in \Sigma_{-i}$ si, pour tout $\tau_i\in\Sigma_i$, $g_i(\sigma_i,\sigma_{-i})\ge g_i(\tau_i,\sigma_{-i})$. 
+\sskip 
+L'ensemble des meilleures réponses à $\sigma_{-i}$ est $BR_i(\sigma_{-i})$.
+\bskip 
+On a alors la reformulation suivante: 
+
+\Prop 
+\sskip 
+Un profil de stratégie $\sigma$ est un équilibre de Nash si et seulement si, pour tout $i$, $\sigma_i\in BR_i(\sigma_{-i})$.
+\bskip 
+On présente désormais un méthode de calcul des meilleures réponses (et donc des équilibres de Nash).
+\bigskip 
+
+\Def \ Support
+\sskip 
+Dans un jeu fini, le support de $\sigma_i$ est $supp(\sigma_i)=\{s_i\in S_i|\ \sigma_i(s_i)>0\}$.
+\bigskip 
+
+\Prop \ Principe d'indifférence faible
+\sskip 
+Soient $\sigma_{-i}\in\Sigma_{-i}$ et $\sigma_i\in BR_i(\sigma_{-i})$, alors:
+$$\forall s_i,t_i\in supp(\sigma_i),\ g_i(s_i,\sigma_{-i}) = g_i(t_i,\sigma_{-i}).$$
+Cette propriété est, par linéarité, équivalent à: $\forall s_i\in supp(\sigma_i)$, $g_i(s_i,\sigma_{-i}) = g_i(\sigma_i, \sigma_{-i})$.
+\bskip 
+On obtient alors une condition nécessaire pour être meilleure réponse. La proposition suivante donne une condition nécessaire et suffisante:
+
+\Prop \ Principe d'indifférence fort 
+\sskip 
+Soit $\sigma_{-i}$, alors $\sigma_i\in BR_i(\sigma_{-i})$ si et seulement si:
+$$\forall s_i,t_i\in supp(\sigma_i),\ g_i(s_i,\sigma_{-i}) = g_i(t_i,\sigma_{-i})\ \ \text{et } \forall s_i\notin supp(\sigma_i), \ g(\sigma_i, \sigma_{-i})\ge g(s_i,\sigma_{-i}).$$ 
+Ainsi, $\sigma$ est un équilibre de Nash en stratégie mixte si et seulement si, pour tout $i$, $\sigma_i\in BR_i(\sigma_{-i})$.
+\bskip 
+Il suffit donc, pour trouver un équilibre de Nash, d'essayer tous les supports possibles, de résoudre les probabilités rendant chaque joueur indifférent sur son support, et de finalement vérifier que les stratégies hors du support ne donnent pas un paiement supérieur.
+\bigskip 
+\section{Jeux à Somme Nulle}
+Dans un jeu à somme nulle, deux joueurs aux intérêts stratégiques opposés s'affrontent. Dans le cas où les deux joueurs possèdent un nombre finis de stratégie, on parle de jeu matriciel.
+\bigskip 
+\subsection{Valeur et Stratégie Optimale}
+On se donnne dans toute cette partie un jeu à somme nulle $G=(I,J,g)$ et $w\in\bar \R$.
+\bskip 
+Nous introduisons tout d'abord le nouveau concept de valeur, pour ce faire on commence par introduire la notion de paiement garanti:
+
+\Def 
+\sskip 
+Le joueur $1$ peut garantir le paiement $w$ s'il existe $i\in I$ tel que, pour tout $j\in J$, $g(i,j)\ge w$, l'égalité devient $g(i,j)\le w$ pour le joueur $2$.
+\bigskip 
+
+\Def \ Maxmim 
+Le $maxmin$ de $G$ est le supremum des quantités garanties par le joueur $1$, on le note $\underline{v}$.
+\sskip 
+On définit le $minmax$ de façon analogue, on le note $\bar v$.
+\bskip 
+On peut alors introduire le concept clef de ce chapitre:
+
+\Def \ Valeur
+\sskip 
+Le jeu $G$ a une valeur si $\underline v = \bar v$, cette quantité est notée $val(G)$.
+\bskip 
+Lorsque le jeu $G$ a une valeur, alors le joueur $1$ peut garantir au moins cette valeur, le joueur $2$ peut garantir au moins $-val(G)$. L'issu rationnelle est alors que le joueur $1$ gagne $val(G)$ (et le joueur $2$ $-val(G)$).
+\bigskip 
+
+\Prop 
+\sskip 
+Si les joueurs peuvent garantir la même quantité $w$, alors $G$ a une valeur égale à $w$.
+\bigskip 
+
+\Def 
+\sskip 
+Supposons que $G$ est une valeur, soit $\epsilon>0$, alors une stratégie du joueur $1$ ($2$) est dite $\epsilon$-optimale si elle garantit $val(G)-\epsilon$ ($val(G)+\epsilon$).
+\bskip 
+On note $I^*$ ($J^*$) les stratégies optimales du joueur $1$ ($2$).
+\bigskip 
+\subsection{Lien Entre Valeur, Stratégie Optimale et Equilibre de Nash}
+Les concepts d'équilibre de Nash et de stratégie optimale sont essentiellement équivalents, comme le montre la proposition:
+
+\Prop 
+\sskip 
+Soient $(i^*,j^*)\in I\times J$, alors on a l'équivalence: $G$ a une valeur et $(i^*,j^*)$ est un couple de stratégie optimale si et seulement si $(i^*,j^*)$ est un équilibre de Nash de $G$:
+$$\forall (i,j)\in I\times J, \ g(i,j^*)\le g(i^*,j^*)\le g(i^*,j).$$ 
+Lorsque ces assertions sont vérifiées, l'ensemble des paiements d'équilibre de Nash est $E=\{val(G), -val(G)\}$.
+\bigskip 
+\subsection{Jeux Matriciels et Théorème du Minmax}
+Considérons un jeu $G=(g,I,J)$ avec $I$ et $J$ finis, on peut résoudre ce problème à l'aide de la méthode du chapitre $2$ (avec l'extension mixte de $G$). Nous allons néanmoins procéder différement.
+\sskip 
+On note pour ce faire $\Delta (C)$ l'ensemble des mesures de probabilité sur $C$.
+\bigskip 
+
+\Def 
+\sskip 
+L'extension mixte de $G$ est le jeu $\Gamma = (g^*, \Delta(I),\Delta(J))$ avec:
+$$\gamma(\sigma,\tau)=\sum_{(i,j)\in I\times J}g(i,j)\sigma(i)\tau(j).$$
+Dans la suie, on notera simplement $g^*$ $g$.
+\bigskip 
+
+\Prop \ (Analogue de tout Nash en stratégies pures est un Nash en stratégies mixtes)
+\sskip 
+Si une stratégie garantit $w$ dans $G$, alors cette stratégie garantit $w$ dans $\Gamma$. En particulier, si $G$ a une valeur, alors $\Gamma$ a la même valeur, et toute stratégie optimale de $G$ est une stratégie optimale de $\Gamma$.
+\bigskip 
+
+\Theo \ Von Neumann (corollaire du théorème de Nash)
+\sskip 
+Toute extension mixte d'un jeu matriciel admet une valeur, et chaque joueur a une stratégie optimale.
+\bskip 
+Ce théorème a été généralisé sous différentes formes, nous en donnons deux versions classiques à l'aide des notions suivantes:
+
+\Def 
+\sskip 
+\begin{itemize}
+    \item $f$ est quasi-concave si: $f(tx+ (1-t)y)\ge min(f(x),f(y)), \ t\in[0,1]$,
+    \item $f$ est quasi-convexe si $-f$ est quasi-concave,
+    \item $f$ est semi-continue supérieurement (scs) si, pour tout  $x_0$ et $\epsilon>0$, il existe un voisinage $U$ de $x_0$ tel que: $\forall x\in U, \ f(x)\le f(x_0)+\epsilon$,
+    \item $f$ est sci si $-f$ est scs.
+\end{itemize}
+\bigskip
+On constate par ailleurs que, pour $f$ scs sur un compact, alors $f$ atteint son maximum sur ce compact.
+\bigskip 
+
+\Theo 
+\sskip 
+Si $I$ et $J$ (ici sous-\ev) sont convexes, que l'un ou l'autre est compact, $g(\cdot,j)$ est quasi-concave et scs et $g(i,\cdot)$ est quasi-convexe et sci, alors $G$ a une valeur. De plus si $I$ (resp $J$) est compact, alors le joueur $1$ (resp $2$) a une stratégie optimale.
 \end{document}
