@@ -801,5 +801,74 @@ de sorte que le test avec la région de rejet $W_n=\{g_0\notin C_n\}$ soit de ni
 Supposons qu'on est construit un test avec la région de rejet $W_n$ et le niveau $\alpha$ pour des hypothèses $H_0$ et $H_1$. On suppose de plus que $H_0=\{\theta_0\}$, si on observe $X_n$ distribuée selon $H_0$, alors la probabilité d'un faux positif est, par construction, $\alpha$. Ainsi, pour $m$ observations indépendantes, la probabilité d'avoir au moins un faux positifs devient:
 $$\Prob_{\theta_0}(\cup_{k=1}^m\{X_{k,n}\in W_n\})=1-\prod_{k=1}^m\Prob_{\theta_0}(X_{k,n}\notin W_n)=1-(1-\alpha)^m\longrightarrow_{m\to\pinf}1.$$
 Ainsi, en répétant suiffisament de fois l'expérience, alors on peut conclure que l'effet qu'on cherche est présent alors même que dans les faits il ne l'est pas.
+\bigskip 
+\section{Test dans le Modèle Gaussien}
+Dans ce chapitre on travail sur des échantillons $\mathbb{X}_n =(\ind X n)$ qui sont iid selon $\mc N(\mu,\sigma^2)$.
+\subsection{Test Two-sided pour la Moyenne}
+On fixe tout d'abord $\mu_0\in\R$ et on considère les hypothèses $H_0=\{\mu=\mu_0\}$ et $H_1=\{\mu\ne\mu_0\}$, on suppose tout d'abord que $\sigma^2$ est connu.
+\sskip 
+En suivant la procédure présentée dans le chapitre précédent, on peut construire: 
+$$W_n =\{|\bar X_n - \mu_0|\ge \sqrt{\frac{\sigma^2}{n}}\phi_{1-\alpha/2}\}$$
+qui est une région de rejet consistante de niveau $\alpha$, on la réécrit sous la forme:
+$$W_n =\{|Z_n|\ge \phi_{1-\alpha/2}\} \ \ \text{avec } Z_n=\frac{\bar X_n -\mu_0}{\sqrt{\sigma^2/n}}$$
+on dit que $Z_n$ est le Z-score, selon $H_0$, cette statistique est distribuée selon $\mc N(0,1)$ et est libre.
+\bskip 
+Si $\sigma^2$ est inconnu, alors on peut utiliser $T_n=\frac{\bar X_n-\mu_0}{\sqrt{S_n^2/n}}$ qui suit la loi $t(n-1)$ selon $H_0$, on l'appelle le t-score.
+\bskip 
+\subsection{Test One-sided pour la moyenne}
+On s'intéresse désormais à $H_0=\{\mu\le\mu_0\}$ et $H_1 = \{\mu>\mu_0\}$.
+\sskip 
+Si $\sigma^2$ est connue, alors on a:
+$$W_n=\{Z_n\ge \phi_{1-\alpha}\}$$
+qui est une région de rejet consistante de niveau $\alpha$.
+\bskip 
+Si $\sigma^2$ est inconnu, alors on a:
+$$W_n=\{T_n\ge t_{n-1,1-\alpha}\}$$
+qui vérifie les mêmes propriétés.
+\bigskip 
+\subsection{Test sur Deux Echantillons}
+On s'intéresse ici au problème de l'homogénéité de deux populations, on observe donc deux échantillons $\mathbb{X}_{1,n}$ et $\mathbb{X}_{2,n}$ distribués selon $\Prob_1$ et $\Prob_2$, on cherche donc à savoir si $\Prob_1=\Prob_2$.
+\bskip 
+On étudie pour ce faire les tests de Fisher avec les hypothèses: $H_0=\{\sigma_1^2=\sigma_2^2\}$ et $H_1=\{\sigma_1^2\ne\sigma_2^2\}$, et de Student pour lequel on suppose que $\sigma_1^2=\sigma_2^2$ avec les hypothèses:
+$$H_0=\{\mu_1=\mu_2\},\ H_1=\{\mu_1\ne\mu_2\} \ \ \text{ou} \ \ H_0=\{\mu_1\le\mu_2\}, \ H_0=\{\mu_1>\mu_2\}.$$
+\subsubsection{Test de Student}
+On suppose que la variance des deux échantillons est identique, on ne suppose néanmoins pas la connaître.
+\sskip 
+On considère d'abord les hypothèses $H_0=\{\mu_1=\mu_2\}$ et $H_1=\{\mu_1\ne\mu_2\}$, alors, selon $H_0$, on a: 
+$$\bar X_{1,n_1} - \bar X_{2,n_2}\sim \mc N(0,\sigma^2/n_1 + \sigma^2/n_2)$$
+et 
+$$\frac{(n_1-1)S^2_{1,n_1} + (n_2-1)S^2_{2,n_2}}{\sigma^2}\sim \chi_2(n_1+n_2-2)$$
+et ces deux VAs sont indépendantes. En conséquence:
+$$T_{n_1,n_2} = \frac{\frac{\bar X_{1,n_1} - \bar X_{2,n_2}}{\sqrt{\sigma^2(1/n_1+1/n_2)}}}{\frac{(n_1-1)S^2_{1,n_1} + (n_2-1)S^2_{2,n_2}}{\sigma^2(n_1+n_2-2)}}\sim t(n_1+n_2-2).$$
+On peut donc s'intéresser à la réjion de rejet $W_{n_1,n_2} = \{|T_{n_1,n_2}|\ge t_{n_1+n_2-2,1-\alpha/2}\}$ qui est de niveau $\alpha$ et est constistante lorsque $n_1$ et $n_2$ tendent vers l'infini.
+\bskip 
+Si les deux hypothèses sont plutôt $H_0=\{\mu_1\le\mu_2\}$ et $H_1=\{\mu_1>\mu_2\}$, alors, par des arguments similaires, on obtient la région de rejet $W_{n_1,n_2}=\{T_{n_1,n_2}\ge t_{n_1+n_2-2,1-\alpha}\}$ qui est également de niveau $\alpha$ et consistante lorsque $n_1$ et $n_2$ tendent vers l'infini.
+\bigskip 
+\subsubsection{Test de Fisher}
+On considère désormais les hypothèses $H_0=\{\sigma_1^2=\sigma_2^2\}$ et $H_2=\{\sigma_1^2\ne\sigma_2^2\}$. Comme $\sigma_1^2$ et $\sigma^2_2$ sont estimés par $S_{n_1}^2$ et $S_{n_2}^2$, alors on doit rejeter $H_0$ lorsque ces deux quantités sont éloignées. Afin donc de construire une statistique qui mesure cet éloignement et qui soit libre selon $H_0$, on introduit la distribution suivante:
 
+\Def \ Distribution de Fisher
+\sskip 
+Soient $Y_1\sim\chi_2(n_1)$ et $Y_2\sim\chi_2(n_2)$ deux VAs indépendantes, la loi de la VA $Z=\frac{Y_1/n_1}{Y_2/n_2}$ est appelée la distribution de Fisher et est notée $F(n_1,n_2)$.
+\bskip 
+Selon $H_0$, on a: $F_{n_1,n_2}=\frac{S^2_{1,n_1}}{S^2_{2,n_2}}\sim F(n_1-1,n_2-1)$ et donc la région de rejet:
+$$W_{n_1,n_2}=\{F_{n_1,n_2}\notin [f_{n_1-1,n_2-1,\alpha/2},f_{n_1-1,n_2-1,1-\alpha/2}]\}$$
+est de niveau de précision $\alpha$.
+\bigskip 
+\subsection{Analyse de la Variance}
+La technique d'analyse de la variance (ANOVA) permet de tester l'homogénéité de plusieurs échantillons et donc de généraliser le test de Student de la section précédente. On suppose que les échantillons on la même variance inconnue. L'objectif de l'ANOVA est de construire un test pour les hypothèses suivantes:
+$$H_0 = \{\mu_1 =... = \mu_k\} \ \ \text{et } H_1=\{\exists l,m : \mu_l\neq \mu_m\}.$$
+On introduit par aillerus les notations suivantes: $n=\sum_{i=1}^kn_i$ et $\mathbb{X}_n=(\mathbb{X}_{1,n_1},...,\mathbb{X}_{k,n_k})$.
+\bskip 
+L'idée intuitive pour construire un test consiste à estimer $\ind \mu k$ à l'aide des moyennes empiriques. On rejete ainsi $H_0$ si ces quantités sont éloignées les unes des autres, on peut mesurer cette distance à l'aide de la moyenne empirique globale:
+$$\bar X_{\cdot,\cdot} = \frac{1}{n}\sum_{i=1}^kn_i\bar X_{i,\cdot}$$
+puis de considérer la statistique:
+$$SSM=\sum_{i=1}^kn_i (\bar X_{i,\cdot} - \bar X_{\cdot, \cdot})^2 \ \ \text{telle que } \frac{SSM}{\sigma^2}\sim\chi_2(k-1)$$
+qui donne la région de rejet $W_n=\{SSM\ge a_n\}$. 
+\sskip 
+Pour déterminer $a_n$, on introduit l'estimateur de la variance $\hat \sigma^2_{i,n_i}=\frac{1}{n_l}\sum_{i=1}^{n_l}(X_{l,i}-\bar X_{l,\cdot})^2$ afin de définir:
+$$SSE = \sum_{i=1}^k n_i\hat \sigma^2_{i,n_i} \ \  \text{telle que } \frac{SSE}{\sigma^2}\sim\chi_2(n-k).$$
+On obtient alors, selon $H_0$, $F_n = \frac{SSM/(k-1)}{SSE/(n-k)}$ est une statistique suivant une loi de Fisher de $k-1$ et $n-k$ degrés de liberté.
+\sskip 
+Finalement, on peut rejeter $H_0$ dès que $F_n \ge f_{k-1,n-k,1-\alpha}$ avec une précision $\alpha$.
 \end{document}
