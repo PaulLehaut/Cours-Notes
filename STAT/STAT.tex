@@ -38,6 +38,7 @@ Lorsque $X$ est une VA$\R^d$ de carré intégrable, on peut définir sa matrice 
 \bigskip
 
 \Def 
+\sskip
 Le coefficient de corrélation de $X$ et $Y$ est définie par:
 $$\rho_{X,Y} :=
 \left\{
@@ -500,13 +501,13 @@ Si $Z_n$ est un estimateur non-biaisé de $g(\theta)$ et qui vérifie une inéga
 $$\forall r>0, \ \sup_\theta \Prob_\theta (|Z_n-g(\theta)|\ge r)\le c_{Z_n}(r)$$
 alors tout $r_{n,\alpha}>0$ tel que $c_{Z_n}(r_{n,\alpha})\le\alpha$ produit l'intervalle de confinace par excès: $[Z_n-r_{n,\alpha}, Z_n +r_{n,\alpha}]$ pour $g(\theta)$.
 \bigskip 
-\subsubsection{L'Inégalité de Bienaymé-Chebychev}
+\subsubsection{L'Inégalité de Bienaymé-Tchebychev}
 C'est l'inégalité classique:
 $$\Prob( |Y-\E(Y)|\ge a)\le \frac{V(Y)}{a^2}.$$
 Pour un modèle de Benoulli dans lequel on utilise $\bar X_n$ comme estimateur de $p$, alors, pour tout $a>0$, il vient:
 $$\Prob_p(|\bar X_n - p|\ge a)\le \frac{p(1-p)}{a^2}$$
 donc, pour $a$ tel que: $\frac{p(1-p)}{a^2}\le \alpha$, il vient:
-$$\Prob_p(p\in[\bar X_n - a/\sqrt{n},\bar X_n + a/\sqrt{n} ])\le 1-\alpha.$$
+$$\Prob_p(p\in[\bar X_n - a/\sqrt{n},\bar X_n + a/\sqrt{n} ])\ge 1-\alpha.$$
 Il reste à trouver une telle valeur de $a$ qui ne dépende pas de p, pour les VAs bornées, on peut utiliser le lemme suivant:
 \smallskip 
 
@@ -858,7 +859,7 @@ est de niveau de précision $\alpha$.
 \subsection{Analyse de la Variance}
 La technique d'analyse de la variance (ANOVA) permet de tester l'homogénéité de plusieurs échantillons et donc de généraliser le test de Student de la section précédente. On suppose que les échantillons on la même variance inconnue. L'objectif de l'ANOVA est de construire un test pour les hypothèses suivantes:
 $$H_0 = \{\mu_1 =... = \mu_k\} \ \ \text{et } H_1=\{\exists l,m : \mu_l\neq \mu_m\}.$$
-On introduit par aillerus les notations suivantes: $n=\sum_{i=1}^kn_i$ et $\mathbb{X}_n=(\mathbb{X}_{1,n_1},...,\mathbb{X}_{k,n_k})$.
+On introduit par ailleurs les notations suivantes: $n=\sum_{i=1}^kn_i$ et $\mathbb{X}_n=(\mathbb{X}_{1,n_1},...,\mathbb{X}_{k,n_k})$.
 \bskip 
 L'idée intuitive pour construire un test consiste à estimer $\ind \mu k$ à l'aide des moyennes empiriques. On rejete ainsi $H_0$ si ces quantités sont éloignées les unes des autres, on peut mesurer cette distance à l'aide de la moyenne empirique globale:
 $$\bar X_{\cdot,\cdot} = \frac{1}{n}\sum_{i=1}^kn_i\bar X_{i,\cdot}$$
@@ -871,4 +872,115 @@ $$SSE = \sum_{i=1}^k n_i\hat \sigma^2_{i,n_i} \ \  \text{telle que } \frac{SSE}{
 On obtient alors, selon $H_0$, $F_n = \frac{SSM/(k-1)}{SSE/(n-k)}$ est une statistique suivant une loi de Fisher de $k-1$ et $n-k$ degrés de liberté.
 \sskip 
 Finalement, on peut rejeter $H_0$ dès que $F_n \ge f_{k-1,n-k,1-\alpha}$ avec une précision $\alpha$.
+\bigskip 
+\section{$\chi_2$ Tests pour des Espaces d'Etats Finis}
+Dans cette section, les données $\ind X n$ prennent leurs valeurs dans un espace $E$ de cardinal fini $m$. On peut donc s'intéresser à la distribution de masse d'une probabilité $\Prob$: $\theta =(p_x)_{x\in E}$.
+\sskip 
+On va ainsi introduire une succession de test $\chi_2$ avec différents objectifs:
+\begin{itemize}
+    \item Test d'adéquation: pour vérifier qu'un échantillon est bien distribué selon $\Prob$ sur E.
+    \item Test d'adéquation sur une famille de distribution pour vérifier que la loi de l'échantillon appartient à une certaine famille paramétrique (comme la famille des lois binomiales).
+    \item Indépendance: il s'agit de tests concernant les échantillons de la forme $(X_i,Y_i)$ dans un ensemble produit fini $E\times F$ qui permettent des déterminer l'indépendance de $X$ et $Y$. 
+\end{itemize}
+\subsection{Distribution Empirique dans un Ensemble Fini}
+On suppose ici que les $(X_i)$ sont iid selon $\Prob$. L'idée d'un test $\chi_2$ est d'approcher $\Prob$ avec la mesure empirique de l'échantillon, on définit donc:
+$$\hat p_{n,x} = \frac{1}{n}\sum_{i=1}^{n}1_{X_i = x}, \ \ \text{on note} \ \hat\Prob_n  \ \ \text{la mesure de probabilité associée à cette distribution de masses.}$$
+$\hat\Prob_n$ est un estimateur consistant et non biaisé de $\Prob_0$.
+\sskip 
+Fixons donc une mesure $\Prob$ et construisons un test d'adéquation pour les hypothèses $H_0=\{\Prob=\Prob_0\}, \ H_1=\{\Prob\ne\Prob_0\}$. Pour construire la région de rejet, on introduit le concept de distance $\chi_2$.
+\bigskip 
+
+\Def \ Continuité absolue et distance $\chi_2$ 
+\sskip 
+Soient P, Q deux probabilités dont les distributions de masses sont données par $(p_x)$ et $(q_x)$. $P$ est dite absolument continue par rapport à $Q$, ce qu'on note $P\ll Q$, si $q_x=0\implies p_x=0$.
+\sskip 
+La distance $\chi_2$ entre $P$ et $Q$, notée $\chi_2(P|Q)$ est définit, pour $P\ll Q$, par:
+$$\chi_2(P|Q)=\sum_{x\in E}(\frac{p_x}{q_x}-1)^2q_x = \sum_{x\in E}\frac{(p_x - q_x)^2}{q_x}$$
+sinon, elle vaut $\pinf$.
+\bskip 
+Il faut néanmoins noté que la distance $\chi_2$ n'est formellement pas une distance (elle ne vérifie pas la propriété de symétrie), mais vérifie tout de même la propriété essentielle: 
+$\chi_2(P|Q)= 0 \Longleftrightarrow  P=Q$, elle peut donc bien être interprétée comme une mesure de la proximité entre $P$ et $Q$.
+\bskip 
+Avant de continuer, on remarque que $p_x = 0$ implique que $\hat p_{n,x}=0$ presque sûrement, on supposera donc dans la suite travailler avec $p_x>0$ pour tout $x\in E$.
+\bigskip 
+
+\Prop \ Comportement asymptotique
+\sskip 
+Lorsque $n\longrightarrow \pinf$, alors:
+\begin{itemize}
+    \item $\hat \Prob_n$ converge presque sûrement vers $\Prob$
+    \item $\sqrt{n}(\hat \Prob_n - \Prob)$ converge en distribution vers un vecteur gaussien $\mc N_m(0,K)$ avec une matrice de covariance donnée par: $$K_{x,y}=\left\{
+\begin{array}{ll}
+p_x(1-p_x) & \text{si } x=y \\
+-p_xp_y & \text{sinon.}
+\end{array}
+\right.$$
+\end{itemize}
+Cette proposition a les conséquences suivantes: 
+\begin{itemize}
+    \item Pour toute probabilité $Q$ avec une distribution de masses $(q_x)_x>0$, $\chi_2(\hat \Prob_n | Q)$ converge vers $\chi_2(\Prob_n | Q)$.
+    \item $n\chi_2(\hat \Prob_n| \Prob)$ converge en distribution vers une variable aléatoire distribuée selon $\chi_2(m-1)$.
+\end{itemize}
+\bigskip
+On rappelle qu'on travail sous les hypothèses suivantes $H_0=\{\Prob=\Prob_0\}$ et $ \ H_1=\{\Prob\ne\Prob_0\}$.
+\smallskip 
+
+\Def \ Statistique de Pearson
+\sskip 
+La statistique de Pearson est: 
+$$d_n = n\chi_2(\hat \Prob_n |\Prob_0) = n\sum_{x\in E}\frac{(\hat p_{n,x} - p_{0,x})^2}{p_{0,x}}.$$
+Pour $l\ge 1 $ et $r\in (0,1)$, on note $\chi^2_{l,r}$ le quantile d'ordre $r$ de $\chi_2(l)$ distribution, le test $\chi_2$ est présenté par la proposition suivante.
+
+\Prop 
+\sskip 
+Pour tout $\alpha\in (0,1)$, le test avec la région de rejet:
+$$W_n = \{d_n\ge \chi_{m-1,1-\alpha}^2\}$$
+est consistante et de niveau $\alpha$.
+\bigskip
+On considèrera que l'approximation de la loi de Pearson selon $H_0$ par une distribution $\chi_2$ est valide dès que: $n p_{0,x}(1-p_{0,x})\ge 5$ pour tout $x$.
+\bigskip
+\subsection{Test d'Adéquation $\chi_2$ pour une Famille de Distribution}
+Soit $\mc P_0$ un sous-ensemble de l'ensemble des mesures de probabilités sur $E$, on s'intéresse désormais à $H_0=\{ \Prob\in\mc P_0\}$ et $H_1=\{ \Prob\notin\mc P_0\}$.
+\sskip 
+On se place, pour des raisons pratiques, dans le cas où $\mc P_0=\{\Prob_{0,\theta}, \ \theta\in\Theta\}$ avec $\Theta\in\R^q$ et $q<m$.
+\bigskip 
+
+\Prop \ Statistique de Pearson dans le cas d'une famille 
+\sskip 
+On suppose que l'intérieur de $\Theta$ est non nul et que notre modèle est identifiable. Soit $(\hat\theta_n)$ un estimateur consistant de $\theta$ suivant $H_0$, on considère:
+$$d_n' = n\chi_2(\hat \Prob_n |\Prob_{0,\hat \theta_n}) = n\sum_{x\in E}\frac{(\hat p_{n,x} - p_{0,\hat \theta_n, x})^2}{p_{0,\hat \theta_n, x}}$$
+qui, selon $H_0$, converge en distribution vers $\chi_2(m-q-1)$, et vers $\pinf$ presque sûrement selon $H_1$.
+
+\Prop 
+\sskip 
+Pour tout $\alpha\in (0,1)$, le test avec la région de rejet:
+$$W_n = \{d_n'\ge \chi_{m-q-1,1-\alpha}^2\}$$
+est consistante et de niveau $\alpha$.
+\bskip 
+On considèrera que l'approximation de la loi de Pearson selon $H_0$ par une distribution $\chi_2$ est valide dès que: $n p_{0,\hat \theta_n, x}(1-p_{0,\hat \theta_n, x})\ge 5$ pour tout $x$.
+\bigskip 
+\subsection{Test d'Indépendance $\chi_2$}
+On suppose désormais observer un échantillon de réalisations indépendantes $(X_1,Y_1),...,(X_n,Y_n)$ dans $E\times F$ de cardinaux respectifs $m$ et $l$. On note $\Prob$ la distribution de $(X_1, Y_1)$, on note $(p_{x,y})$ sa distribution de masses, alors $X_1$ et $Y_1$ sont indépendantes si et seulement si:
+$$p_{x_,y}=\Prob(X_1=x)\Prob(Y_1=y), \ \forall (x,y).$$
+On note $\mc P_0$ l'ensemble des probabilités pour lesquelles $X_1$ et $Y_1$ sont indépendantes. Il vient alors:
+
+\Prop 
+\sskip 
+$\mc P_0$ est paramétrisé par $\Theta\subset\R^{m-1 + l-1}$ d'intérieur non vide, ce modèle est, par ailleurs, identifiable.
+\bskip 
+On introduit alors: 
+$$\hat p_{n,x,y} =\frac{1}{n}\sum_{i=1}^n 1_{X_i=x, Y_i=y}, \ \text{on définit similairement } \hat p_{n,x} ^X, \hat p_{n,y}^Y$$
+qui sont des estimateurs respectifs de $p_{x,y}$, $p_x^X$ et $p_y^Y$. On note par ailleurs $\hat \theta_n = ((\hat p_{n,x_i}^X), (\hat p_{n,y_i}^Y))$ qui, selon $H_0$, est un estimateur consistant de $\theta$.
+\sskip 
+On considère alors les hypothèses $H_0=\{ \Prob\in \mc P_0\}$ et $H_1=\{ \Prob\notin \mc P_0\}$, sur lesquelles on construit le test d'indépendance:
+$$d'_n = n\chi_2(\hat\Prob_n|\hat \Prob_n^X \otimes \hat \Prob _n^Y) = n\sum_{x\in E, y\in F}\frac{(\hat p_{n,x,y} - \hat p_{n,x}^X\hat p_{n,y}^Y)^2}{\hat p_{n,y}^X\hat p_{n,y}^Y}$$
+qui converge, sous $H_0$, en distribution vers la distribution $\chi_2((m-1)(l-1))$.
+
+\Prop 
+\sskip 
+Pour tout $\alpha\in (0,1)$, le test avec la région de rejet:
+$$W_n = \{d_n'\ge \chi_{(m-1)(l-1),1-\alpha}^2\}$$
+est consistante et de niveau $\alpha$.
+\bskip 
+On considèrera que l'approximation de la loi de Pearson selon $H_0$ par une distribution $\chi_2$ est valide dès que: $n \hat p_{0, x}^X \hat p_{0, y}^Y(1-\hat p_{0, x}^X \hat p_{0, y}^Y)\ge 5$ pour tout $(x,y)$.
 \end{document}

@@ -323,4 +323,43 @@ $$W^{1,p}(\R^d)\hookrightarrow L^\infty (\R^d)\cap C^{0,\alpha}(\R^d) \ \ \text{
 \sskip 
 On suppose que $\Omega$ est un ouvert de $\R^d$, soient $1\le p\le q\le\pinf$, si $f\in L^p(\Omega)\cap L^q(\Omega)$, alors, pour tout $p\le r\le q$, $f\in L^r(\Omega)$ et:
 $$||f||_{L^r}\le||f||_{L^p}^\alpha||f||_{L^q}^{1-\alpha}, \ \ \text{avec}\ \ \frac{1}{r} = \frac{\alpha}{p}+\frac{1-\alpha}{q}.$$
+\section{Injections Compactes de Sobolev}
+On considère dans cette section $V$ et $W$ deux espaces de Banach et $T\in\mc L(V,W)$.
+\smallskip 
+
+\Def \ Opérateur compact 
+\sskip
+On dit que T est un opérateur compact s'il transforme les sous-ensembles bornés de $V$ en des ensembles relativement compact de $W$:
+$$B\subset V \ \text{borné}\implies \overline{T(B)} \ \text{compact de } W$$
+c'est-à-dire que pour toute suite bornée de $V$, on peut extraire de $(T(v_n))$ une sous-suite convergente.
+\bigskip 
+
+\Theo 
+\sskip 
+Soit $\Omega$ un ouvert borné, alors:
+\begin{itemize}
+    \item l'injection canonique $H_0^1(\Omega)\hookrightarrow L^2(\Omega)$ est compacte 
+    \item si $\Omega$ est lipschitzien, l'injection canonique $H^1(\Omega)\hookrightarrow {L^2}(\Omega)$ est compacte.
+\end{itemize}
+Ce théorème a la conséquence importante suivante, pour $\Omega$ lipschitzien et borné, alors pour une suite $(u_n)$ bornée de $H^1(\Omega)$, on peut en extraire une sous-suite $(u_{n_k})$ telle que:
+$$u_{n_k}\rightharpoonup_{H^1} u, \ \ u_{n_k}\longrightarrow_{L^2}\tilde{u}$$
+or, la convergence faible dans $H^1(\Omega)$ impliquant la convergence faible dans $L^2(\Omega)$ vers la même limite, et donc en l'occurence $u_{n_k}\longrightarrow u$ dans $\mc D'(\Omega)$ et donc $u=\tilde u$.
+\bigskip 
+
+\Theo 
+\sskip 
+On munit $\mc L(V,W)$ de sa norme usuelle $||T||_{\mc L}=\sup_{v\in V\backslash \{0\}}\frac{||T(v)||_W}{||v||_V}$ qui en fait un Banach. On note $\mc K(V,W)$ l'ensemble des opérateurs compacts de $\mc L(V,W)$, il s'agit d'un sous-\ev \ fermé de $\mc L(V,W)$.
+\bigskip 
+
+\Theo \ Inégalité de Poincaré 
+\sskip 
+Soit $\Omega$ un ouvert borné de $\R^d$, il existe une constante $C_\Omega\in\R_+$ telle que:
+$$\forall u \in H_0^1(\Omega), \ ||u||_{L^2}\le C_\Omega ||\nabla u||_{L^2}.$$
+
+\Theo \ Inégalité de Poincaré-Wirtinger 
+\sskip 
+Soit $\Omega$ un ouvert borné de $\R^d$, connexe et possédant la propriété d'extensibilité-$(1,2)$, il existe une constante $C_W$ telle que:
+$$\forall u \in H^1(\Omega), \ ||u-\pi u ||_{L^2(\Omega)}\le C_W||\nabla u||^2_{L^2(\Omega)}$$
+avec $\pi$ le projeté orthogonal de $L^2(\Omega)$ sur l'\ev\ des fonctions constantes pour lesquelles:
+$$\forall u \in L^2(\Omega), \pi u = \frac{1}{|\Omega|}\int_\Omega u1_\Omega.$$
 \end{document}
